@@ -29,11 +29,11 @@ vector<TStudent *> TCourse::getEnrolledStudents() {
 
 int TCourse::addStudent(TStudent *s) {
   for (auto & c:prerequisiteCourses) {
-    if ( std::none_of(s->getApprovals().begin(), s->getApprovals().end(), \
-        [this](const TCourse& c){return this->code == c.getCode();}) ) {
-      //student doesn't meet the prerequisite of this course
-      return 1;
+    bool meetThis = false;
+    for (auto & ap : s->getApprovals()) {
+      meetThis = meetThis || (ap.getCourse()->getCode() == c->getCode());
     }
+    if (!meetThis) return 1;
   }
   enrolledStudents.push_back(s);
   return 0;
