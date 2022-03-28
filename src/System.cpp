@@ -104,5 +104,7 @@ void System::printStudentTranscript(int ID) {
 }
 
 void System::addApprovalToStudent(int ID, int courseNum, int grade, TDate date) {
-
+  TStudent* st = getPointerToStudent(ID);
+  TCourse* c = getPointerToCourse(courseNum);
+  st->addApproval({c, grade, date});
 }

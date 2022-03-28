@@ -95,14 +95,14 @@ int main() {
         cin >> name;
         int ID = getInt("Enter student ID: ");
         sis.registerStudent(ID, name);
-        cout << "Succesfully registered." << endl;
+        cout << "Successfully registered." << endl;
         break;
       }
       case 2: {
         int num = getInt("Enter classroom number: ");
         int cap = getInt("Enter capacity: ");
         sis.addClassroom(num, cap);
-        cout << "Succesfully entered." << endl;
+        cout << "Successfully entered." << endl;
         break;
       }
       case 3: {
@@ -112,7 +112,7 @@ int main() {
         cin >> name;
         int cred = getInt("Enter course credits: ");
         sis.addCourse(cod, cred, name);
-        cout << "Succesfully added." << endl;
+        cout << "Successfully added." << endl;
         break;
       }
       case 4: {
@@ -121,14 +121,14 @@ int main() {
         cout << "Enter course code: ";
         cin >> cod;
         sis.enrollStudentInCourse(ID, cod);
-        cout << "Succesfully enrolled." << endl;
+        cout << "Successfully enrolled." << endl;
         break;
       }
       case 5 : {
         int ID = getInt("Enter student ID: ");
         int cod = getInt("Enter course code: ");
         sis.unenrollStudentFromCourse(ID, cod);
-        cout << "Succesfully unenrolled." << endl;
+        cout << "Successfully unenrolled." << endl;
         break;
       }
       case 6 : {
@@ -140,7 +140,7 @@ int main() {
         int tend = getInt("Enter end time in military time: ");
         vector<DayOfWeek> dow = getDaysOfWeek();
         sis.addClassroomReservation(num, cod, tini, tend, fini, fend, dow);
-        cout << "Succesfully added." << endl;
+        cout << "Successfully added." << endl;
         break;
       }
       case 7 : {
@@ -178,6 +178,14 @@ int main() {
       case 11 : {
         int ID = getInt("Enter student ID: ");
         sis.printStudentTranscript(ID);
+      }
+      case 12 : {
+        int ID = getInt("Enter student ID: ");
+        int cod = getInt("Enter course code: ");
+        int grade = getInt("Enter grade: ");
+        TDate d = getDate("Enter date of approval: ");
+        sis.addApprovalToStudent(ID, cod, grade, d);
+        cout << "Successfully added." << endl;
       }
       case 13 : {
         cout << "Session ended." << endl;
