@@ -1,0 +1,30 @@
+//
+// Created by lucia on 27/3/22.
+//
+
+#ifndef SISTEMABEDELIA_TCLASSROOM_H
+#define SISTEMABEDELIA_TCLASSROOM_H
+
+#include "TDate.h"
+#include "TClassroomReservation.h"
+#include <vector>
+
+using std::vector;
+
+class TClassroom {
+  private:
+    int number; //classrooms are identified by their number
+    int capacity;
+    vector<TClassroomReservation> reservations;
+
+  public:
+    TClassroom(int cod, int cap);
+    int getCode() const;
+    int getCapacity() const;
+    bool available(TDate f, int timeStart, int timeEnd);
+    void addReservation(const TClassroomReservation&);
+    vector<TClassroomReservation> getReservations();
+};
+
+
+#endif //SISTEMABEDELIA_TCLASSROOM_H

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "include/Sistema.h"
+#include "include/System.h"
 
 using namespace std;
 
@@ -25,7 +25,7 @@ static bool getBool(const string& mes) {
 }
 
 
-static TFecha getDate(const string& mes) {
+static TDate getDate(const string& mes) {
   int day, month, year;
   cout << mes;
   cin >> day;
@@ -50,7 +50,7 @@ static int getInt(const string& mes) {
   return input;
 }
 
-static vector<DiaSemana> getDaysOfWeek() {
+static vector<DayOfWeek> getDaysOfWeek() {
   cout << "Enter every day of the week the reservation applies to and end with '.' : " << endl;
   cout << "0-Sunday\n";
   cout << "1-Monday\n";
@@ -59,16 +59,16 @@ static vector<DiaSemana> getDaysOfWeek() {
   cout << "4-Thursday\n";
   cout << "5-Friday\n";
   cout << "6-Saturday\n";
-  vector<DiaSemana> vec;
+  vector<DayOfWeek> vec;
   int day;
   while (cin >> day) {
-    vec.push_back(static_cast<DiaSemana>(day));
+    vec.push_back(static_cast<DayOfWeek>(day));
   }
   return vec;
 }
 
 int main() {
-  Sistema sis;
+  System sis;
 
   int option = 0;
   do {
@@ -93,14 +93,14 @@ int main() {
         cout << "Enter student name: ";
         cin >> name;
         int ID = getInt("Enter student ID: ");
-        sis.registrarEstudiante(ID, name);
+        sis.registerStudent(ID, name);
         cout << "Succesfully registered." << endl;
         break;
       }
       case 2: {
         int num = getInt("Enter classroom number: ");
         int cap = getInt("Enter capacity: ");
-        sis.agregarSalon(num, cap);
+        sis.addClassroom(num, cap);
         cout << "Succesfully entered." << endl;
         break;
       }
@@ -110,7 +110,7 @@ int main() {
         cout << "Enter course name: ";
         cin >> name;
         int cred = getInt("Enter course credits: ");
-        sis.agregarCurso(cod, cred, name);
+        sis.addCourse(cod, cred, name);
         cout << "Succesfully added." << endl;
         break;
       }
@@ -119,32 +119,32 @@ int main() {
         int cod;
         cout << "Enter course code: ";
         cin >> cod;
-        sis.inscribirEstudianteACurso(ID, cod);
+        sis.enrollStudentInCourse(ID, cod);
         cout << "Succesfully enrolled." << endl;
         break;
       }
       case 5 : {
         int ID = getInt("Enter student ID: ");
         int cod = getInt("Enter course code: ");
-        sis.borrarEstudianteDeCurso(ID, cod);
+        sis.unenrollStudentFromCourse(ID, cod);
         cout << "Succesfully unenrolled." << endl;
         break;
       }
       case 6 : {
         int num = getInt("Enter classroom number: ");
         int cod = getInt("Enter course code: ");
-        TFecha fini = getDate("Enter start date: ");
-        TFecha fend = getDate(" Enter end date: ");
+        TDate fini = getDate("Enter start date: ");
+        TDate fend = getDate(" Enter end date: ");
         int tini = getInt("Enter start time in military time: ");
         int tend = getInt("Enter end time in military time: ");
-        vector<DiaSemana> dow = getDaysOfWeek();
-        sis.agregarReservaSalon(num, cod, tini, tend, fini, fend, dow);
+        vector<DayOfWeek> dow = getDaysOfWeek();
+        sis.addClassroomReservation(num, cod, tini, tend, fini, fend, dow);
         cout << "Succesfully added." << endl;
         break;
       }
       case 7 : {
         int cod = getInt("Enter course code: ");
-        vector<TCurso*> prev = sis.consultarPrevias(cod);
+        vector<TCourse*> prev = sis.queryPrerequisiteCourses(cod);
         for (auto & c : prev) {
           cout << c;
         }
@@ -154,21 +154,21 @@ int main() {
         int num;
         cout << "Enter classroom number: ";
         cin >> num;
-        vector<TReservaSalon> res = sis.consultarReservas(num);
+        vector<TClassroomReservation> res = sis.queryReservations(num);
         for (auto & r : res) {
           cout << r;
         }
         break;
       }
       case 9 : {
-        vector<TCurso> courses = sis.obtenerCursos();
+        vector<TCourse> courses = sis.getCourses();
         for (auto & c : courses) {
           cout << c;
         }
         break;
       }
       case 10 : {
-        vector<TEstudiante> stud = sis.obtenerEstudiantes();
+        vector<TStudent> stud = sis.getStudents();
         for (auto & s : stud) {
           cout << s;
         }
