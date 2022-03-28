@@ -108,3 +108,7 @@ void System::addApprovalToStudent(int ID, int courseNum, int grade, TDate date) 
   TCourse* c = getPointerToCourse(courseNum);
   st->addApproval({c, grade, date});
 }
+
+vector<TStudent *> System::getEnrolledStudents(int courseCode) {
+  return getPointerToCourse(courseCode)->getEnrolledStudents();
+}

@@ -40,7 +40,7 @@ class System {
     vector<TStudent> getStudents();
     void printStudentTranscript(int ID);
     void addApprovalToStudent(int ID, int courseNum, int grade, TDate date);
-
+    vector<TStudent*> getEnrolledStudents(int courseCode);
 };
 
 

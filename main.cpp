@@ -80,11 +80,13 @@ int main() {
 						"5-Unenroll student from course" << endl << \
 						"6-Add reservation to classroom " << endl << \
 						"7-Check course requirements" << endl << \
-            "8-Check clasroom reservations" << endl << \
+            "8-Check classroom reservations" << endl << \
             "9-Check all courses in system" << endl << \
             "10-Check all students in system" << endl << \
             "11-Print student transcripts" << endl << \
-            "13-Exit" << endl;
+            "12-Add approval to student records" << endl <<\
+            "13-Get enrolled students in course" << endl << \
+            "14-Exit" << endl;
 
     cin >> option;
     cin.get(); //limpia el newline
@@ -188,6 +190,13 @@ int main() {
         cout << "Successfully added." << endl;
       }
       case 13 : {
+        int cod = getInt("Enter course code: ");
+        vector<TStudent *> vec = sis.getEnrolledStudents(cod);
+        for (auto & st:vec) {
+          cout << st;
+        }
+      }
+      case 14 : {
         cout << "Session ended." << endl;
         break;
       }
