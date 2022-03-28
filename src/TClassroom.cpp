@@ -5,11 +5,10 @@
 #include "../include/TClassroom.h"
 #include "../include/DayOfWeek.h"
 
-#include <boost/date_time.hpp>
 
 TClassroom::TClassroom(int cod, int cap) : number (cod), capacity (cap) {}
 
-int TClassroom::getCode() const {
+int TClassroom::getNumber() const {
   return number;
 }
 

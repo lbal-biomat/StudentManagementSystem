@@ -27,16 +27,17 @@ vector<TStudent *> TCourse::getEnrolledStudents() {
   return enrolledStudents;
 }
 
-int TCourse::addStudent(TStudent *s) {
+void TCourse::addStudent(TStudent *s) {
   for (auto & c:prerequisiteCourses) {
     bool meetThis = false;
     for (auto & ap : s->getApprovals()) {
       meetThis = meetThis || (ap.getCourse()->getCode() == c->getCode());
     }
-    if (!meetThis) return 1;
+    if (!meetThis) {
+      throw std::invalid_argument("Student doesn't meet the prerequisites of this course.");
+    }
   }
   enrolledStudents.push_back(s);
-  return 0;
 }
 
 void TCourse::unenrollStudent(int ID) {
