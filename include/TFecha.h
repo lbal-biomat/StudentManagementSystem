@@ -14,7 +14,7 @@ class TFecha {
 
   public:
 
-    explicit TFecha(int dia, int mes, int anio);
+    TFecha(int dia, int mes, int anio);
 
     //getters
     int getDia() const;

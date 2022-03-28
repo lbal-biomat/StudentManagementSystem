@@ -34,5 +34,6 @@ class TReservaSalon {
     std::vector<DiaSemana> getDias();
 };
 
+std::ostream& operator<<(std::ostream& os, TReservaSalon& c);
 
 #endif //SISTEMABEDELIA_TRESERVASALON_H

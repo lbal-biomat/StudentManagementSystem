@@ -5,6 +5,6 @@
 #ifndef SISTEMABEDELIA_DIASEMANA_H
 #define SISTEMABEDELIA_DIASEMANA_H
 
-enum DiaSemana {lunes, martes, miercoles, jueves, viernes};
+enum DiaSemana {domingo, lunes, martes, miercoles, jueves, viernes, sabado};
 
 #endif //SISTEMABEDELIA_DIASEMANA_H
