@@ -54,8 +54,10 @@ void System::addClassroomReservation(int numRoom, int codeCourse, int startTime,
                                      TDate startDate, TDate endDate, vector<DayOfWeek> days) {
   TCourse* c = getPointerToCourse(codeCourse);
   TClassroom* room = getPointerToClassroom(numRoom);
-  TClassroomReservation res(c, startTime, endTime, startDate, endDate, std::move(days));
-  room->addReservation(res);
+  if (room->available(startDate, endDate, startTime, endTime, days)) {
+    TClassroomReservation res(c, startTime, endTime, startDate, endDate, std::move(days));
+    room->addReservation(res);
+  }
 }
 
 vector<TCourse *> System::queryPrerequisiteCourses(int codeCourse) {

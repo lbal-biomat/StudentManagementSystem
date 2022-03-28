@@ -17,21 +17,27 @@ int TClassroom::getCapacity() const {
   return capacity;
 }
 
-//aux funtion to get the day of the week of a TDate
+//aux function to get the day of the week of a TDate
 DayOfWeek getDayOfWeek(TDate f) {
   boost::gregorian::date d(f.getYear(), f.getMonth(), f.getDay());
   int day = d.day_of_week();
   return static_cast<DayOfWeek>(day);
 }
 
-bool TClassroom::available(TDate f, int horaIni, int horaFin) {
-  DayOfWeek dia = getDayOfWeek(f);
-  for (auto res : reservations) {
-    if ((f > res.getStartDate()) && (f < res.getEndDate()))
+bool TClassroom::available(TDate startDate, TDate endDate, int horaIni, int horaFin, vector<DayOfWeek> days) {
+  bool common = false;
+  for (auto & res : reservations) {
+    bool match = false;
+    for (auto & day : res.getDays())
+      for (auto &d: days)
+        if (day == d)
+          match = true;
+    if (!match) //no overlapping days of week
+      return true;
+    else if ((startDate < res.getEndDate()) && (res.getStartDate() < endDate)) //overlapping dates
       for (int j = 0; j < res.getDays().size(); ++j)
-        if (res.getDays().at(j) == dia) //matching day of week
-          if (!((horaIni <= res.getEndTime()) && (res.getStartTime() <= horaFin))) //overlaping times
-            return false; //is not available
+        if (!((horaIni <= res.getEndTime()) && (res.getStartTime() <= horaFin))) //overlapping times
+          return false; //is not available
   }
   return true;
 }
