@@ -38,6 +38,8 @@ class System {
     vector<TClassroomReservation> queryReservations(int numRoom);
     vector<TCourse> getCourses();
     vector<TStudent> getStudents();
+    void printStudentTranscript(int ID);
+    void addApprovalToStudent(int ID, int courseNum, int grade, TDate date);
 
 };
 
