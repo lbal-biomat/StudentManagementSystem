@@ -17,12 +17,12 @@ int TClassroom::getCapacity() const {
   return capacity;
 }
 
-//aux function to get the day of the week of a TDate
+/*//aux function to get the day of the week of a TDate
 DayOfWeek getDayOfWeek(TDate f) {
   boost::gregorian::date d(f.getYear(), f.getMonth(), f.getDay());
   int day = d.day_of_week();
   return static_cast<DayOfWeek>(day);
-}
+}*/
 
 bool TClassroom::available(TDate startDate, TDate endDate, int horaIni, int horaFin, vector<DayOfWeek> days) {
   bool common = false;

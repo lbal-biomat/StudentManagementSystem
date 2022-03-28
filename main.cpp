@@ -4,26 +4,6 @@
 
 using namespace std;
 
-static bool getBool(const string& mes) {
-  int input = -1;
-  bool valid = false;
-  do {
-    cout << mes;
-    cin >> input;
-    if (cin.good() && ((input == 0) || (input == 1))) {
-      valid = true;
-    }
-    else {
-      input = -1;
-      cin.clear();
-      cin.ignore(999,'\n');
-      cout << "Invalid entry, try again." << endl;
-    }
-  } while (!valid);
-  bool b = input;
-  return b;
-}
-
 
 static TDate getDate(const string& mes) {
   int day, month, year;
