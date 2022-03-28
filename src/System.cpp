@@ -6,7 +6,6 @@
 
 #include <utility>
 
-
 void System::registerStudent(int ID, string name) {
   for (auto &s : students) {
     if (ID == s.getID())
@@ -98,4 +97,12 @@ vector<TCourse> System::getCourses() {
 
 vector<TStudent> System::getStudents() {
   return students;
+}
+
+void System::printStudentTranscript(int ID) {
+  getPointerToStudent(ID)->printTranscripts();
+}
+
+void System::addApprovalToStudent(int ID, int courseNum, int grade, TDate date) {
+
 }

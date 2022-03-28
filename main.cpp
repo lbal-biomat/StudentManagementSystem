@@ -83,7 +83,8 @@ int main() {
             "8-Check clasroom reservations" << endl << \
             "9-Check all courses in system" << endl << \
             "10-Check all students in system" << endl << \
-            "11-Exit" << endl;
+            "11-Print student transcripts" << endl << \
+            "13-Exit" << endl;
 
     cin >> option;
     cin.get(); //limpia el newline
@@ -175,6 +176,10 @@ int main() {
         break;
       }
       case 11 : {
+        int ID = getInt("Enter student ID: ");
+        sis.printStudentTranscript(ID);
+      }
+      case 13 : {
         cout << "Session ended." << endl;
         break;
       }

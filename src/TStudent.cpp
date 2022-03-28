@@ -84,5 +84,8 @@ void TStudent::printTranscripts() {
 std::ostream& operator<<(std::ostream& os, TStudent& e) {
   os << "Name: " << e.getName() << endl;
   os << "ID: " << e.getID() << endl;
+  for (auto & c:e.getCurrentEnrollments()) {
+    os << c;
+  }
   return os;
 }
