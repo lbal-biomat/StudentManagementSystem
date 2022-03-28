@@ -4,7 +4,6 @@
 
 #include "../include/System.h"
 
-#include <exception>
 #include <utility>
 
 
@@ -36,9 +35,14 @@ void System::addCourse(int code, int credits, string nombre) {
 }
 
 void System::enrollStudentInCourse(int ID, int code) {
+  //agregar throw si estudiante no esta registrado
   TStudent* est = getPointerToStudent(ID);
-  TCourse* cur = getPointerToCourse(code);
-  cur->addStudent(est);
+  if (est->isEnrolled(code)) {
+    throw std::invalid_argument("Student is already enrolled.");
+  }
+  TCourse* course = getPointerToCourse(code);
+  course->addStudent(est);
+  est->addEnrollment(course);
 }
 
 void System::unenrollStudentFromCourse(int ID, int code) {

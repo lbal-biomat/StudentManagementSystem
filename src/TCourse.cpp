@@ -27,22 +27,25 @@ vector<TStudent *> TCourse::getEnrolledStudents() {
   return enrolledStudents;
 }
 
-void TCourse::addStudent(TStudent *) {
-  enrolledStudents.push_back(e);
+int TCourse::addStudent(TStudent *s) {
+  for (auto & c:prerequisiteCourses) {
+    if ( std::none_of(s->getApprovals().begin(), s->getApprovals().end(), \
+        [this](const TCourse& c){return this->code == c.getCode();}) ) {
+      //student doesn't meet the prerequisite of this course
+      return 1;
+    }
+  }
+  enrolledStudents.push_back(s);
+  return 0;
 }
 
-void TCourse::unenrollStudent(int CI) {
+void TCourse::unenrollStudent(int ID) {
   for (int i = 0; i < enrolledStudents.size(); i++) {
+    if (enrolledStudents.at(i)->getID() == ID)
       enrolledStudents.erase(enrolledStudents.begin() + i);
   }
 }
 
-void TCourse::removerNoHabilitados() {
-  for (int i = 0; i < enrolledStudents.size(); i++)
-    for (auto & previa : prerequisiteCourses)
-      if (!enrolledStudents.at(i)->isEnrolled(previa->getCode()))  //si no esta inscripto
-        enrolledStudents.erase(enrolledStudents.begin() + i); //borro estudiante
-}
 
 TCourse::TCourse(int cod, int cred, string nom) : code(cod), credits(cred), name(std::move(nom)) {}
 

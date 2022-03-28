@@ -27,9 +27,8 @@ class TCourse {
     string getName();
     vector<TCourse*> getPrerequisiteCourses();
     vector<TStudent*> getEnrolledStudents();
-    void addStudent(TStudent*);
+    int addStudent(TStudent*);
     void unenrollStudent(int ID);
-    void removerNoHabilitados();
 };
 
 std::ostream& operator<<(std::ostream& os, TCourse& c);

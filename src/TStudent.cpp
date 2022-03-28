@@ -25,8 +25,17 @@ vector<TCourse *> TStudent::getCurrentEnrollments() {
   return enrollments;
 }
 
-void TStudent::addEnrollment(TCourse* c) {
+int TStudent::addEnrollment(TCourse* c) {
+
+  for (auto & course : c->getPrerequisiteCourses()) {
+    if ( std::none_of(getApprovals().begin(), getApprovals().end(), \
+        [course](const TCourse& a){return course->getCode() == a.getCode();}) ) {
+      //student doesn't meet the prerequisite of this course
+      return 1;
+    }
+  }
   enrollments.push_back(c);
+  return 0;
 }
 
 void TStudent::addApproval(TApproval a) {
