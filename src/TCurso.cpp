@@ -44,8 +44,7 @@ void TCurso::removerNoHabilitados() {
         inscriptos.erase(inscriptos.begin() + i); //borro estudiante
 }
 
-TCurso::TCurso(int cod, int cred, string nom, vector<TCurso *> p) : codigo(cod), creditos(cred), nombre(std::move(nom)),
-  previas(std::move(p)) {}
+TCurso::TCurso(int cod, int cred, string nom) : codigo(cod), creditos(cred), nombre(std::move(nom)) {}
 
 std::ostream& operator<<(std::ostream& os, TCurso& c) {
   os << "Nombre: " << c.getNombre() << std::endl;

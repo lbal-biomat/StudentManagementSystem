@@ -26,12 +26,12 @@ void Sistema::agregarSalon(int codigo, int capacidad) {
   salones.push_back(nuevoSalon);
 }
 
-void Sistema::agregarCurso(int codigo, int creditos, string nombre, vector<TCurso *> previas) {
+void Sistema::agregarCurso(int codigo, int creditos, string nombre) {
   for (auto & curso : cursos) {
     if (codigo == curso.getCodigo())
       throw std::invalid_argument("Ya existe un curso con ese codigo.");
   }
-  TCurso nuevoCurso(codigo, creditos, std::move(nombre), std::move(previas));
+  TCurso nuevoCurso(codigo, creditos, std::move(nombre));
   cursos.push_back(nuevoCurso);
 }
 

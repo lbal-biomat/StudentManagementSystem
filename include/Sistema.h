@@ -29,7 +29,7 @@ class Sistema {
   public:
     void registrarEstudiante(int documento, string nombre);
     void agregarSalon(int codigo, int capacidad);
-    void agregarCurso(int codigo, int creditos, string nombre, vector<TCurso*> previas);
+    void agregarCurso(int codigo, int creditos, string nombre);
     void inscribirEstudianteACurso(int documento, int codigo);
     void borrarEstudianteDeCurso(int documento, int codigo);
     void agregarReservaSalon(int codSalon, int codCurso, int horaIni, int horaFin, TFecha fini, TFecha ffin,

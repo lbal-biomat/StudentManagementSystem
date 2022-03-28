@@ -21,7 +21,7 @@ class TCurso {
     vector<TCurso*> previas;
     vector<TEstudiante*> inscriptos;
   public:
-    TCurso(int cod, int cred, string nom, vector<TCurso*> previas);
+    TCurso(int cod, int cred, string nom);
     int getCodigo() const;
     int getCreditos() const;
     string getNombre();
