@@ -1,0 +1,9 @@
+cmake-build-debug
+.clang-format
+CMakeLists.txt
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/misc.xml
+/.idea/SistemaBedelia.iml
+/.idea/vcs.xml
+/.idea/dictionaries/lucia.xml
