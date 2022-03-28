@@ -27,7 +27,7 @@ class TStudent {
     int getCredits();
     float getAverageGrade();
     vector<TCourse*> getCurrentEnrollments();
-    int addEnrollment(TCourse* c);
+    void addEnrollment(TCourse* c);
     void addApproval(TApproval a);
     bool isEnrolled(int courseCode);
     void printTranscripts();

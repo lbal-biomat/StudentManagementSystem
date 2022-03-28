@@ -27,7 +27,7 @@ class TCourse {
     string getName();
     vector<TCourse*> getPrerequisiteCourses();
     vector<TStudent*> getEnrolledStudents();
-    int addStudent(TStudent*);
+    void addStudent(TStudent*);
     void unenrollStudent(int ID);
 };
 

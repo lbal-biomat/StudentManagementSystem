@@ -19,7 +19,7 @@ class TClassroom {
 
   public:
     TClassroom(int cod, int cap);
-    int getCode() const;
+    int getNumber() const;
     int getCapacity() const;
     bool available(TDate startDate, TDate endDate, int timeStart, int timeEnd, vector<DayOfWeek> days);
     void addReservation(const TClassroomReservation&);

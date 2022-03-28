@@ -40,7 +40,10 @@ class System {
     vector<TStudent> getStudents();
     void printStudentTranscript(int ID);
     void addApprovalToStudent(int ID, int courseNum, int grade, TDate date);
-
+    vector<TStudent*> getEnrolledStudents(int courseCode);
+    bool existsStudent(int ID);
+    bool existsClassroom(int classNum);
+    bool existsCourse(int code);
 };
 
 
