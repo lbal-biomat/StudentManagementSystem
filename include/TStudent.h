@@ -5,6 +5,7 @@
 #ifndef SISTEMABEDELIA_TSTUDENT_H
 #define SISTEMABEDELIA_TSTUDENT_H
 
+#include "DTid.h"
 #include "TApproval.h"
 
 #include <vector>
@@ -15,13 +16,13 @@ using std::string;
 
 class TStudent {
   private:
-    int ID; //Students are identified by the ID
+    DTid ID; //Students are identified by the ID
     string name;
     vector<TApproval> approval;
     vector<TCourse*> enrollments;
   public:
     TStudent(int doc, string nom);
-    int getID() const;
+    int getIDnumber() const;
     string getName();
     vector<TApproval> getApprovals();
     int getCredits();

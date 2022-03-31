@@ -2,28 +2,25 @@
 // Created by lucia on 31/3/22.
 //
 
-#include "../include/DTci.h"
+#include "../include/DTid.h"
 #include <string>
 #include <stdexcept>
 using std::string;
 
 
-int DTci::getCInumber() const {
+int DTid::getIDnumber() const {
   return ci;
 }
 
-bool DTci::validate(const std::string &ci) {
+bool DTid::validate(int numCI) {
 
     bool valid = true;
-    for (char const& c : ci) {
-      if (!isdigit(c)) valid = false;
-    }
-    int numericCI = stoi(ci);
-    if (1111111 > numericCI || 99999999 < numericCI)
+    if (1111111 > numCI || 99999999 < numCI)
       valid = false;
     if (!valid) {
       throw std::invalid_argument("Entrada invalida");
     }
+    string ci = std::to_string(numCI);
     const char valChar = ci[ci.size()-1];
     int valDig = valChar - '0';
 
@@ -44,14 +41,18 @@ bool DTci::validate(const std::string &ci) {
 
 }
 
-bool DTci::operator==(DTci id) const {
-  return ci == id.getCInumber();
+bool DTid::operator==(DTid id) const {
+  return ci == id.getIDnumber();
 }
 
-DTci::DTci(int num) {
-  ci = num;
+DTid::DTid(int id) {
+  bool valid = validate(id);
+  if (!valid) {
+    throw std::invalid_argument("Invalid ID");
+  }
+  ci = id;
 }
 
-bool DTci::operator==(int num) const {
+bool DTid::operator==(int num) const {
   return ci == num;
 }
