@@ -99,7 +99,7 @@ TStudent *System::getPointerToStudent(int ID) {
     throw std::invalid_argument("There isn't any student with that ID in the system.");
   }
   for (auto & s : students) {
-    if (s.getID() == ID)
+    if (s.getIDnumber() == ID)
       return &s;
   }
   return nullptr;
