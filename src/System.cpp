@@ -23,11 +23,11 @@ void System::addClassroom(int num, int capacity) {
   classrooms.push_back(nuevoSalon);
 }
 
-void System::addCourse(int code, int credits, string nombre) {
+void System::addCourse(int code, int credits, string nombre, int maxStudents) {
   if (existsCourse(code)) {
     throw std::invalid_argument("There is a course with that code in the system.");
   }
-  TCourse newCode(code, credits, std::move(nombre));
+  TCourse newCode(code, credits, std::move(nombre), maxStudents);
   courses.push_back(newCode);
 }
 
@@ -75,6 +75,9 @@ void System::addClassroomReservation(int numRoom, int codeCourse, int startTime,
   TClassroom* room = getPointerToClassroom(numRoom);
   if (!room->available(startDate, endDate, startTime, endTime, days)) {
     throw std::invalid_argument("Classroom is not available.");
+  }
+  if (room->getCapacity() < c->getMaxStudents()) {
+    throw std::invalid_argument("Classroom is too small for the course.");
   }
   TClassroomReservation res(c, startTime, endTime, startDate, endDate, std::move(days));
   room->addReservation(res);
@@ -164,7 +167,7 @@ vector<TStudent *> System::getEnrolledStudents(int courseCode) {
 
 bool System::existsStudent(int ID) {
   for (auto & s : students) {
-    if (s.getID() == ID) {
+    if (s.getIDnumber() == ID) {
       return true;
     }
   }

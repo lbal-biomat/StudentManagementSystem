@@ -48,7 +48,11 @@ void TCourse::unenrollStudent(int ID) {
 }
 
 
-TCourse::TCourse(int cod, int cred, string nom) : code(cod), credits(cred), name(std::move(nom)) {}
+TCourse::TCourse(int cod, int cred, string nom, int max) : code(cod), credits(cred), name(std::move(nom)), maxStudents(max) {}
+
+int TCourse::getMaxStudents() const {
+  return maxStudents;
+}
 
 std::ostream& operator<<(std::ostream& os, TCourse& c) {
   os << "Name: " << c.getName() << std::endl;

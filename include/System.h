@@ -2,9 +2,9 @@
 // Created by lucia on 27/3/22.
 //
 
-//TODO: implementar un mencanismo de persistencia de datos
+//TODO: implementar un mecanismo de persistencia de datos
 //TODO: implementar tabla hash para buscar students y courses
-//TODO: implementar sistema de login que permita al estudiante inscribirse/desinscribirse, consultar sus incripciones y obtener su escolaridad
+//TODO: implementar sistema de login que permita al estudiante inscribirse/desinscribirse, consultar sus inscripciones y obtener su escolaridad
 
 #ifndef SISTEMABEDELIA_SYSTEM_H
 #define SISTEMABEDELIA_SYSTEM_H
@@ -29,7 +29,7 @@ class System {
   public:
     void registerStudent(int ID, string name);
     void addClassroom(int code, int capacity);
-    void addCourse(int code, int credits, string name);
+    void addCourse(int code, int credits, string name, int maxStudents);
     void enrollStudentInCourse(int ID, int code);
     void unenrollStudentFromCourse(int ID, int code);
     void addClassroomReservation(int numRoom, int codeCourse, int startTime, int endTime, TDate startDate,

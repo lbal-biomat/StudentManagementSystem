@@ -20,8 +20,9 @@ class TCourse {
     string name;
     vector<TCourse*> prerequisiteCourses;
     vector<TStudent*> enrolledStudents;
+    int maxStudents;
   public:
-    TCourse(int cod, int cred, string nom);
+    TCourse(int cod, int cred, string nom, int maxSt);
     int getCode() const;
     int getCredits() const;
     string getName();
@@ -29,6 +30,7 @@ class TCourse {
     vector<TStudent*> getEnrolledStudents();
     void addStudent(TStudent*);
     void unenrollStudent(int ID);
+    int getMaxStudents() const;
 };
 
 std::ostream& operator<<(std::ostream& os, TCourse& c);
