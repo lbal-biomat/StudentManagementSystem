@@ -3,7 +3,6 @@
 //
 
 #include "../include/TClassroom.h"
-#include "../include/DayOfWeek.h"
 
 
 TClassroom::TClassroom(int cod, int cap) : number (cod), capacity (cap) {}
@@ -16,15 +15,8 @@ int TClassroom::getCapacity() const {
   return capacity;
 }
 
-/*//aux function to get the day of the week of a TDate
-DayOfWeek getDayOfWeek(TDate f) {
-  boost::gregorian::date d(f.getYear(), f.getMonth(), f.getDay());
-  int day = d.day_of_week();
-  return static_cast<DayOfWeek>(day);
-}*/
 
-bool TClassroom::available(TDate startDate, TDate endDate, int horaIni, int horaFin, vector<DayOfWeek> days) {
-  bool common = false;
+bool TClassroom::available(TDate startDate, TDate endDate, int horaIni, int horaFin, const vector<DayOfWeek>& days) {
   for (auto & res : reservations) {
     bool match = false;
     for (auto & day : res.getDays())
