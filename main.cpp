@@ -105,8 +105,9 @@ int main() {
         cout << "Enter course name: ";
         cin >> name;
         int cred = getInt("Enter course credits: ");
+        int max = getInt("Enter course maximum number of students: ");
         try {
-          sis.addCourse(cod, cred, name);
+          sis.addCourse(cod, cred, name, max);
         }
         catch (std::invalid_argument& err) {
           std::cerr << "Error inesperado: " << err.what() << std::endl;
