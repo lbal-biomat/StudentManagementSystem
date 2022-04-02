@@ -3,7 +3,6 @@
 //
 
 //TODO: implementar un mecanismo de persistencia de datos
-//TODO: implementar tabla hash para buscar students y courses
 //TODO: implementar sistema de login que permita al estudiante inscribirse/desinscribirse, consultar sus inscripciones y obtener su escolaridad
 
 #ifndef SISTEMABEDELIA_SYSTEM_H
@@ -15,14 +14,16 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
+using std::unordered_map;
 using std::vector;
 
 class System {
   private:
-    vector<TStudent> students;
-    vector<TCourse> courses;
-    vector<TClassroom> classrooms;
+    unordered_map<int, TStudent> students; //the key is the ID
+    unordered_map<int, TCourse> courses; //the code is the key
+    unordered_map<int, TClassroom> classrooms;
     TStudent* getPointerToStudent(int ID);
     TCourse* getPointerToCourse(int cod);
     TClassroom* getPointerToClassroom(int cod);
@@ -34,16 +35,17 @@ class System {
     void unenrollStudentFromCourse(int ID, int code);
     void addClassroomReservation(int numRoom, int codeCourse, int startTime, int endTime, TDate startDate,
                                  TDate endDate, vector<DayOfWeek> days);
-    vector<TCourse*> queryPrerequisiteCourses(int codeCourse);
-    vector<TClassroomReservation> queryReservations(int numRoom);
-    vector<TCourse> getCourses();
-    vector<TStudent> getStudents();
+    void printPrerequisiteCourses(int codeCourse);
+    void printReservations(int numRoom);
+    void printCourses();
+    void printStudents();
     void printStudentTranscript(int ID);
     void addApprovalToStudent(int ID, int courseNum, int grade, TDate date);
-    vector<TStudent*> getEnrolledStudents(int courseCode);
+    void printEnrolledStudents(int courseCode);
     bool existsStudent(int ID);
     bool existsClassroom(int classNum);
     bool existsCourse(int code);
+    static bool validateID(int ID);
 };
 
 

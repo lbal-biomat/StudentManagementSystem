@@ -22,6 +22,7 @@ class TCourse {
     vector<TStudent*> enrolledStudents;
     int maxStudents;
   public:
+    TCourse();
     TCourse(int cod, int cred, string nom, int maxSt);
     int getCode() const;
     int getCredits() const;

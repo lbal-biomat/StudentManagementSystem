@@ -8,27 +8,28 @@
 #include <iostream>
 
 void System::registerStudent(int ID, string name) {
+  bool valid = validateID(ID);
+  if (!valid) {
+    throw std::invalid_argument("Invalid ID.");
+  }
   if (existsStudent(ID)) {
     throw std::invalid_argument("There is a student with that ID in the system.");
   }
-  TStudent newStudent(ID, std::move(name));
-  students.push_back(newStudent);
+  students[ID] = TStudent(ID, std::move(name));
 }
 
 void System::addClassroom(int num, int capacity) {
   if (existsClassroom(num)) {
     throw std::invalid_argument("There is a classroom with that number in the system.");
   }
-  TClassroom nuevoSalon(num, capacity);
-  classrooms.push_back(nuevoSalon);
+  classrooms[num] = TClassroom(num, capacity);
 }
 
 void System::addCourse(int code, int credits, string nombre, int maxStudents) {
   if (existsCourse(code)) {
     throw std::invalid_argument("There is a course with that code in the system.");
   }
-  TCourse newCode(code, credits, std::move(nombre), maxStudents);
-  courses.push_back(newCode);
+  courses[code] = TCourse(code, credits, std::move(nombre), maxStudents);
 }
 
 void System::enrollStudentInCourse(int ID, int code) {
@@ -83,59 +84,57 @@ void System::addClassroomReservation(int numRoom, int codeCourse, int startTime,
   room->addReservation(res);
 }
 
-vector<TCourse *> System::queryPrerequisiteCourses(int codeCourse) {
+void System::printPrerequisiteCourses(int codeCourse) {
   if (!existsCourse(codeCourse)) {
     throw std::invalid_argument("There isn't any course with that code in the system.");
   }
-  return getPointerToCourse(codeCourse)->getPrerequisiteCourses();
+  TCourse course = courses[codeCourse];
+  for (auto & c: course.getPrerequisiteCourses()) {
+    std::cout << c << std::endl;
+  }
 }
 
-vector<TClassroomReservation> System::queryReservations(int numRoom) {
+void System::printReservations(int numRoom) {
   if (!existsClassroom(numRoom)) {
     throw std::invalid_argument("There isn't any classroom with that number in the system.");
   }
-  return getPointerToClassroom(numRoom)->getReservations();
+  TClassroom clas = classrooms[numRoom];
+  for (auto & r : clas.getReservations()) {
+    std::cout << r << std::endl;
+  }
 }
 
 TStudent *System::getPointerToStudent(int ID) {
   if (!existsStudent(ID)) {
     throw std::invalid_argument("There isn't any student with that ID in the system.");
   }
-  for (auto & s : students) {
-    if (s.getIDnumber() == ID)
-      return &s;
-  }
-  return nullptr;
+  return &students[ID];
 }
 
 TCourse *System::getPointerToCourse(int cod) {
   if (!existsCourse(cod)) {
     throw std::invalid_argument("There isn't any course with that code in the system.");
   }
-  for (auto & curso : courses) {
-    if (curso.getCode() == cod)
-      return &curso;
-  }
-  return nullptr;
+  return &courses[cod];
 }
 
 TClassroom *System::getPointerToClassroom(int num) {
   if (!existsClassroom(num)) {
     throw std::invalid_argument("There isn't any classroom with that number in the system.");
   }
-  for (auto & c : classrooms) {
-    if (c.getNumber() == num)
-      return &c;
+  return &classrooms[num];
+}
+
+void System::printCourses() {
+  for( std::pair<const int, TCourse>& st : courses ) {
+    std::cout << st.second << std::endl;
   }
-  return nullptr;
 }
 
-vector<TCourse> System::getCourses() {
-  return courses;
-}
-
-vector<TStudent> System::getStudents() {
-  return students;
+void System::printStudents() {
+  for( std::pair<const int, TStudent>& st : students ) {
+    std::cout << st.second << std::endl;
+  }
 }
 
 void System::printStudentTranscript(int ID) {
@@ -157,35 +156,53 @@ void System::addApprovalToStudent(int ID, int courseCod, int grade, TDate date) 
   st->addApproval({c, grade, date});
 }
 
-vector<TStudent *> System::getEnrolledStudents(int courseCode) {
+void System::printEnrolledStudents(int courseCode) {
   if (!existsCourse(courseCode)) {
     throw std::invalid_argument("There isn't any course with that code in the system.");
   }
-  return getPointerToCourse(courseCode)->getEnrolledStudents();
+  TCourse course = courses[courseCode];
+  for (auto & s: course.getEnrolledStudents()) {
+    std::cout << s << std::endl;
+  }
 }
 
 
 bool System::existsStudent(int ID) {
-  for (auto & s : students) {
-    if (s.getIDnumber() == ID) {
-      return true;
-    }
-  }
-  return false;
+  return students.contains(ID);
 }
 
 bool System::existsClassroom(int classNum) {
-  for (auto & c: classrooms) {
-    if (c.getNumber() == classNum)
-      return true;
-  }
-  return false;
+  return classrooms.contains(classNum);
 }
 
 bool System::existsCourse(int code) {
-  for (auto & c: courses) {
-    if (c.getCode() == code)
-      return true;
+  return courses.contains(code);
+}
+
+bool System::validateID(int numID) {
+
+  bool valid = true;
+  if (1111111 > numID || 99999999 < numID)
+    valid = false;
+  if (!valid) {
+    throw std::invalid_argument("Entrada invalida");
   }
-  return false;
+  string id = std::to_string(numID);
+  const char valChar = id[id.size() - 1];
+  int valDig = valChar - '0';
+
+  string baseNumber = "8123476";
+  if (id.size() == 7) {
+    baseNumber = "123476";
+  }
+  int sum = 0;
+
+  for (int i = 0; i < id.size() - 1; i++) {
+    int n = id[i] - '0';
+    int base = baseNumber[i] - '0';
+    sum += n*base;
+  }
+
+  int res = sum % 10;
+  return res == valDig;
 }

@@ -40,7 +40,7 @@ void TCourse::addStudent(TStudent *s) {
 
 void TCourse::unenrollStudent(int ID) {
   for (int i = 0; i < enrolledStudents.size(); i++) {
-    if (enrolledStudents.at(i)->getIDnumber() == ID)
+    if (enrolledStudents.at(i)->getID() == ID)
       enrolledStudents.erase(enrolledStudents.begin() + i);
   }
 }
@@ -50,6 +50,12 @@ TCourse::TCourse(int cod, int cred, string nom, int max) : code(cod), credits(cr
 
 int TCourse::getMaxStudents() const {
   return maxStudents;
+}
+
+TCourse::TCourse() {
+  code = 0;
+  credits = 0;
+  maxStudents = 0;
 }
 
 std::ostream& operator<<(std::ostream& os, TCourse& c) {

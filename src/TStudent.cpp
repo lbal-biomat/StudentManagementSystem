@@ -9,8 +9,8 @@
 #include <iostream>
 
 
-int TStudent::getIDnumber() const {
-  return ID.getIDnumber();
+int TStudent::getID() const {
+  return ID;
 }
 
 string TStudent::getName() {
@@ -24,20 +24,6 @@ vector<TApproval> TStudent::getApprovals() {
 vector<TCourse *> TStudent::getCurrentEnrollments() {
   return enrollments;
 }
-
-/*void TStudent::addEnrollment(TCourse* course) {
-
-  for (auto & c : course->getPrerequisiteCourses()) {
-    bool meetThis = false;
-    for (auto & ap : getApprovals()) {
-      meetThis = meetThis || (ap.getCourse()->getCode() == c->getCode());
-    }
-    if (!meetThis) {
-      throw std::invalid_argument("Student doesn't meet the prerequisites of this course.");
-    }
-  }
-  enrollments.push_back(course);
-}*/
 
 void TStudent::addEnrollment(TCourse* course) {
 
@@ -85,7 +71,7 @@ float TStudent::getAverageGrade() {
 using namespace  std;
 
 void TStudent::printTranscripts() {
-  cout << this;
+  cout << *this << endl;
   cout << "Approvals: " << endl;
   for (auto & approv : getApprovals()) {
     cout << "\t" << approv;
@@ -94,9 +80,13 @@ void TStudent::printTranscripts() {
   cout << "Total Credits: " << getCredits() << endl;
 }
 
+TStudent::TStudent() {
+  ID = -1;
+}
+
 std::ostream& operator<<(std::ostream& os, TStudent& e) {
   os << "Name: " << e.getName() << endl;
-  os << "ID: " << e.getIDnumber() << endl;
+  os << "ID: " << e.getID() << endl;
   for (auto & c:e.getCurrentEnrollments()) {
     os << c;
   }

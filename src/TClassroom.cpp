@@ -40,3 +40,8 @@ void TClassroom::addReservation(const TClassroomReservation& res) {
 vector<TClassroomReservation> TClassroom::getReservations() {
   return reservations;
 }
+
+TClassroom::TClassroom() {
+  capacity = 0;
+  number = 0;
+}

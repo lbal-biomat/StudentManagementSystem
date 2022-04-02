@@ -51,6 +51,6 @@ bool TDate::operator>(TDate f) const {
 
 std::ostream& operator<<(std::ostream& os, TDate& f)
 {
-  os << f.getYear() << '/' << f.getMonth() << '/' << f.getDay();
+  os << f.getDay() << '/' << f.getMonth() << '/' << f.getYear();
   return os;
 }

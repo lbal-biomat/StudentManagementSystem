@@ -18,6 +18,7 @@ class TClassroom {
     vector<TClassroomReservation> reservations;
 
   public:
+    TClassroom();
     TClassroom(int cod, int cap);
     int getNumber() const;
     int getCapacity() const;
