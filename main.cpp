@@ -73,15 +73,19 @@ int main() {
     cin.get(); //limpia el newline
     switch (option) {
       case 1: {
+        int ID = getInt("Enter student ID: ");
+        if (sis.existsStudent(ID)) {
+          cout << "There is a student with that ID in the system." << endl;
+          break;
+        }
         string name;
         cout << "Enter student name: ";
         cin >> name;
-        int ID = getInt("Enter student ID: ");
         try {
           sis.registerStudent(ID, name);
         }
         catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+          std::cerr << "Unexpected error: " << err.what() << std::endl;
           break;
         }
         cout << "Successfully registered." << endl;
@@ -89,44 +93,46 @@ int main() {
       }
       case 2: {
         int num = getInt("Enter classroom number: ");
-        int cap = getInt("Enter capacity: ");
-        try {
-          sis.addClassroom(num, cap);
-        }
-        catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+        if (sis.existsClassroom(num)) {
+          cout << "There is a classroom with that number in the system." << endl;
           break;
         }
+        int cap = getInt("Enter capacity: ");
+        sis.addClassroom(num, cap);
         cout << "Successfully entered." << endl;
         break;
       }
       case 3: {
         int cod = getInt("Enter course code: ");
+        if (sis.existsCourse(cod)) {
+          cout << "There is a course with that code in the system." << endl;
+          break;
+        }
         string name;
         cout << "Enter course name: ";
         cin >> name;
         int cred = getInt("Enter course credits: ");
         int max = getInt("Enter course maximum number of students: ");
-        try {
-          sis.addCourse(cod, cred, name, max);
-        }
-        catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
-          break;
-        }
+        sis.addCourse(cod, cred, name, max);
         cout << "Successfully added." << endl;
         break;
       }
       case 4: {
         int ID = getInt("Enter student ID: ");
-        int cod;
-        cout << "Enter course code: ";
-        cin >> cod;
+        if (!sis.existsStudent(ID)) {
+          cout << "There isn't any student with that ID in the system." << endl;
+          break;
+        }
+        int cod = getInt("Enter course code: ");
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
+          break;
+        }
         try {
           sis.enrollStudentInCourse(ID, cod);
         }
         catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+          std::cerr << "Unexpected error: " << err.what() << std::endl;
           break;
         }
         cout << "Successfully enrolled." << endl;
@@ -134,12 +140,20 @@ int main() {
       }
       case 5 : {
         int ID = getInt("Enter student ID: ");
+        if (!sis.existsStudent(ID)) {
+          cout << "There isn't any student with that ID in the system." << endl;
+          break;
+        }
         int cod = getInt("Enter course code: ");
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
+          break;
+        }
         try {
           sis.unenrollStudentFromCourse(ID, cod);
         }
         catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+          std::cerr << "Unexpected error: " << err.what() << std::endl;
           break;
         }
         cout << "Successfully unenrolled." << endl;
@@ -147,7 +161,15 @@ int main() {
       }
       case 6 : {
         int num = getInt("Enter classroom number: ");
+        if (!sis.existsClassroom(num)) {
+          cout << "There isn't any classroom with that number in the system." << endl;
+          break;
+        }
         int cod = getInt("Enter course code: ");
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
+          break;
+        }
         TDate fini = getDate("Enter start date: ");
         TDate fend = getDate("Enter end date: ");
         if (!(fini < fend)) {
@@ -167,7 +189,7 @@ int main() {
           sis.addClassroomReservation(num, cod, tini, tend, fini, fend, dow);
         }
         catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+          std::cerr << "Unexpected error: " << err.what() << std::endl;
           break;
         }
         cout << "Successfully added." << endl;
@@ -175,22 +197,29 @@ int main() {
       }
       case 7 : {
         int cod = getInt("Enter course code: ");
-        try {
-          sis.printPrerequisiteCourses(cod);
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
+          break;
         }
-        catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
-        }
+        sis.printPrerequisiteCourses(cod);
         break;
       }
       case 8: {
         int cod = getInt("Enter course code: ");
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
+          break;
+        }
         int pre = getInt("Enter pre required course code: ");
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
+          break;
+        }
         try {
           sis.addPreRequiredCourse(cod, pre);
         }
         catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+          std::cerr << "Unexpected error: " << err.what() << std::endl;
           break;
         }
         cout << "Successfully added." << endl;
@@ -198,12 +227,11 @@ int main() {
       }
       case 9 : {
         int num = getInt("Enter classroom number: ");
-        try {
-          sis.printReservations(num);
+        if (!sis.existsClassroom(num)) {
+          cout << "There isn't any classroom with that number in the system." << endl;
+          break;
         }
-        catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
-        }
+        sis.printReservations(num);
         break;
       }
       case 10 : {
@@ -216,24 +244,35 @@ int main() {
       }
       case 12 : {
         int ID = getInt("Enter student ID: ");
-        try {
-          sis.printStudentTranscript(ID);
+        if (!sis.existsStudent(ID)) {
+          cout << "There isn't any student with that ID in the system." << endl;
+          break;
         }
-        catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
-        }
+        sis.printStudentTranscript(ID);
         break;
       }
       case 13 : {
         int ID = getInt("Enter student ID: ");
+        if (!sis.existsStudent(ID)) {
+          cout << "There isn't any student with that ID in the system." << endl;
+          break;
+        }
         int cod = getInt("Enter course code: ");
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
+          break;
+        }
         int grade = getInt("Enter grade: ");
+        while (grade > 12) {
+          cout << "Grade can not be larger than 12. Try again: " << endl;
+          grade = getInt("Enter grade: ");
+        }
         TDate d = getDate("Enter date of approval: ");
         try {
           sis.addApprovalToStudent(ID, cod, grade, d);
         }
         catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+          std::cerr << "Unexpected error: " << err.what() << std::endl;
           break;
         }
         cout << "Successfully added." << endl;
@@ -241,14 +280,11 @@ int main() {
       }
       case 14 : {
         int cod = getInt("Enter course code: ");
-        vector<TStudent *> vec;
-        try {
-          sis.printEnrolledStudents(cod);
-        }
-        catch (std::invalid_argument& err) {
-          std::cerr << "Error inesperado: " << err.what() << std::endl;
+        if (!sis.existsCourse(cod)) {
+          cout << "There isn't any course with that code in the system." << endl;
           break;
         }
+        sis.printEnrolledStudents(cod);
         break;
       }
       case 15 : {
