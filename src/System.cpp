@@ -74,11 +74,11 @@ void System::addClassroomReservation(int numRoom, int codeCourse, int startTime,
   }
   TCourse* c = getPointerToCourse(codeCourse);
   TClassroom* room = getPointerToClassroom(numRoom);
-  if (!room->available(startDate, endDate, startTime, endTime, days)) {
-    throw std::invalid_argument("Classroom is not available.");
-  }
   if (room->getCapacity() < c->getMaxStudents()) {
     throw std::invalid_argument("Classroom is too small for the course.");
+  }
+  if (!room->available(startDate, endDate, startTime, endTime, days)) {
+    throw std::invalid_argument("Classroom is not available.");
   }
   TClassroomReservation res(c, startTime, endTime, startDate, endDate, std::move(days));
   room->addReservation(res);
@@ -90,7 +90,7 @@ void System::printPrerequisiteCourses(int codeCourse) {
   }
   TCourse course = courses[codeCourse];
   for (auto & c: course.getPrerequisiteCourses()) {
-    std::cout << c << std::endl;
+    std::cout << *c << std::endl;
   }
 }
 
@@ -205,4 +205,16 @@ bool System::validateID(int numID) {
 
   int res = sum % 10;
   return res == valDig;
+}
+
+void System::addPreRequiredCourse(int code, int requiredCode) {
+  if (!existsCourse(code)) {
+    throw std::invalid_argument("There isn't any course with that code in the system.");
+  }
+  if (!existsCourse(requiredCode)) {
+    throw std::invalid_argument("Required course is not in the system.");
+  }
+  TCourse* c = getPointerToCourse(code);
+  TCourse* pre = getPointerToCourse(requiredCode);
+  c->addPreRequiredCourse(pre);
 }
