@@ -71,7 +71,7 @@ float TStudent::getAverageGrade() {
 using namespace  std;
 
 void TStudent::printTranscripts() {
-  cout << *this << endl;
+  cout << *this;
   cout << "Approvals: " << endl;
   for (auto & approv : getApprovals()) {
     cout << "\t" << approv;

@@ -3,42 +3,33 @@
 //
 
 #include "../include/System.h"
+#include <cassert>
 
 #include <utility>
 #include <iostream>
 
 void System::registerStudent(int ID, string name) {
+  assert(!existsStudent(ID));
   bool valid = validateID(ID);
   if (!valid) {
     throw std::invalid_argument("Invalid ID.");
-  }
-  if (existsStudent(ID)) {
-    throw std::invalid_argument("There is a student with that ID in the system.");
   }
   students[ID] = TStudent(ID, std::move(name));
 }
 
 void System::addClassroom(int num, int capacity) {
-  if (existsClassroom(num)) {
-    throw std::invalid_argument("There is a classroom with that number in the system.");
-  }
+  assert(!existsClassroom(num));
   classrooms[num] = TClassroom(num, capacity);
 }
 
 void System::addCourse(int code, int credits, string nombre, int maxStudents) {
-  if (existsCourse(code)) {
-    throw std::invalid_argument("There is a course with that code in the system.");
-  }
+  assert(!existsCourse(code));
   courses[code] = TCourse(code, credits, std::move(nombre), maxStudents);
 }
 
 void System::enrollStudentInCourse(int ID, int code) {
-  if (!existsStudent(ID)) {
-    throw std::invalid_argument("There isn't any student with that ID in the system.");
-  }
-  if (!existsCourse(code)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
+  assert (existsStudent(ID));
+  assert (existsCourse(code));
   TStudent* est = &students[ID];
   if (est->isEnrolled(code)) {
     throw std::invalid_argument("Student is already enrolled.");
@@ -50,12 +41,9 @@ void System::enrollStudentInCourse(int ID, int code) {
 }
 
 void System::unenrollStudentFromCourse(int ID, int code) {
-  if (!existsStudent(ID)) {
-    throw std::invalid_argument("There isn't any student with that ID in the system.");
-  }
-  if (!existsCourse(code)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
+  //TODO: add function in student class to uneroll from course
+  assert (existsStudent(ID));
+  assert (existsCourse(code));
   TStudent* est = &students[ID];
   if (!est->isEnrolled(code)) {
     throw std::invalid_argument("Student isn't enrolled in this course.");
@@ -66,12 +54,8 @@ void System::unenrollStudentFromCourse(int ID, int code) {
 
 void System::addClassroomReservation(int numRoom, int codeCourse, int startTime, int endTime,
                                      TDate startDate, TDate endDate, vector<DayOfWeek> days) {
-  if (!existsClassroom(numRoom)) {
-    throw std::invalid_argument("There isn't any classroom with that number in the system.");
-  }
-  if (!existsCourse(codeCourse)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
+  assert (existsClassroom(numRoom));
+  assert (existsCourse(codeCourse));
   TCourse* c = &courses[codeCourse];
   TClassroom* room = &classrooms[numRoom];
   if (room->getCapacity() < c->getMaxStudents()) {
@@ -85,9 +69,7 @@ void System::addClassroomReservation(int numRoom, int codeCourse, int startTime,
 }
 
 void System::printPrerequisiteCourses(int codeCourse) {
-  if (!existsCourse(codeCourse)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
+  assert (existsCourse(codeCourse));
   TCourse course = courses[codeCourse];
   for (auto & c: course.getPrerequisiteCourses()) {
     std::cout << *c << std::endl;
@@ -95,9 +77,7 @@ void System::printPrerequisiteCourses(int codeCourse) {
 }
 
 void System::printReservations(int numRoom) {
-  if (!existsClassroom(numRoom)) {
-    throw std::invalid_argument("There isn't any classroom with that number in the system.");
-  }
+  assert (existsClassroom(numRoom));
   TClassroom clas = classrooms[numRoom];
   for (auto & r : clas.getReservations()) {
     std::cout << r << std::endl;
@@ -117,28 +97,22 @@ void System::printStudents() {
 }
 
 void System::printStudentTranscript(int ID) {
-  if (!existsStudent(ID)) {
-    throw std::invalid_argument("There isn't any student with that ID in the system.");
-  }
+  assert (existsStudent(ID));
   students[ID].printTranscripts();
+  std::cout << std::endl;
 }
 
 void System::addApprovalToStudent(int ID, int courseCod, int grade, TDate date) {
-  if (!existsStudent(ID)) {
-    throw std::invalid_argument("There isn't any student with that ID in the system.");
-  }
-  if (!existsCourse(courseCod)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
+  //TODO: check if there is already an approval for the same course in the students approvals, throw exception if it does
+  assert (existsStudent(ID));
+  assert (existsCourse(courseCod));
   TStudent* st = &students[ID];
   TCourse* c = &courses[courseCod];
   st->addApproval({c, grade, date});
 }
 
 void System::printEnrolledStudents(int courseCode) {
-  if (!existsCourse(courseCode)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
+  assert (existsCourse(courseCode));
   TCourse course = courses[courseCode];
   for (auto & s: course.getEnrolledStudents()) {
     std::cout << *s << std::endl;
@@ -187,12 +161,7 @@ bool System::validateID(int numID) {
 }
 
 void System::addPreRequiredCourse(int code, int requiredCode) {
-  if (!existsCourse(code)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
-  if (!existsCourse(requiredCode)) {
-    throw std::invalid_argument("Required course is not in the system.");
-  }
+  assert (existsCourse(code) && existsCourse(requiredCode));
   TCourse* c = &courses[code];
   TCourse* pre = &courses[requiredCode];
   c->addPreRequiredCourse(pre);
