@@ -102,10 +102,14 @@ void System::printStudentTranscript(int ID) {
 }
 
 void System::addApprovalToStudent(int ID, int courseCod, int grade, TDate date) {
-  //TODO: check if there is already an approval for the same course in the students approvals, throw exception if it does
   assert (existsStudent(ID));
   assert (existsCourse(courseCod));
   TStudent* st = &students[ID];
+  for (auto & a : st->getApprovals()) {
+    if (a.getCourse()->getCode() == courseCod) {
+      throw std::invalid_argument("There is an approval for this course in the student's records.");
+    }
+  }
   TCourse* c = &courses[courseCod];
   st->addApproval({c, grade, date});
 }
