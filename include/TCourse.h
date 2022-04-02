@@ -27,6 +27,7 @@ class TCourse {
     int getCode() const;
     int getCredits() const;
     string getName();
+    void addPreRequiredCourse(TCourse*);
     vector<TCourse*> getPrerequisiteCourses();
     vector<TStudent*> getEnrolledStudents();
     void addStudent(TStudent*);

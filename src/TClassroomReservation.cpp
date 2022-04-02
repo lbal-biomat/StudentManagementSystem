@@ -72,5 +72,6 @@ std::ostream& operator<<(std::ostream& os, TClassroomReservation& r) {
         break;
     }
   }
+  os << std::endl;
   return os;
 }

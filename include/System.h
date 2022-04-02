@@ -36,6 +36,7 @@ class System {
     void addClassroomReservation(int numRoom, int codeCourse, int startTime, int endTime, TDate startDate,
                                  TDate endDate, vector<DayOfWeek> days);
     void printPrerequisiteCourses(int codeCourse);
+    void addPreRequiredCourse(int code, int requiredCode);
     void printReservations(int numRoom);
     void printCourses();
     void printStudents();

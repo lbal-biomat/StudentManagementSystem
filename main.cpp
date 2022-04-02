@@ -59,14 +59,15 @@ int main() {
 						"4-Enroll student in course " << endl << \
 						"5-Unenroll student from course" << endl << \
 						"6-Add reservation to classroom " << endl << \
-						"7-Check course requirements" << endl << \
-            "8-Check classroom reservations" << endl << \
-            "9-Check all courses in system" << endl << \
-            "10-Check all students in system" << endl << \
-            "11-Print student transcripts" << endl << \
-            "12-Add approval to student records" << endl <<\
-            "13-Get enrolled students in course" << endl << \
-            "14-Exit" << endl;
+						"7-Print course prerequisites" << endl << \
+            "8-Add prerequisite to course" << endl << \
+            "9-Print classroom reservations" << endl << \
+            "10-Print all courses in system" << endl << \
+            "11-Print all students in system" << endl << \
+            "12-Print student transcripts" << endl << \
+            "13-Add approval to student records" << endl <<\
+            "14-Get enrolled students in course" << endl << \
+            "15-Exit" << endl;
 
     cin >> option;
     cin.get(); //limpia el newline
@@ -179,30 +180,41 @@ int main() {
         }
         catch (std::invalid_argument& err) {
           std::cerr << "Error inesperado: " << err.what() << std::endl;
-          break;
         }
         break;
       }
-      case 8 : {
+      case 8: {
+        int cod = getInt("Enter course code: ");
+        int pre = getInt("Enter pre required course code: ");
+        try {
+          sis.addPreRequiredCourse(cod, pre);
+        }
+        catch (std::invalid_argument& err) {
+          std::cerr << "Error inesperado: " << err.what() << std::endl;
+          break;
+        }
+        cout << "Successfully added." << endl;
+        break;
+      }
+      case 9 : {
         int num = getInt("Enter classroom number: ");
         try {
           sis.printReservations(num);
         }
         catch (std::invalid_argument& err) {
           std::cerr << "Error inesperado: " << err.what() << std::endl;
-          break;
         }
         break;
       }
-      case 9 : {
+      case 10 : {
         sis.printCourses();
         break;
       }
-      case 10 : {
+      case 11 : {
         sis.printStudents();
         break;
       }
-      case 11 : {
+      case 12 : {
         int ID = getInt("Enter student ID: ");
         try {
           sis.printStudentTranscript(ID);
@@ -212,7 +224,7 @@ int main() {
         }
         break;
       }
-      case 12 : {
+      case 13 : {
         int ID = getInt("Enter student ID: ");
         int cod = getInt("Enter course code: ");
         int grade = getInt("Enter grade: ");
@@ -227,7 +239,7 @@ int main() {
         cout << "Successfully added." << endl;
         break;
       }
-      case 13 : {
+      case 14 : {
         int cod = getInt("Enter course code: ");
         vector<TStudent *> vec;
         try {
@@ -239,7 +251,7 @@ int main() {
         }
         break;
       }
-      case 14 : {
+      case 15 : {
         cout << "Session ended." << endl;
         break;
       }
