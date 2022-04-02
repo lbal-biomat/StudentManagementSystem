@@ -39,11 +39,11 @@ void System::enrollStudentInCourse(int ID, int code) {
   if (!existsCourse(code)) {
     throw std::invalid_argument("There isn't any course with that code in the system.");
   }
-  TStudent* est = getPointerToStudent(ID);
+  TStudent* est = &students[ID];
   if (est->isEnrolled(code)) {
     throw std::invalid_argument("Student is already enrolled.");
   }
-  TCourse* course = getPointerToCourse(code);
+  TCourse* course = &courses[code];
   course->addStudent(est);
   est->addEnrollment(course);
 
@@ -56,11 +56,11 @@ void System::unenrollStudentFromCourse(int ID, int code) {
   if (!existsCourse(code)) {
     throw std::invalid_argument("There isn't any course with that code in the system.");
   }
-  TStudent* est = getPointerToStudent(ID);
+  TStudent* est = &students[ID];
   if (!est->isEnrolled(code)) {
     throw std::invalid_argument("Student isn't enrolled in this course.");
   }
-  TCourse* cur = getPointerToCourse(code);
+  TCourse* cur = &courses[code];
   cur->unenrollStudent(ID);
 }
 
@@ -72,8 +72,8 @@ void System::addClassroomReservation(int numRoom, int codeCourse, int startTime,
   if (!existsCourse(codeCourse)) {
     throw std::invalid_argument("There isn't any course with that code in the system.");
   }
-  TCourse* c = getPointerToCourse(codeCourse);
-  TClassroom* room = getPointerToClassroom(numRoom);
+  TCourse* c = &courses[codeCourse];
+  TClassroom* room = &classrooms[numRoom];
   if (room->getCapacity() < c->getMaxStudents()) {
     throw std::invalid_argument("Classroom is too small for the course.");
   }
@@ -104,27 +104,6 @@ void System::printReservations(int numRoom) {
   }
 }
 
-TStudent *System::getPointerToStudent(int ID) {
-  if (!existsStudent(ID)) {
-    throw std::invalid_argument("There isn't any student with that ID in the system.");
-  }
-  return &students[ID];
-}
-
-TCourse *System::getPointerToCourse(int cod) {
-  if (!existsCourse(cod)) {
-    throw std::invalid_argument("There isn't any course with that code in the system.");
-  }
-  return &courses[cod];
-}
-
-TClassroom *System::getPointerToClassroom(int num) {
-  if (!existsClassroom(num)) {
-    throw std::invalid_argument("There isn't any classroom with that number in the system.");
-  }
-  return &classrooms[num];
-}
-
 void System::printCourses() {
   for( std::pair<const int, TCourse>& st : courses ) {
     std::cout << st.second << std::endl;
@@ -141,7 +120,7 @@ void System::printStudentTranscript(int ID) {
   if (!existsStudent(ID)) {
     throw std::invalid_argument("There isn't any student with that ID in the system.");
   }
-  getPointerToStudent(ID)->printTranscripts();
+  students[ID].printTranscripts();
 }
 
 void System::addApprovalToStudent(int ID, int courseCod, int grade, TDate date) {
@@ -151,8 +130,8 @@ void System::addApprovalToStudent(int ID, int courseCod, int grade, TDate date) 
   if (!existsCourse(courseCod)) {
     throw std::invalid_argument("There isn't any course with that code in the system.");
   }
-  TStudent* st = getPointerToStudent(ID);
-  TCourse* c = getPointerToCourse(courseCod);
+  TStudent* st = &students[ID];
+  TCourse* c = &courses[courseCod];
   st->addApproval({c, grade, date});
 }
 
@@ -214,7 +193,7 @@ void System::addPreRequiredCourse(int code, int requiredCode) {
   if (!existsCourse(requiredCode)) {
     throw std::invalid_argument("Required course is not in the system.");
   }
-  TCourse* c = getPointerToCourse(code);
-  TCourse* pre = getPointerToCourse(requiredCode);
+  TCourse* c = &courses[code];
+  TCourse* pre = &courses[requiredCode];
   c->addPreRequiredCourse(pre);
 }

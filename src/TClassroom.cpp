@@ -21,13 +21,13 @@ bool TClassroom::available(TDate startDate, TDate endDate, int horaIni, int hora
     bool match = false;
     for (auto & day : res.getDays())
       for (auto &d: days)
-        if (day == d)
+        if (day == d) {
           match = true;
-    if (!match) //no overlapping days of week
-      return true;
-    else if ((startDate < res.getEndDate()) && (res.getStartDate() < endDate)) //overlapping dates
-      for (int j = 0; j < res.getDays().size(); ++j)
-        if (!((horaIni <= res.getEndTime()) && (res.getStartTime() <= horaFin))) //overlapping times
+          break;
+        }
+    if (match) //overlapping days of week
+      if (startDate < res.getEndDate() && res.getStartDate() < endDate) //overlapping dates
+        if (horaIni < res.getEndTime() && res.getStartTime() < horaFin) //overlapping times
           return false; //is not available
   }
   return true;
