@@ -162,7 +162,7 @@ void System::printEnrolledStudents(int courseCode) {
   }
   TCourse course = courses[courseCode];
   for (auto & s: course.getEnrolledStudents()) {
-    std::cout << s << std::endl;
+    std::cout << *s << std::endl;
   }
 }
 
