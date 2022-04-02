@@ -18,10 +18,11 @@ class TClassroom {
     vector<TClassroomReservation> reservations;
 
   public:
+    TClassroom();
     TClassroom(int cod, int cap);
     int getNumber() const;
     int getCapacity() const;
-    bool available(TDate startDate, TDate endDate, int timeStart, int timeEnd, vector<DayOfWeek> days);
+    bool available(TDate startDate, TDate endDate, int timeStart, int timeEnd, const vector<DayOfWeek>& days);
     void addReservation(const TClassroomReservation&);
     vector<TClassroomReservation> getReservations();
 };

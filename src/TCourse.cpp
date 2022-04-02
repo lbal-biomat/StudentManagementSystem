@@ -28,12 +28,10 @@ vector<TStudent *> TCourse::getEnrolledStudents() {
 }
 
 void TCourse::addStudent(TStudent *s) {
-  for (auto & c:prerequisiteCourses) {
-    bool meetThis = false;
-    for (auto & ap : s->getApprovals()) {
-      meetThis = meetThis || (ap.getCourse()->getCode() == c->getCode());
-    }
-    if (!meetThis) {
+  for (auto &course: prerequisiteCourses) {
+    if (std::none_of(s->getApprovals().begin(), s->getApprovals().end(), \
+            [course](TApproval &a) { return course->getCode() == a.getCourse()->getCode(); })) {
+      //student doesn't meet the prerequisite of this course
       throw std::invalid_argument("Student doesn't meet the prerequisites of this course.");
     }
   }
@@ -48,7 +46,17 @@ void TCourse::unenrollStudent(int ID) {
 }
 
 
-TCourse::TCourse(int cod, int cred, string nom) : code(cod), credits(cred), name(std::move(nom)) {}
+TCourse::TCourse(int cod, int cred, string nom, int max) : code(cod), credits(cred), name(std::move(nom)), maxStudents(max) {}
+
+int TCourse::getMaxStudents() const {
+  return maxStudents;
+}
+
+TCourse::TCourse() {
+  code = 0;
+  credits = 0;
+  maxStudents = 0;
+}
 
 std::ostream& operator<<(std::ostream& os, TCourse& c) {
   os << "Name: " << c.getName() << std::endl;

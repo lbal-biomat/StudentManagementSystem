@@ -20,7 +20,8 @@ class TStudent {
     vector<TApproval> approval;
     vector<TCourse*> enrollments;
   public:
-    TStudent(int doc, string nom);
+    TStudent();
+    TStudent(int ID, string nom);
     int getID() const;
     string getName();
     vector<TApproval> getApprovals();

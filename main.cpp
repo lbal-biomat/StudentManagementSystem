@@ -105,8 +105,9 @@ int main() {
         cout << "Enter course name: ";
         cin >> name;
         int cred = getInt("Enter course credits: ");
+        int max = getInt("Enter course maximum number of students: ");
         try {
-          sis.addCourse(cod, cred, name);
+          sis.addCourse(cod, cred, name, max);
         }
         catch (std::invalid_argument& err) {
           std::cerr << "Error inesperado: " << err.what() << std::endl;
@@ -147,10 +148,20 @@ int main() {
         int num = getInt("Enter classroom number: ");
         int cod = getInt("Enter course code: ");
         TDate fini = getDate("Enter start date: ");
-        TDate fend = getDate(" Enter end date: ");
+        TDate fend = getDate("Enter end date: ");
+        if (!(fini < fend)) {
+          cout << "Error: End date must come after the start date.";
+          break;
+        }
         int tini = getInt("Enter start time in military time: ");
         int tend = getInt("Enter end time in military time: ");
+        if (tini >= tend) {
+          cout << "Error: End time must come after the start time.";
+          break;
+        }
         vector<DayOfWeek> dow = getDaysOfWeek();
+        cin.clear();
+        cin.ignore(999,'\n');
         try {
           sis.addClassroomReservation(num, cod, tini, tend, fini, fend, dow);
         }
@@ -163,48 +174,32 @@ int main() {
       }
       case 7 : {
         int cod = getInt("Enter course code: ");
-        vector<TCourse*> prev;
         try {
-          prev = sis.queryPrerequisiteCourses(cod);
+          sis.printPrerequisiteCourses(cod);
         }
         catch (std::invalid_argument& err) {
           std::cerr << "Error inesperado: " << err.what() << std::endl;
           break;
-        }
-        for (auto & c : prev) {
-          cout << c;
         }
         break;
       }
       case 8 : {
-        int num;
-        cout << "Enter classroom number: ";
-        cin >> num;
-        vector<TClassroomReservation> res;
+        int num = getInt("Enter classroom number: ");
         try {
-          res = sis.queryReservations(num);
+          sis.printReservations(num);
         }
         catch (std::invalid_argument& err) {
           std::cerr << "Error inesperado: " << err.what() << std::endl;
           break;
         }
-        for (auto & r : res) {
-          cout << r;
-        }
         break;
       }
       case 9 : {
-        vector<TCourse> courses = sis.getCourses();
-        for (auto & c : courses) {
-          cout << c;
-        }
+        sis.printCourses();
         break;
       }
       case 10 : {
-        vector<TStudent> stud = sis.getStudents();
-        for (auto & s : stud) {
-          cout << s;
-        }
+        sis.printStudents();
         break;
       }
       case 11 : {
@@ -236,14 +231,11 @@ int main() {
         int cod = getInt("Enter course code: ");
         vector<TStudent *> vec;
         try {
-          vec = sis.getEnrolledStudents(cod);
+          sis.printEnrolledStudents(cod);
         }
         catch (std::invalid_argument& err) {
           std::cerr << "Error inesperado: " << err.what() << std::endl;
           break;
-        }
-        for (auto & st:vec) {
-          cout << st;
         }
         break;
       }

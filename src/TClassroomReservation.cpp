@@ -3,7 +3,7 @@
 //
 
 #include "../include/TClassroomReservation.h"
-
+#include "../include/TCourse.h"
 #include <utility>
 
 
@@ -36,14 +36,15 @@ TClassroomReservation::TClassroomReservation(TCourse* c, int tini, int tend, TDa
 
 
 std::ostream& operator<<(std::ostream& os, TClassroomReservation& r) {
-  os << r.getCourse();
+  TCourse* c = r.getCourse();
+  os << "Course: " << c->getCode() << " - " << c->getName() << std::endl;
   TDate startDate = r.getStartDate();
-  os << "Start date: " << startDate;
-  TDate endDate = r.getStartDate();
-  os << "End date: " << endDate;
+  os << "Start date: " << startDate << std::endl;
+  TDate endDate = r.getEndDate();
+  os << "End date: " << endDate << std::endl;
   os << "Start time: " << r.getStartTime() << std::endl;
   os << "End time: " << r.getEndTime() << std::endl;
-  os << "Days of the week: ";
+  os << "Days of the week: " << std::endl;
   vector<DayOfWeek> vec = r.getDays();
   for (auto & i : vec) {
     switch(i)

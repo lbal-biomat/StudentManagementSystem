@@ -28,11 +28,9 @@ vector<TCourse *> TStudent::getCurrentEnrollments() {
 void TStudent::addEnrollment(TCourse* course) {
 
   for (auto & c : course->getPrerequisiteCourses()) {
-    bool meetThis = false;
-    for (auto & ap : getApprovals()) {
-      meetThis = meetThis || (ap.getCourse()->getCode() == c->getCode());
-    }
-    if (!meetThis) {
+    if (std::none_of(getApprovals().begin(), getApprovals().end(), \
+            [c](TApproval &a) { return c->getCode() == a.getCourse()->getCode(); })) {
+      //student doesn't meet the prerequisite of this course
       throw std::invalid_argument("Student doesn't meet the prerequisites of this course.");
     }
   }
@@ -60,7 +58,7 @@ int TStudent::getCredits() {
   return credits;
 }
 
-TStudent::TStudent(int doc, string nom) : ID(doc), name(std::move(nom)) {}
+TStudent::TStudent(int doc, string nom) : name(std::move(nom)), ID(doc) {}
 
 float TStudent::getAverageGrade() {
   int sum = 0;
@@ -73,13 +71,17 @@ float TStudent::getAverageGrade() {
 using namespace  std;
 
 void TStudent::printTranscripts() {
-  cout << this;
+  cout << *this << endl;
   cout << "Approvals: " << endl;
   for (auto & approv : getApprovals()) {
     cout << "\t" << approv;
   }
   cout << "Average Grade: " << getAverageGrade() << endl;
   cout << "Total Credits: " << getCredits() << endl;
+}
+
+TStudent::TStudent() {
+  ID = -1;
 }
 
 std::ostream& operator<<(std::ostream& os, TStudent& e) {
