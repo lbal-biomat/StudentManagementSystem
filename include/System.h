@@ -31,6 +31,7 @@ class System {
     void enrollStudentInCourse(int ID, int code);
     void unenrollStudentFromCourse(int ID, int code);
     void printEnrolledStudents(int courseCode);
+    void printStudentEnrollments(int ID);
     void addPreRequiredCourse(int code, int requiredCode);
     void printPrerequisiteCourses(int codeCourse);
     void addClassroomReservation(int numRoom, int codeCourse, int startTime, int endTime, TDate startDate,

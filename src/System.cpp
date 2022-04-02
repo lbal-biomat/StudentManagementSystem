@@ -165,3 +165,11 @@ void System::addPreRequiredCourse(int code, int requiredCode) {
   TCourse* pre = &courses[requiredCode];
   c->addPreRequiredCourse(pre);
 }
+
+void System::printStudentEnrollments(int ID) {
+  assert(existsStudent(ID));
+  auto enr = students[ID].getCurrentEnrollments();
+  for (auto & e : enr) {
+    std::cout << *e << std::endl;
+  }
+}
