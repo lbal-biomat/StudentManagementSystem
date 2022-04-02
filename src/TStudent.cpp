@@ -7,6 +7,7 @@
 
 #include <utility>
 #include <iostream>
+#include <cassert>
 
 
 int TStudent::getID() const {
@@ -25,8 +26,8 @@ vector<TCourse *> TStudent::getCurrentEnrollments() {
   return enrollments;
 }
 
-void TStudent::addEnrollment(TCourse* course) {
-
+void TStudent::enroll(TCourse* course) {
+  assert(!isEnrolled(course->getCode()));
   for (auto & c : course->getPrerequisiteCourses()) {
     if (std::none_of(getApprovals().begin(), getApprovals().end(), \
             [c](TApproval &a) { return c->getCode() == a.getCourse()->getCode(); })) {
@@ -35,6 +36,14 @@ void TStudent::addEnrollment(TCourse* course) {
     }
   }
   enrollments.push_back(course);
+}
+
+void TStudent::unenroll(int cod) {
+  assert(isEnrolled(cod));
+  for (int i = 0; i < enrollments.size(); i++) {
+    if (enrollments[i]->getCode() == cod)
+      enrollments.erase(enrollments.begin()+i);
+  }
 }
 
 void TStudent::addApproval(TApproval a) {

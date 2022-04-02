@@ -36,20 +36,19 @@ void System::enrollStudentInCourse(int ID, int code) {
   }
   TCourse* course = &courses[code];
   course->addStudent(est);
-  est->addEnrollment(course);
+  est->enroll(course);
 
 }
 
 void System::unenrollStudentFromCourse(int ID, int code) {
-  //TODO: add function in student class to uneroll from course
   assert (existsStudent(ID));
   assert (existsCourse(code));
   TStudent* est = &students[ID];
   if (!est->isEnrolled(code)) {
     throw std::invalid_argument("Student isn't enrolled in this course.");
   }
-  TCourse* cur = &courses[code];
-  cur->unenrollStudent(ID);
+  courses[code].unenrollStudent(ID);
+  est->unenroll(code);
 }
 
 void System::addClassroomReservation(int numRoom, int codeCourse, int startTime, int endTime,
