@@ -5,9 +5,9 @@
 using namespace std;
 
 
-static TDate getDate(const string& mes) {
+static TDate getDate(const string& message) {
   int day, month, year;
-  cout << mes;
+  cout << message;
   cin >> day;
   cin >> month;
   cin >> year;
@@ -47,12 +47,8 @@ static vector<DayOfWeek> getDaysOfWeek() {
   return vec;
 }
 
-int main() {
-  System sis;
-
-  int option = 0;
-  do {
-    cout << "Enter option: " << endl << \
+void printMenu() {
+  cout << "Enter option: " << endl << \
 						"1-Register student " << endl << \
 						"2-Add classroom" << endl << \
 						"3-Add course " << endl << \
@@ -69,7 +65,14 @@ int main() {
             "14-Print all courses in system" << endl << \
             "15-Print all students in system" << endl << \
             "16-Exit" << endl;
+}
 
+int main() {
+  static System& sis = System::getInstance();
+
+  int option = 0;
+  do {
+    printMenu();
     cin >> option;
     cin.get(); //limpia el newline
     switch (option) {
