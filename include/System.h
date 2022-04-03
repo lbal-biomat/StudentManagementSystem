@@ -24,7 +24,9 @@ class System {
     unordered_map<int, TStudent> students; //the key is the ID
     unordered_map<int, TCourse> courses; //the code is the key
     unordered_map<int, TClassroom> classrooms;
+    System() = default; //private constructor, the class is a singleton
   public:
+    static System& getInstance();
     void registerStudent(int ID, string name);
     void addClassroom(int code, int capacity);
     void addCourse(int code, int credits, string name, int maxStudents);
@@ -45,6 +47,12 @@ class System {
     bool existsClassroom(int classNum);
     bool existsCourse(int code);
     static bool validateID(int ID);
+
+    //Delete copy/move so extra instances can't be created/moved
+    System(const System&) = delete;
+    System& operator=(const System&) = delete;
+    System(System&&) = delete;
+    System& operator=(System&&) = delete;
 };
 
 

@@ -8,6 +8,11 @@
 #include <utility>
 #include <iostream>
 
+System &System::getInstance() {
+  static System instance;
+  return instance;
+}
+
 void System::registerStudent(int ID, string name) {
   assert(!existsStudent(ID));
   bool valid = validateID(ID);
