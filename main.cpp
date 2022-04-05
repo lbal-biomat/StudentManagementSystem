@@ -26,43 +26,41 @@ int studentLogIn() {
 
 int main() {
   System sis;
-  bool exit = false;
+  bool exit_all = false;
   int val;
-  while (!exit) {
+  while (!exit_all) {
     std::cout << " \n0-Login as admin, 1-Login as student, 2-Exit\n";
     std::cin >> val;
-    Interface *inter;
-    if (val == 0) {
-      inter = new adminInterface(sis);
+    if (val == 2) { // exit all
+      exit_all = true;
     }
-    else if (val == 1) {
-      int id = studentLogIn();
-      if (!sis.existsStudent(id)) {
-        std::cerr << "There isn't any student with that ID in the system.\n";
+    else {
+      Interface *inter;
+      if (val == 0) {
+        inter = new adminInterface(sis);
+      }
+      else if (val == 1) {
+        int id = studentLogIn();
+        if (!sis.existsStudent(id)) {
+          std::cerr << "There isn't any student with that ID in the system.\n";
+          continue; //go back to main menu
+        }
+        inter = new studentInterface(sis, id);
+      }
+      else {
+        std::cerr << "Not an option, try again.\n";
         continue;
       }
-      inter = new studentInterface(sis, id);
-    }
-    else if (val == 2) {
-      exit = true;
-    }
-    while (!exit) {
       std::cout << inter->menu;
       std::cin >> inter->menu;
-
-      if (!inter->menu.options.contains(inter->menu.input)) {
+      if (!inter->menu.options.contains(inter->menu.input)) { //bad option
         std::cerr << "Not a valid option. Try again.\n";
         std::cin.clear();
         std::cin.ignore(999, '\n');
-      } else {
-        if (inter->menu.options[inter->menu.input].first == "Exit") {
-          exit = true;
-        } else {
-          inter->menu.options[inter->menu.input].second();
-        }
       }
-      std::cout << " \n0-Login as admin, 1-Login as student, 2-Exit\n";
-      std::cin >> val;
+      else if (!(inter->menu.options[inter->menu.input].first == "Log Out")) { //option is not log out
+        inter->menu.options[inter->menu.input].second();
+      }
     }
   }
   return 0;

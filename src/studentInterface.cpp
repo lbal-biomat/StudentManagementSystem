@@ -47,6 +47,6 @@ studentInterface::studentInterface(System &sis, int st) : Interface(sis){
            {2, {"Unenroll student from course", [this]{return unEnrollStudent();}}},
            {3, {"Print current enrollments for student", [this]{return system.printStudentEnrollments(student);}}},
            {4, {"Print student transcripts", [this]{return system.printStudentTranscript(student);}}},
-           {5, {"Exit", []{return ;}}},
+           {5, {"Log Out", []{return ;}}},
           }};
 }
