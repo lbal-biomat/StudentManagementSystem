@@ -6,17 +6,16 @@
 
 TDate adminInterface::getDate(const string& message) {
   int day, month, year;
-  bool valid;
+  bool valid = false;
   do {
     std::cout << message;
     std::cin >> day;
     std::cin >> month;
     std::cin >> year;
     if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900) {
-      std::cout << "Invalid date. Try again." << std::endl;
-      valid = false;
+      std::cerr << "Invalid date. Try again.\n";
     }
-    else valid = true;
+    else {valid = true;}
   } while (!valid);
   return {day, month, year};
 }
@@ -31,7 +30,7 @@ int adminInterface::getInt(const string& mes) {
     else {
       std::cin.clear();
       std::cin.ignore(999,'\n');
-      std::cout << "Invalid entry, try again: ";
+      std::cerr << "Invalid entry, try again.\n ";
     }
   } while (!valid);
   return input;
@@ -60,7 +59,7 @@ void adminInterface::registerStudent() {
 
   int ID = getInt("Enter student ID: ");
   if (system.existsStudent(ID)) {
-    std::cout << "There is a student with that ID in the system." << std::endl;
+    std::cerr << "There is a student with that ID in the system.\n";
     return;
   }
   string name;
@@ -73,25 +72,25 @@ void adminInterface::registerStudent() {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
     return;
   }
-  std::cout << "Successfully registered." << std::endl;
+  std::cout << "Successfully registered.\n";
 }
 
 void adminInterface::addClassroom() {
 
   int num = getInt("Enter classroom number: ");
   if (system.existsClassroom(num)) {
-    std::cout << "There is a classroom with that number in the system." << std::endl;
+    std::cerr << "There is a classroom with that number in the system.\n";
     return;
   }
   int cap = getInt("Enter capacity: ");
   system.addClassroom(num, cap);
-  std::cout << "Successfully entered." << std::endl;
+  std::cout << "Successfully entered.\n";
 }
 
 void adminInterface::addCourse() {
   int cod = getInt("Enter course code: ");
   if (system.existsCourse(cod)) {
-    std::cout << "There is a course with that code in the system." << std::endl;
+    std::cerr << "There is a course with that code in the system.\n";
     return;
   }
   string name;
@@ -100,18 +99,18 @@ void adminInterface::addCourse() {
   int cred = getInt("Enter course credits: ");
   int max = getInt("Enter course maximum number of students: ");
   system.addCourse(cod, cred, name, max);
-  std::cout << "Successfully added." << std::endl;
+  std::cout << "Successfully added.\n";
 }
 
 void adminInterface::enrollStudent() {
   int ID = getInt("Enter student ID: ");
   if (!system.existsStudent(ID)) {
-    std::cout << "There isn't any student with that ID in the system." << std::endl;
+    std::cerr << "There isn't any student with that ID in the system.\n";
     return;
   }
   int cod = getInt("Enter course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   try {
@@ -121,18 +120,18 @@ void adminInterface::enrollStudent() {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
     return;
   }
-  std::cout << "Successfully enrolled." << std::endl;
+  std::cout << "Successfully enrolled.\n";
 }
 
 void adminInterface::unEnrollStudent() {
   int ID = getInt("Enter student ID: ");
   if (!system.existsStudent(ID)) {
-    std::cout << "There isn't any student with that ID in the system." << std::endl;
+    std::cerr << "There isn't any student with that ID in the system.\n";
     return;
   }
   int cod = getInt("Enter course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   try {
@@ -142,23 +141,23 @@ void adminInterface::unEnrollStudent() {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
     return;
   }
-  std::cout << "Successfully unenrolled." << std::endl;
+  std::cout << "Successfully unenrolled.\n";
 }
 
 void adminInterface::addApproval() {
   int ID = getInt("Enter student ID: ");
   if (!system.existsStudent(ID)) {
-    std::cout << "There isn't any student with that ID in the system." << std::endl;
+    std::cerr << "There isn't any student with that ID in the system.\n";
     return;
   }
   int cod = getInt("Enter course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   int grade = getInt("Enter grade: ");
   while (grade > 12) {
-    std::cout << "Grade can not be larger than 12. Try again: " << std::endl;
+    std::cerr << "Grade can not be greater than 12. Try again.\n";
     grade = getInt("Enter grade: ");
   }
   TDate d = getDate("Enter date of approval: ");
@@ -169,18 +168,18 @@ void adminInterface::addApproval() {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
     return;
   }
-  std::cout << "Successfully added." << std::endl;
+  std::cout << "Successfully added.\n";
 }
 
 void adminInterface::addPreRequisite() {
   int cod = getInt("Enter course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   int pre = getInt("Enter pre required course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   try {
@@ -190,30 +189,30 @@ void adminInterface::addPreRequisite() {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
     return;
   }
-  std::cout << "Successfully added." << std::endl;
+  std::cout << "Successfully added.\n";
 }
 
 void adminInterface::addReservation() {
   int num = getInt("Enter classroom number: ");
   if (!system.existsClassroom(num)) {
-    std::cout << "There isn't any classroom with that number in the system." << std::endl;
+    std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
   int cod = getInt("Enter course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   TDate fini = getDate("Enter start date: ");
   TDate fend = getDate("Enter end date: ");
   if (!(fini < fend)) {
-    std::cout << "Error: End date must come after the start date.";
+    std::cerr << "Error: End date must come after the start date.\n";
     return;
   }
   int tini = getInt("Enter start time in military time: ");
   int tend = getInt("Enter end time in military time: ");
   if (tini >= tend) {
-    std::cout << "Error: End time must come after the start time.";
+    std::cerr << "Error: End time must come after the start time.\n";
     return;
   }
   vector<DayOfWeek> dow = getDaysOfWeek();
@@ -226,13 +225,13 @@ void adminInterface::addReservation() {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
     return;
   }
-  std::cout << "Successfully added." << std::endl;
+  std::cout << "Successfully added.\n";
 }
 
 void adminInterface::printStudentEnrollments() {
   int ID = getInt("Enter student ID: ");
   if (!system.existsStudent(ID)) {
-    std::cout << "There isn't any student with that ID in the system." << std::endl;
+    std::cerr << "There isn't any student with that ID in the system.\n";
     return;
   }
   system.printStudentEnrollments(ID);
@@ -241,7 +240,7 @@ void adminInterface::printStudentEnrollments() {
 void adminInterface::printCourseEnrollments() {
   int cod = getInt("Enter course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   system.printEnrolledStudents(cod);
@@ -250,7 +249,7 @@ void adminInterface::printCourseEnrollments() {
 void adminInterface::printTranscripts() {
   int ID = getInt("Enter student ID: ");
   if (!system.existsStudent(ID)) {
-    std::cout << "There isn't any student with that ID in the system." << std::endl;
+    std::cerr << "There isn't any student with that ID in the system.\n";
     return;
   }
   system.printStudentTranscript(ID);
@@ -259,7 +258,7 @@ void adminInterface::printTranscripts() {
 void adminInterface::printPrerequisites() {
   int cod = getInt("Enter course code: ");
   if (!system.existsCourse(cod)) {
-    std::cout << "There isn't any course with that code in the system." << std::endl;
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   system.printPrerequisiteCourses(cod);
@@ -268,7 +267,7 @@ void adminInterface::printPrerequisites() {
 void adminInterface::printReservations() {
   int num = getInt("Enter classroom number: ");
   if (!system.existsClassroom(num)) {
-    std::cout << "There isn't any classroom with that number in the system." << std::endl;
+    std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
   system.printReservations(num);
