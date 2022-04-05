@@ -2,8 +2,7 @@
 // Created by lucia on 27/3/22.
 //
 
-//TODO: implementar un mecanismo de persistencia de datos
-//TODO: implementar sistema de login que permita al estudiante inscribirse/desinscribirse, consultar sus inscripciones y obtener su escolaridad
+//TODO: add data persistence mechanism
 
 #ifndef SISTEMABEDELIA_SYSTEM_H
 #define SISTEMABEDELIA_SYSTEM_H
