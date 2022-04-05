@@ -240,6 +240,6 @@ adminInterface::adminInterface(System& sis) : Interface(sis) {
            {13, {"Print classroom reservations", [this]{return printReservations();}}},
            {14, {"Print all courses in system", [this]{return system.printCourses();}}},
            {15, {"Print all students in system", [this]{return system.printStudents();}}},
-           {16, {"Exit", []{return ;}}},
+           {16, {"Log Out", []{return ;}}},
        }};
 }
