@@ -137,11 +137,8 @@ bool System::existsCourse(int code) {
 
 bool System::validateID(int numID) {
 
-  bool valid = true;
-  if (1111111 > numID || 99999999 < numID)
-    valid = false;
-  if (!valid) {
-    throw std::invalid_argument("Entrada invalida");
+  if (1111111 > numID || 99999999 < numID) {
+    return false;
   }
   string id = std::to_string(numID);
   const char valChar = id[id.size() - 1];
