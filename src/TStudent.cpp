@@ -52,7 +52,7 @@ void TStudent::addApproval(TApproval a) {
 
 
 bool TStudent::isEnrolled(int code) {
-  for (auto & e : enrollments) {
+  for (auto & e : enrollments) { //NOLINT
     if (e->getCode() == code)
       return true;
   }
