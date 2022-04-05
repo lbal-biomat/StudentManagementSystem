@@ -7,18 +7,13 @@
 
 
 #include "Menu.h"
-#include "TDate.h"
-#include "DayOfWeek.h"
-#include <vector>
 #include "System.h"
+#include "Interface.h"
 
 class System;
 
-class adminInterface {
+class adminInterface : public Interface {
   private:
-    static TDate getDate(const std::string& message);
-    static int getInt(const std::string& mes);
-    static std::vector<DayOfWeek> getDaysOfWeek();
     void registerStudent();
     void addClassroom();
     void addCourse();
@@ -32,10 +27,8 @@ class adminInterface {
     void printTranscripts();
     void printPrerequisites();
     void printReservations();
-    System system;
   public:
     explicit adminInterface(System& sis);
-    Menu menu;
 };
 
 
