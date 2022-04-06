@@ -6,21 +6,32 @@
 #include "include/Menu.h"
 
 int studentLogIn() {
-  int input = -1;
-  bool valid = false;
+  int id = Interface::getInt("Enter ID: ");
+  bool valid = System::validateID(id);
+  while (!valid) {
+    std::cerr << "Invalid entry, try again. " << std::endl;
+    id = Interface::getInt("Enter ID: ");
+    valid = System::validateID(id);
+  }
+  return id;
+}
+
+void callMenu(Interface* inter) {
+  bool logout = false;
   do {
-    std::cout << "Enter ID: " << std::flush;
-    std::cin >> input;
-    if (std::cin.good() && System::validateID(input)) {
-      valid = true;
-    }
-    else {
+    std::cout << inter->menu;
+    std::cin >> inter->menu;
+    if (!inter->menu.options.contains(inter->menu.input)) { //bad option
+      std::cerr << "Not a valid option. Try again.\n";
       std::cin.clear();
-      std::cin.ignore(999,'\n');
-      std::cerr << "Invalid entry, try again. " << std::endl;
+      std::cin.ignore(999, '\n');
+    } else if ((inter->menu.options[inter->menu.input].first == "Log Out")) {
+      logout = true;
     }
-  } while (!valid);
-  return input;
+    else { //valid option, not log out, proceed
+      inter->menu.options[inter->menu.input].second();
+    }
+  } while (!logout);
 }
 
 
@@ -51,16 +62,8 @@ int main() {
         std::cerr << "Not an option, try again.\n";
         continue;
       }
-      std::cout << inter->menu;
-      std::cin >> inter->menu;
-      if (!inter->menu.options.contains(inter->menu.input)) { //bad option
-        std::cerr << "Not a valid option. Try again.\n";
-        std::cin.clear();
-        std::cin.ignore(999, '\n');
-      }
-      else if (!(inter->menu.options[inter->menu.input].first == "Log Out")) { //option is not log out
-        inter->menu.options[inter->menu.input].second();
-      }
+      callMenu(inter);
+      delete inter;
     }
   }
   return 0;
