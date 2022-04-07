@@ -47,30 +47,7 @@ std::ostream& operator<<(std::ostream& os, TClassroomReservation& r) {
   os << "Days of the week: " << std::endl;
   vector<DayOfWeek> vec = r.getDays();
   for (auto & i : vec) {
-    switch(i)
-    {
-      case sunday:
-       os << "Sunday ";
-        break;
-      case monday:
-        os << "Monday ";
-        break;
-      case tuesday:
-        os << "Tuesday ";
-        break;
-      case wednesday:
-        os << "Wednesday ";
-        break;
-      case thursday:
-        os << "Thursday ";
-        break;
-      case friday:
-        os << "Friday ";
-        break;
-      case saturday:
-        os << "Saturday ";
-        break;
-    }
+    os << i;
   }
   os << std::endl;
   return os;
