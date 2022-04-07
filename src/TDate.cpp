@@ -6,32 +6,32 @@
 
 #include "../include/TDate.h"
 
-TDate::TDate(int dia, int mes, int anio) {
-  this->day = dia;
-  this->month = mes;
-  this->year = anio;
+TDate::TDate(int d, int m, int y) {
+  day = d;
+  month = m;
+  year = y;
 }
 
 int TDate::getDay() const {
-  return this->day;
+  return day;
 }
 
 int TDate::getMonth() const {
-  return this->month;
+  return month;
 }
 
 int TDate::getYear() const {
-  return this->year;
+  return year;
 }
 
 bool TDate::operator==(TDate f) const {
-  return (this->year == f.year &&
-          this->month == f.month && this->day == f.day);
+  return (year == f.year &&
+          month == f.month && day == f.day);
 }
 
 bool TDate::operator<(TDate f) const {
   int dias_param = f.day + f.month * 30 + f.year * 360;
-  int dias_this = this->day + this->month * 30 + this->year * 360;
+  int dias_this = day + month * 30 + year * 360;
   int dif = dias_param - dias_this;
   if (dif > 0) {
     return true;
@@ -41,7 +41,7 @@ bool TDate::operator<(TDate f) const {
 
 bool TDate::operator>(TDate f) const {
   int dias_param = f.day + f.month * 30 + f.year * 360;
-  int dias_this = this->day + this->month * 30 + this->year * 360;
+  int dias_this = day + month * 30 + year * 360;
   int dif = dias_this - dias_param;
   if (dif > 0) {
     return true;
@@ -49,8 +49,7 @@ bool TDate::operator>(TDate f) const {
   return false;
 }
 
-std::ostream& operator<<(std::ostream& os, TDate& f)
-{
+std::ostream& operator<<(std::ostream& os, TDate& f) {
   os << f.getDay() << '/' << f.getMonth() << '/' << f.getYear();
   return os;
 }
