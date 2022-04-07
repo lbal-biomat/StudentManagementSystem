@@ -7,19 +7,16 @@
 
 
 #include "Menu.h"
-#include "System.h"
 #include "TDate.h"
 #include "DayOfWeek.h"
 #include <vector>
 
 class Interface {
-  protected:
-    explicit Interface(System& sis);
-    System system;
   public:
     static int getInt(const std::string& message);
     static TDate getDate(const std::string& message);
     static std::vector<DayOfWeek> getDaysOfWeek();
+    static bool validateID(int ID);
     Menu menu;
 };
 

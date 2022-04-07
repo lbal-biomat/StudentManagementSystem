@@ -1,17 +1,19 @@
 
-#include "include/System.h"
-#include "include/Interface.h"
 #include "include/adminInterface.h"
 #include "include/studentInterface.h"
 #include "include/Menu.h"
+#include "include/StudentsController.h"
+#include "include/CoursesController.h"
+#include "include/ClassroomsController.h"
+
 
 int studentLogIn() {
   int id = Interface::getInt("Enter ID: ");
-  bool valid = System::validateID(id);
+  bool valid = Interface::validateID(id);
   while (!valid) {
     std::cerr << "Invalid entry, try again. " << std::endl;
     id = Interface::getInt("Enter ID: ");
-    valid = System::validateID(id);
+    valid = Interface::validateID(id);
   }
   return id;
 }
@@ -36,7 +38,9 @@ void callMenu(Interface* inter) {
 
 
 int main() {
-  System sis;
+  ClassroomsController classroomsController;
+  CoursesController coursesController;
+  StudentsController studentsController;
   bool exit_all = false;
   int val;
   while (!exit_all) {
@@ -48,15 +52,15 @@ int main() {
     else {
       Interface *inter;
       if (val == 0) {
-        inter = new adminInterface(sis);
+        inter = new adminInterface(studentsController, classroomsController, coursesController);
       }
       else if (val == 1) {
         int id = studentLogIn();
-        if (!sis.existsStudent(id)) {
+        if (!studentsController.existsStudent(id)) {
           std::cerr << "There isn't any student with that ID in the system.\n";
           continue; //go back to main menu
         }
-        inter = new studentInterface(sis, id);
+        inter = new studentInterface(studentsController, coursesController, id);
       }
       else {
         std::cerr << "Not an option, try again.\n";

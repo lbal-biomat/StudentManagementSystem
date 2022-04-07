@@ -6,15 +6,19 @@
 #define SISTEMABEDELIA_STUDENTINTERFACE_H
 
 #include "Interface.h"
-#include "Menu.h"
+#include "StudentsController.h"
+#include "CoursesController.h"
 
 class studentInterface : public Interface {
   private:
+    StudentsController& studentsController;
+    CoursesController& coursesController;
     int student;
     void enrollStudent();
     void unEnrollStudent();
+    void printPrerequisites();
   public:
-    explicit studentInterface(System& sis, int student);
+    explicit studentInterface(StudentsController& stctr, CoursesController& crctr, int student);
 };
 
 
