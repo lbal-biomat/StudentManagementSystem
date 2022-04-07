@@ -18,24 +18,6 @@ int studentLogIn() {
   return id;
 }
 
-void callMenu(Interface* inter) {
-  bool logout = false;
-  do {
-    std::cout << inter->menu;
-    std::cin >> inter->menu;
-    if (!inter->menu.options.contains(inter->menu.input)) { //bad option
-      std::cerr << "Not a valid option. Try again.\n";
-      std::cin.clear();
-      std::cin.ignore(999, '\n');
-    } else if ((inter->menu.options[inter->menu.input].first == "Log Out")) {
-      logout = true;
-    }
-    else { //valid option, not log out, proceed
-      inter->menu.options[inter->menu.input].second();
-    }
-  } while (!logout);
-}
-
 
 int main() {
   ClassroomsController classroomsController;
@@ -66,7 +48,7 @@ int main() {
         std::cerr << "Not an option, try again.\n";
         continue;
       }
-      callMenu(inter);
+      inter->callMenu();
       delete inter;
     }
   }
