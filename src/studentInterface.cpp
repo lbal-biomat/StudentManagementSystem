@@ -50,8 +50,8 @@ void studentInterface::printPrerequisites() {
 
 
 
-studentInterface::studentInterface(StudentsController &stctr, CoursesController &crctr, int st) :
-  studentsController(stctr), coursesController(crctr), student(st) {
+studentInterface::studentInterface(StudentsController &stctr, CoursesController &crctr) :
+  studentsController(stctr), coursesController(crctr), student(-1) {
   menu = {{{1, {"Enroll in course", [this]{return enrollStudent();}}},
            {2, {"Unenroll from course", [this]{return unEnrollStudent();}}},
            {3, {"Print current enrollments", [this]{return studentsController.printStudentEnrollments(student);}}},
@@ -59,4 +59,35 @@ studentInterface::studentInterface(StudentsController &stctr, CoursesController 
            {5, {"Print course prerequisites", [this]{return printPrerequisites();}}},
            {6, {"Log Out", []{return ;}}},
           }};
+}
+
+int studentInterface::getID() {
+  int id = getInt("Enter ID: ");
+  bool valid = validateID(id);
+  while (!valid) {
+    std::cerr << "Invalid entry, try again. " << std::endl;
+    id = getInt("Enter ID: ");
+    valid = validateID(id);
+  }
+  return id;
+}
+
+
+bool studentInterface::studentLogIn() {
+  int countErrors = 0;
+  int id = getInt("Enter ID: ");
+  bool valid = (validateID(id) && studentsController.existsStudent(id));
+  while (!valid) {
+    std::cerr << "There isn't any student with that ID in the system. Try again.\n";
+    countErrors++;
+    if (countErrors >= 3) {break;}
+    id = getInt("Enter ID: ");
+    valid = (validateID(id) && studentsController.existsStudent(id));
+  }
+  if (countErrors >= 3) {
+    std::cerr << "Too many invalid login attempts.\n\n";
+    return false;
+  }
+  student = id;
+  return true;
 }
