@@ -17,9 +17,8 @@ class studentInterface : public Interface {
     void enrollStudent();
     void unEnrollStudent();
     void printPrerequisites();
-    static int getID();
   public:
-    explicit studentInterface(StudentsController& stctr, CoursesController& crctr);
+    studentInterface(StudentsController& stctr, CoursesController& crctr);
     bool studentLogIn();
 };
 
