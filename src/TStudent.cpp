@@ -70,6 +70,9 @@ int TStudent::getCredits() {
 TStudent::TStudent(int doc, string nom) : name(std::move(nom)), ID(doc) {}
 
 float TStudent::getAverageGrade() {
+  if (approval.empty()) {
+    return 0;
+  }
   int sum = 0;
   for (auto & a : approval) {
     sum += a.getGrade();
@@ -82,16 +85,14 @@ using namespace  std;
 void TStudent::printTranscripts() {
   cout << *this;
   cout << "Approvals: " << endl;
-  for (auto & approv : getApprovals()) {
-    cout << "\t" << approv;
+  for (auto & a : getApprovals()) {
+    cout << "\t" << a;
   }
   cout << "Average Grade: " << getAverageGrade() << endl;
   cout << "Total Credits: " << getCredits() << endl;
 }
 
-TStudent::TStudent() {
-  ID = -1;
-}
+TStudent::TStudent() : ID(-1){}
 
 std::ostream& operator<<(std::ostream& os, TStudent& e) {
   os << "Name: " << e.getName() << endl;

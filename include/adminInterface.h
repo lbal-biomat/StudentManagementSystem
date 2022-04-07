@@ -12,8 +12,6 @@
 #include "CoursesController.h"
 #include "ClassroomsController.h"
 
-class System;
-
 class adminInterface : public Interface {
   private:
     StudentsController& studentsController;
@@ -29,7 +27,7 @@ class adminInterface : public Interface {
     void printPrerequisites();
     void printReservations();
   public:
-    explicit adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
+    adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
 };
 
 

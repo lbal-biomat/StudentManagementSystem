@@ -18,7 +18,7 @@ class TApproval {
     TApproval(TCourse* course, int grade, TDate d);
     //getters
     TCourse* getCourse();
-    [[nodiscard]] int getGrade() const;
+    int getGrade() const;
     TDate getDateOfApproval();
 };
 

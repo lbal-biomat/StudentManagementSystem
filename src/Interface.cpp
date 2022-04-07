@@ -39,15 +39,8 @@ TDate Interface::getDate(const std::string& message) {
 }
 
 std::vector<DayOfWeek> Interface::getDaysOfWeek() {
-
   std::cout << "Enter every day of the week the reservation applies to and end with '.' : \n" <<
-            "0-Sunday\n" <<
-            "1-Monday\n" <<
-            "2-Tuesday\n" <<
-            "3-Wednesday\n" <<
-            "4-Thursday\n" <<
-            "5-Friday\n" <<
-            "6-Saturday\n";
+            "0-Sunday\n1-Monday\n2-Tuesday\n3-Wednesday\n4-Thursday\n5-Friday\n6-Saturday\n";
   std::vector<DayOfWeek> vec;
   int day;
   while (std::cin >> day) {
@@ -80,4 +73,23 @@ bool Interface::validateID(int numID) {
 
   int res = sum % 10;
   return res == valDig;
+}
+
+void Interface::callMenu() {
+  bool logout = false;
+  do {
+    std::cout << menu;
+    std::cin >> menu;
+    if (!menu.options.contains(menu.input)) { //bad option
+      std::cerr << "Not a valid option. Try again.\n";
+      std::cin.clear();
+      std::cin.ignore(999, '\n');
+    } else if ((menu.options[menu.input].first == "Log Out")) {
+      logout = true;
+    }
+    else { //valid option, not log out, proceed
+      menu.options[menu.input].second();
+    }
+  } while (!logout);
+
 }

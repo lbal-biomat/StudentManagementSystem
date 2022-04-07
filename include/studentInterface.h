@@ -18,7 +18,8 @@ class studentInterface : public Interface {
     void unEnrollStudent();
     void printPrerequisites();
   public:
-    explicit studentInterface(StudentsController& stctr, CoursesController& crctr, int student);
+    studentInterface(StudentsController& stctr, CoursesController& crctr);
+    bool studentLogIn();
 };
 
 

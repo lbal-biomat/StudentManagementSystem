@@ -12,11 +12,13 @@
 #include <vector>
 
 class Interface {
-  public:
+  protected:
     static int getInt(const std::string& message);
     static TDate getDate(const std::string& message);
     static std::vector<DayOfWeek> getDaysOfWeek();
     static bool validateID(int ID);
+  public:
+    void callMenu();
     Menu menu;
 };
 
