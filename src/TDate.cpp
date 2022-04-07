@@ -2,7 +2,8 @@
 // Created by lucia on 27/3/22.
 //
 
-/*For simplicity, dates are treated as every month having 30 days*/
+/*For simplicity, dates are treated as every month having 31 days.
+ The format is day / month / year */
 
 #include "../include/TDate.h"
 
@@ -25,13 +26,12 @@ int TDate::getYear() const {
 }
 
 bool TDate::operator==(TDate f) const {
-  return (year == f.year &&
-          month == f.month && day == f.day);
+  return (year == f.year && month == f.month && day == f.day);
 }
 
 bool TDate::operator<(TDate f) const {
-  int dias_param = f.day + f.month * 30 + f.year * 360;
-  int dias_this = day + month * 30 + year * 360;
+  int dias_param = f.day + f.month * 31 + f.year * 372;
+  int dias_this = day + month * 31 + year * 372;
   int dif = dias_param - dias_this;
   if (dif > 0) {
     return true;
@@ -40,8 +40,8 @@ bool TDate::operator<(TDate f) const {
 }
 
 bool TDate::operator>(TDate f) const {
-  int dias_param = f.day + f.month * 30 + f.year * 360;
-  int dias_this = day + month * 30 + year * 360;
+  int dias_param = f.day + f.month * 31 + f.year * 372;
+  int dias_this = day + month * 31 + year * 372;
   int dif = dias_this - dias_param;
   if (dif > 0) {
     return true;
