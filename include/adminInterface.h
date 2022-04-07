@@ -27,7 +27,7 @@ class adminInterface : public Interface {
     void printPrerequisites();
     void printReservations();
   public:
-    explicit adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
+    adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
 };
 
 
