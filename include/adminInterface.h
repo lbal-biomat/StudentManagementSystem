@@ -12,8 +12,6 @@
 #include "CoursesController.h"
 #include "ClassroomsController.h"
 
-class System;
-
 class adminInterface : public Interface {
   private:
     StudentsController& studentsController;
