@@ -3,8 +3,10 @@
 //
 
 #include "../include/Interface.h"
+#include <string>
+#include <vector>
 
-int Interface::getInt(const string &message) {
+int Interface::getInt(const std::string &message) {
   int input = -1;
   bool valid = false;
   do {
@@ -20,7 +22,7 @@ int Interface::getInt(const string &message) {
   return input;
 }
 
-TDate Interface::getDate(const string& message) {
+TDate Interface::getDate(const std::string& message) {
   int day, month, year;
   bool valid = false;
   do {
@@ -36,7 +38,7 @@ TDate Interface::getDate(const string& message) {
   return {day, month, year};
 }
 
-vector<DayOfWeek> Interface::getDaysOfWeek() {
+std::vector<DayOfWeek> Interface::getDaysOfWeek() {
 
   std::cout << "Enter every day of the week the reservation applies to and end with '.' : \n" <<
             "0-Sunday\n" <<
@@ -46,7 +48,7 @@ vector<DayOfWeek> Interface::getDaysOfWeek() {
             "4-Thursday\n" <<
             "5-Friday\n" <<
             "6-Saturday\n";
-  vector<DayOfWeek> vec;
+  std::vector<DayOfWeek> vec;
   int day;
   while (std::cin >> day) {
     vec.push_back(static_cast<DayOfWeek>(day));
@@ -55,6 +57,27 @@ vector<DayOfWeek> Interface::getDaysOfWeek() {
 }
 
 
-Interface::Interface(System& sis) {
-  system = sis;
+bool Interface::validateID(int numID) {
+
+  if (1111111 > numID || 99999999 < numID) {
+    return false;
+  }
+  std::string id = std::to_string(numID);
+  const char valChar = id[id.size() - 1];
+  int valDig = valChar - '0';
+
+  std::string baseNumber = "8123476";
+  if (id.size() == 7) {
+    baseNumber = "123476";
+  }
+  int sum = 0;
+
+  for (int i = 0; i < id.size() - 1; i++) {
+    int n = id[i] - '0';
+    int base = baseNumber[i] - '0';
+    sum += n*base;
+  }
+
+  int res = sum % 10;
+  return res == valDig;
 }

@@ -7,28 +7,29 @@
 
 
 #include "Menu.h"
-#include "System.h"
 #include "Interface.h"
+#include "StudentsController.h"
+#include "CoursesController.h"
+#include "ClassroomsController.h"
 
 class System;
 
 class adminInterface : public Interface {
   private:
+    StudentsController& studentsController;
+    ClassroomsController& classroomsController;
+    CoursesController& coursesController;
     void registerStudent();
     void addClassroom();
     void addCourse();
-    void enrollStudent();
-    void unEnrollStudent();
     void addApproval();
     void addPreRequisite();
     void addReservation();
-    void printStudentEnrollments();
     void printCourseEnrollments();
-    void printTranscripts();
     void printPrerequisites();
     void printReservations();
   public:
-    explicit adminInterface(System& sis);
+    explicit adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
 };
 
 

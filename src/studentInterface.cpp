@@ -8,12 +8,12 @@
 
 void studentInterface::enrollStudent() {
   int cod = getInt("Enter course code: ");
-  if (!system.existsCourse(cod)) {
+  if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   try {
-    system.enrollStudentInCourse(student, cod);
+    studentsController.enrollStudentInCourse(student, cod);
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
@@ -25,12 +25,12 @@ void studentInterface::enrollStudent() {
 
 void studentInterface::unEnrollStudent() {
   int cod = getInt("Enter course code: ");
-  if (!system.existsCourse(cod)) {
+  if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   try {
-    system.unenrollStudentFromCourse(student, cod);
+    studentsController.unenrollStudentFromCourse(student, cod);
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
@@ -39,14 +39,24 @@ void studentInterface::unEnrollStudent() {
   std::cout << "Successfully unenrolled.\n";
 }
 
+void studentInterface::printPrerequisites() {
+  int cod = getInt("Enter course code: ");
+  if (!coursesController.existsCourse(cod)) {
+    std::cerr << "There isn't any course with that code in the system.\n";
+    return;
+  }
+  coursesController.printPrerequisiteCourses(cod);
+}
 
 
-studentInterface::studentInterface(System &sis, int st) : Interface(sis){
-  student = st;
-  menu = {{{1, {"Enroll student in course", [this]{return enrollStudent();}}},
-           {2, {"Unenroll student from course", [this]{return unEnrollStudent();}}},
-           {3, {"Print current enrollments for student", [this]{return system.printStudentEnrollments(student);}}},
-           {4, {"Print student transcripts", [this]{return system.printStudentTranscript(student);}}},
-           {5, {"Log Out", []{return ;}}},
+
+studentInterface::studentInterface(StudentsController &stctr, CoursesController &crctr, int st) :
+  studentsController(stctr), coursesController(crctr), student(st) {
+  menu = {{{1, {"Enroll in course", [this]{return enrollStudent();}}},
+           {2, {"Unenroll from course", [this]{return unEnrollStudent();}}},
+           {3, {"Print current enrollments", [this]{return studentsController.printStudentEnrollments(student);}}},
+           {4, {"Print transcripts", [this]{return studentsController.printStudentTranscript(student);}}},
+           {5, {"Print course prerequisites", [this]{return printPrerequisites();}}},
+           {6, {"Log Out", []{return ;}}},
           }};
 }
