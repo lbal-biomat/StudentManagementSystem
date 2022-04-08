@@ -9,8 +9,6 @@
 #include "ClassroomsRepo.h"
 #include "CoursesRepo.h"
 
-
-
 class TDate;
 
 class ClassroomsController {
@@ -18,6 +16,10 @@ class ClassroomsController {
     ClassroomsRepo& repoClassrooms = ClassroomsRepo::GetInstance();
     CoursesRepo& repoCourses = CoursesRepo::GetInstance();
   public:
+
+    /* Responsibility: Adds a classroom to the system.
+     * Pre: !existsClassroom(num)
+     * Post: existsClassroom(num) */
     void addClassroom(int num, int capacity);
 
     /*Pre: existsClassroom(num) */
@@ -36,8 +38,14 @@ class ClassroomsController {
      * Throws an invalid_argument exception if the classroom is not available */
     void addClassroomReservation(int num, int codeCourse, int startTime, int endTime, TDate startDate,
                                  TDate endDate, std::vector<DayOfWeek>& days);
-    void printReservations(int numRoom);
-    [[nodiscard]] bool existsClassroom(int classNum) const;
+
+    /*Responsibility: prints the information for every reservation for the classroom c such that c.getNumber() == num
+     * Pre: existsClassroom(num) */
+    void printReservations(int num);
+
+    /*Responsibility: returns true if there is a classroom c in the system such that c.getNum() == num,
+     * returns false otherwise */
+    [[nodiscard]] bool existsClassroom(int num) const;
 };
 
 #endif //SISTEMABEDELIA_CLASSROOMSCONTROLLER_H
