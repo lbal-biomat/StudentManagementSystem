@@ -12,6 +12,11 @@ void ClassroomsController::addClassroom(int num, int capacity) {
 
 }
 
+void ClassroomsController::printClassroomInformation(int num) {
+ std::cout << repoClassrooms.classrooms[num] << "\n";
+}
+
+
 void ClassroomsController::addClassroomReservation(int num, int codeCourse, int startTime, int endTime, TDate startDate,
                                                    TDate endDate, std::vector<DayOfWeek>& days) {
   assert (existsClassroom(num));

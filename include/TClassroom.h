@@ -27,5 +27,7 @@ class TClassroom {
     vector<TClassroomReservation> getReservations();
 };
 
+std::ostream& operator<<(std::ostream& os, TClassroom& c);
+
 
 #endif //SISTEMABEDELIA_TCLASSROOM_H

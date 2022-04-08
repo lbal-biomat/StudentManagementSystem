@@ -165,6 +165,50 @@ void adminInterface::printReservations() {
 }
 
 
+void adminInterface::printCourses() {
+  coursesController.printCourses();
+}
+
+void adminInterface::printStudents() {
+  studentsController.printStudents();
+}
+
+void adminInterface::isAvailableClassroom() {
+  int num = getInt("Enter classroom number: ");
+  if (!classroomsController.existsClassroom(num)) {
+    std::cerr << "There isn't any classroom with that number in the system.\n";
+    return;
+  }
+  TDate fini = getDate("Enter start date: ");
+  TDate fend = getDate("Enter end date: ");
+  if (!(fini < fend)) {
+    std::cerr << "Error: End date must come after the start date.\n";
+    return;
+  }
+  int tini = getInt("Enter start time in military time: ");
+  int tend = getInt("Enter end time in military time: ");
+  if (tini >= tend) {
+    std::cerr << "Error: End time must come after the start time.\n";
+    return;
+  }
+  vector<DayOfWeek> dow = getDaysOfWeek();
+  std::cin.clear();
+  std::cin.ignore(999,'\n');
+  std::cout << (classroomsController.isAvailable(num, tini, tend, fini, fend, dow) ?
+                "Is available" : "Is not available");
+}
+
+void adminInterface::printClassroomInformation() {
+  int num = getInt("Enter classroom number: ");
+  if (!classroomsController.existsClassroom(num)) {
+    std::cerr << "There isn't any classroom with that number in the system.\n";
+    return;
+  }
+  classroomsController.printClassroomInformation(num);
+}
+
+
+
 adminInterface::adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont) :
         studentsController(stcont), classroomsController(clscont), coursesController(coucont) {
   menu = {{{1, {"Register student", [this]{return registerStudent();}}},
@@ -174,10 +218,12 @@ adminInterface::adminInterface(StudentsController& stcont, ClassroomsController&
            {5, {"Add approval to student records", [this]{return addApproval();}}},
            {6, {"Print course prerequisites", [this]{return printPrerequisites();}}},
            {7, {"Add prerequisite to course", [this]{return addPreRequisite();}}},
-           {8, {"Add classroom reservation", [this]{return addReservation();}}},
-           {9, {"Print classroom reservations", [this]{return printReservations();}}},
-           {10, {"Print all courses in system", [this]{return coursesController.printCourses();}}},
-           {11, {"Print all students in system", [this]{return studentsController.printStudents();}}},
-           {12, {"Log Out", []{return ;}}},
+           {8, {"Print classroom information", [this]{return printClassroomInformation();}}},
+           {9, {"Check classroom availability", [this]{return isAvailableClassroom();}}},
+           {10, {"Add classroom reservation", [this]{return addReservation();}}},
+           {11, {"Print classroom reservations", [this]{return printReservations();}}},
+           {12, {"Print all courses in system", [this]{return printCourses();}}},
+           {13, {"Print all students in system", [this]{return printStudents();}}},
+           {14, {"Log Out", []{return ;}}},
        }};
 }
