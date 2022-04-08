@@ -49,27 +49,24 @@ void studentInterface::printPrerequisites() {
 }
 
 
+void studentInterface::printStudentEnrollments() {
+  studentsController.printStudentEnrollments(student);
+}
+
+void studentInterface::printStudentTranscript() {
+  studentsController.printStudentTranscript(student);
+}
+
 
 studentInterface::studentInterface(StudentsController &stctr, CoursesController &crctr) :
   studentsController(stctr), coursesController(crctr), student(-1) {
   menu = {{{1, {"Enroll in course", [this]{return enrollStudent();}}},
            {2, {"Unenroll from course", [this]{return unEnrollStudent();}}},
-           {3, {"Print current enrollments", [this]{return studentsController.printStudentEnrollments(student);}}},
-           {4, {"Print transcripts", [this]{return studentsController.printStudentTranscript(student);}}},
+           {3, {"Print current enrollments", [this]{return printStudentEnrollments();}}},
+           {4, {"Print transcripts", [this]{return printStudentTranscript();}}},
            {5, {"Print course prerequisites", [this]{return printPrerequisites();}}},
            {6, {"Log Out", []{return ;}}},
           }};
-}
-
-int studentInterface::getID() {
-  int id = getInt("Enter ID: ");
-  bool valid = validateID(id);
-  while (!valid) {
-    std::cerr << "Invalid entry, try again. " << std::endl;
-    id = getInt("Enter ID: ");
-    valid = validateID(id);
-  }
-  return id;
 }
 
 
