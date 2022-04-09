@@ -16,7 +16,7 @@ int TClassroom::getCapacity() const {
 }
 
 
-bool TClassroom::available(TDate startDate, TDate endDate, int horaIni, int horaFin, const vector<DayOfWeek>& days) {
+bool TClassroom::available(TDate startDate, TDate endDate, TTime horaIni, TTime horaFin, const vector<DayOfWeek>& days) {
   for (auto & res : reservations) {
     bool match = false;
     for (auto & day : res.getDays())

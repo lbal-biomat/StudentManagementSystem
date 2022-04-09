@@ -17,7 +17,7 @@ void ClassroomsController::printClassroomInformation(int num) {
 }
 
 
-void ClassroomsController::addClassroomReservation(int num, int codeCourse, int startTime, int endTime, TDate startDate,
+void ClassroomsController::addClassroomReservation(int num, int codeCourse, TTime startTime, TTime endTime, TDate startDate,
                                                    TDate endDate, const std::vector<DayOfWeek>& days) {
   assert (existsClassroom(num));
   assert(repoCourses.courses.contains(codeCourse));
@@ -43,7 +43,7 @@ bool ClassroomsController::existsClassroom(int classNum) const {
   return repoClassrooms.classrooms.contains(classNum);
 }
 
-bool ClassroomsController::isAvailable(int num, int startTime, int endTime, TDate startDate, TDate endDate,
+bool ClassroomsController::isAvailable(int num, TTime startTime, TTime endTime, TDate startDate, TDate endDate,
                                        const vector<DayOfWeek> &days) {
   return repoClassrooms.classrooms[num].available(startDate, endDate, startTime, endTime, days);
 }

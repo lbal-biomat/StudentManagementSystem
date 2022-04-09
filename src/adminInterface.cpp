@@ -68,8 +68,8 @@ void adminInterface::addApproval() {
     std::cerr << "Grade can not be greater than 12. Try again.\n";
     grade = getInt("Enter grade: ");
   }
-  TDate d = getDate("Enter date of approval: ");
   try {
+    TDate d = getDate("Enter date of approval: ");
     studentsController.addApprovalToStudent(ID, cod, grade, d);
   }
   catch (std::invalid_argument& err) {
@@ -100,6 +100,8 @@ void adminInterface::addPreRequisite() {
   std::cout << "Successfully added.\n";
 }
 
+TTime getTime(std::string message);
+
 DTReservation adminInterface::getReservationData() {
   int num = getInt("Enter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
@@ -110,9 +112,9 @@ DTReservation adminInterface::getReservationData() {
   if (!(fini < fend)) {
     throw std::invalid_argument("Error: End date must come after the start date.\n");
   }
-  int tini = getInt("Enter start time in military time: ");
-  int tend = getInt("Enter end time in military time: ");
-  if (tini >= tend) {
+  TTime tini = getTime("Enter start time in military time: ");
+  TTime tend = getTime("Enter end time in military time: ");
+  if (!(tini < tend)) {
     throw std::invalid_argument("Error: End time must come after the start time.\n");
   }
   vector<DayOfWeek> dow = getDaysOfWeek();

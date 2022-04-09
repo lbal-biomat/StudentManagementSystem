@@ -28,7 +28,7 @@ class ClassroomsController {
     /*Responsibility: returns true if the classroom c such that c.getNumber() == num is available for the given days,
       date and time, returns false otherwise
      * Pre: existsClassroom(num) */
-    bool isAvailable(int num, int startTime, int endTime, TDate startDate,
+    bool isAvailable(int num, TTime startTime, TTime endTime, TDate startDate,
                      TDate endDate, const std::vector<DayOfWeek>& days);
 
     /* Responsibility: Adds a reservation with the given information.
@@ -36,7 +36,7 @@ class ClassroomsController {
      * Pre: there is a course c in the system such that c.getCode() == codeCourse
      * Pre: isAvailable(num, startTime, endTime, startDate, endDate, days)
      * Throws an invalid_argument exception if the classroom is not available */
-    void addClassroomReservation(int num, int codeCourse, int startTime, int endTime, TDate startDate,
+    void addClassroomReservation(int num, int codeCourse, TTime startTime, TTime endTime, TDate startDate,
                                  TDate endDate, const std::vector<DayOfWeek>& days);
 
     /*Responsibility: prints the information for every reservation for the classroom c such that c.getNumber() == num
