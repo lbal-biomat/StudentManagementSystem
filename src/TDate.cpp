@@ -2,8 +2,6 @@
 // Created by lucia on 27/3/22.
 //
 
-/*For simplicity, dates are treated as every month having 31 days.
- The format is day / month / year */
 
 #include "../include/TDate.h"
 #include "ctime"
