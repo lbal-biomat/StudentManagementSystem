@@ -35,7 +35,11 @@ TDate Interface::getDate(const std::string& message) {
     }
     else {valid = true;}
   } while (!valid);
-  return {day, month, year};
+  TDate d(day, month, year);
+  if (!d.isValidDate()) {
+    throw std::invalid_argument("Invalid date\n");
+  }
+  return d;
 }
 
 std::vector<DayOfWeek> Interface::getDaysOfWeek() {
