@@ -11,6 +11,7 @@
 #include "StudentsController.h"
 #include "CoursesController.h"
 #include "ClassroomsController.h"
+#include "DTReservation.h"
 
 class adminInterface : public Interface {
   private:
@@ -30,6 +31,7 @@ class adminInterface : public Interface {
     void printCourses();
     void printStudents();
     void isAvailableClassroom();
+    DTReservation getReservationData();
   public:
     adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
 };
