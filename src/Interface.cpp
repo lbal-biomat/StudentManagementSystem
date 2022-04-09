@@ -79,16 +79,18 @@ void Interface::callMenu() {
   bool logout = false;
   do {
     std::cout << menu;
-    std::cin >> menu;
-    if (!menu.options.contains(menu.input)) { //bad option
-      std::cerr << "Not a valid option. Try again.\n";
-      std::cin.clear();
-      std::cin.ignore(999, '\n');
-    } else if ((menu.options[menu.input].first == "Log Out")) {
-      logout = true;
+
+    if (std::cin >> menu) {
+      if ((menu.options[menu.input].first == exitCall)) {
+        logout = true;
+      } else {
+        menu.options[menu.input].second();
+      }
     }
-    else { //valid option, not log out, proceed
-      menu.options[menu.input].second();
+    else { //bad option
+      std::cout << "Not a valid option. Try again.\n";
+      std::cin.clear(std::cin.rdstate() & ~std::ios_base::failbit);
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
   } while (!logout);
 
