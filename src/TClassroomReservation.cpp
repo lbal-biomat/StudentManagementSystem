@@ -31,8 +31,13 @@ std::vector<DayOfWeek> TClassroomReservation::getDays() {
   return days;
 }
 
-TClassroomReservation::TClassroomReservation(TCourse* c, int tini, int tend, TDate dini, TDate dend, vector<DayOfWeek> days) :
-        course(c), startTime(tini), endTime(tend), startDate(dini), endDate(dend), days(std::move(days)) {}
+TClassroomReservation::TClassroomReservation(TClassroom* cl, TCourse* c, int tini, int tend, TDate dini, TDate dend,
+                                             Tdays days) : classroom(cl), course(c), startTime(tini), endTime(tend),
+                                             startDate(dini), endDate(dend), days(std::move(days)) {}
+
+TClassroom *TClassroomReservation::getClassroom() {
+  return classroom;
+}
 
 
 std::ostream& operator<<(std::ostream& os, TClassroomReservation& r) {

@@ -9,29 +9,31 @@
 #include "DayOfWeek.h"
 
 #include <vector>
-#include <chrono>
 
-using std::vector;
 
 class TClassroom;
 class TCourse;
 
+typedef std::vector<DayOfWeek> Tdays;
+
 class TClassroomReservation {
   private:
+    TClassroom* classroom;
     TCourse* course;
     int startTime;
     int endTime;
     TDate startDate;
     TDate endDate;
-    vector<DayOfWeek> days;
+    Tdays days;
   public:
-    TClassroomReservation(TCourse*, int tini, int tend, TDate dateIni, TDate dateEnd, vector<DayOfWeek> days);
+    TClassroomReservation(TClassroom*, TCourse*, int tini, int tend, TDate dateIni, TDate dateEnd, Tdays days);
+    TClassroom* getClassroom();
     TCourse* getCourse();
     int getStartTime() const;
     int getEndTime() const;
     TDate getStartDate();
     TDate getEndDate();
-    std::vector<DayOfWeek> getDays();
+    Tdays getDays();
 };
 
 std::ostream& operator<<(std::ostream& os, TClassroomReservation& c);
