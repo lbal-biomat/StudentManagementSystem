@@ -6,6 +6,7 @@
 #define SISTEMABEDELIA_DTRESERVATION_H
 
 #include "TDate.h"
+#include "TTime.h"
 #include "DayOfWeek.h"
 
 #include <vector>
@@ -16,17 +17,17 @@ class DTReservation {
   private:
     int classroom;
     int course;
-    int startTime;
-    int endTime;
+    TTime startTime;
+    TTime endTime;
     TDate startDate;
     TDate endDate;
     std::vector<DayOfWeek> days;
   public:
-    DTReservation(int classroom, int course, int tini, int tend, TDate dateIni, TDate dateEnd, Tdays days);
+    DTReservation(int classroom, int course, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
     int getClassroom() const;
     int getCourse() const;
-    int getStartTime() const;
-    int getEndTime() const;
+    TTime getStartTime() const;
+    TTime getEndTime() const;
     TDate getStartDate();
     TDate getEndDate();
     Tdays getDays();
