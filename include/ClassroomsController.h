@@ -41,7 +41,7 @@ class ClassroomsController {
 
     /*Responsibility: prints the information for every reservation for the classroom c such that c.getNumber() == num
      * Pre: existsClassroom(num) */
-    void printReservations(int num);
+    std::vector<DTReservation> getClassroomsReservations(int num);
 
     /*Responsibility: returns true if there is a classroom c in the system such that c.getNum() == num,
      * returns false otherwise */

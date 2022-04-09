@@ -169,7 +169,10 @@ void adminInterface::printReservations() {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
-  classroomsController.printReservations(num);
+  std::vector<DTReservation> res = classroomsController.getClassroomsReservations(num);
+  for (auto & r: res) {
+    std::cout << r;
+  }
 }
 
 void adminInterface::printCourses() {
@@ -198,7 +201,7 @@ void adminInterface::printClassroomInformation() {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
-  classroomsController.printClassroomInformation(num);
+  classroomsController.getClassroomInformation(num);
 }
 
 

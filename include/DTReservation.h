@@ -33,6 +33,8 @@ class DTReservation {
     Tdays getDays();
 };
 
+std::ostream& operator<<(std::ostream& os, DTReservation& c);
+
 
 
 #endif //SISTEMABEDELIA_DTRESERVATION_H

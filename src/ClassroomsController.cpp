@@ -26,16 +26,18 @@ void ClassroomsController::addClassroomReservation(int num, int codeCourse, TTim
   if (!room->available(startDate, endDate, startTime, endTime, days)) {
     throw std::invalid_argument("Classroom is not available.");
   }
-  TClassroomReservation res(c, startTime, endTime, startDate, endDate, days);
+  TClassroomReservation res(num, c, startTime, endTime, startDate, endDate, days);
   room->addReservation(res);
 
 }
 
-void ClassroomsController::printReservations(int numRoom) {
-  assert (existsClassroom(numRoom));
-  TClassroom clas = repoClassrooms.classrooms[numRoom];
-  for (auto & r : clas.getReservations()) {
-    std::cout << r << std::endl;
+std::vector<DTReservation> ClassroomsController::getClassroomsReservations(int num) {
+  assert (existsClassroom(num));
+  vector<TClassroomReservation> res = repoClassrooms.classrooms[num].getReservations();
+  std::vector<DTReservation> dtres;
+  for (auto & r : res) {
+    DTReservation dtr = r.getDTReservation();
+    dtres.push_back(dtr);
   }
 }
 

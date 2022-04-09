@@ -8,6 +8,7 @@
 #include "TDate.h"
 #include "TTime.h"
 #include "DayOfWeek.h"
+#include "DTReservation.h"
 
 #include <vector>
 
@@ -19,6 +20,7 @@ typedef std::vector<DayOfWeek> Tdays;
 
 class TClassroomReservation {
   private:
+    int classroom;
     TCourse* course;
     TTime startTime;
     TTime endTime;
@@ -26,15 +28,15 @@ class TClassroomReservation {
     TDate endDate;
     Tdays days;
   public:
-    TClassroomReservation(TCourse*, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
+    TClassroomReservation(int classroom, TCourse*, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
     TCourse* getCourse();
     TTime getStartTime() const;
     TTime getEndTime() const;
     TDate getStartDate();
     TDate getEndDate();
     Tdays getDays();
-};
+    DTReservation getDTReservation();
 
-std::ostream& operator<<(std::ostream& os, TClassroomReservation& c);
+};
 
 #endif //SISTEMABEDELIA_TCLASSROOMRESERVATION_H
