@@ -36,9 +36,6 @@ TDate Interface::getDate(const std::string& message) {
     else {valid = true;}
   } while (!valid);
   TDate d(day, month, year);
-  if (!d.isValidDate()) {
-    throw std::invalid_argument("Invalid date\n");
-  }
   return d;
 }
 
@@ -80,13 +77,13 @@ bool Interface::validateID(int numID) {
 }
 
 void Interface::callMenu(Menu menu, const std::string& exitCall) {
-  bool logout = false;
+  bool exit = false;
   do {
     std::cout << menu;
 
     if (std::cin >> menu) {
       if ((menu.options[menu.input].first == exitCall)) {
-        logout = true;
+        exit = true;
       } else {
         menu.options[menu.input].second();
       }
@@ -96,6 +93,5 @@ void Interface::callMenu(Menu menu, const std::string& exitCall) {
       std::cin.clear(std::cin.rdstate() & ~std::ios_base::failbit);
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-  } while (!logout);
-
+  } while (!exit);
 }
