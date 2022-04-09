@@ -14,9 +14,9 @@ int Interface::getInt(const std::string &message) {
     std::cin >> input;
     if (std::cin.good()) {	valid = true;}
     else {
-      std::cin.clear();
-      std::cin.ignore(999,'\n');
-      std::cerr << "Invalid entry, try again.\n ";
+      std::cin.clear(std::cin.rdstate() & ~std::ios_base::failbit);
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout << "Invalid entry, try again.\n ";
     }
   } while (!valid);
   return input;
