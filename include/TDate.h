@@ -6,26 +6,32 @@
 #define SISTEMABEDELIA_TDATE_H
 
 #include <iostream>
+#include "ctime"
 
 
 class TDate {
   private:
-    int day, month, year;
+    tm date{};
 
   public:
 
     TDate(int d, int m, int y);
+    TDate();
 
     //getters
     int getDay() const;
     int getMonth() const;
     int getYear() const;
 
-    bool operator>(TDate f) const;
-    bool operator<(TDate f) const;
+    bool operator>(TDate f);
+    bool operator<(TDate f);
     bool operator==(TDate) const;
+
+    bool isValidDate();
+
+    friend std::ostream& operator<<(std::ostream& os, TDate& f);
+
 };
 
-std::ostream& operator<<(std::ostream& os, TDate& f);
 
 #endif //SISTEMABEDELIA_TDATE_H

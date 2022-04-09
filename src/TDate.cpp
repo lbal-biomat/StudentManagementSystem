@@ -2,54 +2,55 @@
 // Created by lucia on 27/3/22.
 //
 
-/*For simplicity, dates are treated as every month having 31 days.
- The format is day / month / year */
 
 #include "../include/TDate.h"
+#include "ctime"
+
 
 TDate::TDate(int d, int m, int y) {
-  day = d;
-  month = m;
-  year = y;
+  date = {};
+  date.tm_year = y - 1900;
+  date.tm_mon = m - 1;
+  date.tm_mday = d;
+}
+
+TDate::TDate() {
+  date = {};
 }
 
 int TDate::getDay() const {
-  return day;
+  return date.tm_mday;
 }
 
 int TDate::getMonth() const {
-  return month;
+  return date.tm_mon;
 }
 
 int TDate::getYear() const {
-  return year;
+  return date.tm_year;
 }
 
 bool TDate::operator==(TDate f) const {
-  return (year == f.year && month == f.month && day == f.day);
+  return (date.tm_year == f.date.tm_year && date.tm_mon == f.date.tm_mon && date.tm_mday == f.date.tm_mday);
 }
 
-bool TDate::operator<(TDate f) const {
-  int dias_param = f.day + f.month * 31 + f.year * 372;
-  int dias_this = day + month * 31 + year * 372;
-  int dif = dias_param - dias_this;
-  if (dif > 0) {
-    return true;
-  }
-  return false;
+bool TDate::operator<(TDate f) {
+  return difftime(mktime( &date ), mktime(& f.date)) < 0;
 }
 
-bool TDate::operator>(TDate f) const {
-  int dias_param = f.day + f.month * 31 + f.year * 372;
-  int dias_this = day + month * 31 + year * 372;
-  int dif = dias_this - dias_param;
-  if (dif > 0) {
-    return true;
-  }
-  return false;
+bool TDate::operator>(TDate f) {
+  return difftime(mktime( &date ), mktime(& f.date)) > 0;
+
 }
 
 std::ostream& operator<<(std::ostream& os, TDate& f) {
-  os << f.getDay() << '/' << f.getMonth() << '/' << f.getYear();
+  os << f.getDay() << '/' << f.getMonth() + 1 << '/' << f.getYear() + 1900;
+  os << asctime(&f.date);
   return os;
+}
+
+bool TDate::isValidDate() {
+  tm copy = date;
+  mktime(&copy);
+  return (copy.tm_year == date.tm_year && copy.tm_mon == date.tm_mon && copy.tm_mday == date.tm_mday);
 }

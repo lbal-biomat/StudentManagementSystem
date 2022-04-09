@@ -111,8 +111,15 @@ void adminInterface::addReservation() {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
-  TDate fini = getDate("Enter start date: ");
-  TDate fend = getDate("Enter end date: ");
+  TDate fini, fend;
+  try {
+    fini = getDate("Enter start date as DD MM YYYY: ");
+    fend = getDate("Enter end date as DD MM YYYY: ");
+  }
+  catch (std::invalid_argument &err) {
+    std::cerr <<  "Unexpected error: " << err.what() << std::endl;
+    return;
+  }
   if (!(fini < fend)) {
     std::cerr << "Error: End date must come after the start date.\n";
     return;
@@ -125,7 +132,7 @@ void adminInterface::addReservation() {
   }
   vector<DayOfWeek> dow = getDaysOfWeek();
   std::cin.clear();
-  std::cin.ignore(999,'\n');
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   if (dow.empty()) {
     std::cerr << "Error: No days selected.\n";
     return;
@@ -183,8 +190,15 @@ void adminInterface::isAvailableClassroom() {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
-  TDate fini = getDate("Enter start date: ");
-  TDate fend = getDate("Enter end date: ");
+  TDate fini, fend;
+  try {
+    fini = getDate("Enter start date as DD MM YYYY: ");
+    fend = getDate("Enter end date as DD MM YYYY: ");
+  }
+  catch (std::invalid_argument &err) {
+    std::cerr <<  "Unexpected error: " << err.what() << std::endl;
+    return;
+  }
   if (!(fini < fend)) {
     std::cerr << "Error: End date must come after the start date.\n";
     return;
@@ -197,7 +211,7 @@ void adminInterface::isAvailableClassroom() {
   }
   vector<DayOfWeek> dow = getDaysOfWeek();
   std::cin.clear();
-  std::cin.ignore(999,'\n');
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   std::cout << (classroomsController.isAvailable(num, tini, tend, fini, fend, dow) ?
                 "Is available" : "Is not available");
 }
