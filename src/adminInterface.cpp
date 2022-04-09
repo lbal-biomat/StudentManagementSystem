@@ -213,7 +213,8 @@ void adminInterface::printClassroomInformation() {
 
 
 
-adminInterface::adminInterface() {
+adminInterface::adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont) :
+        studentsController(stcont), classroomsController(clscont), coursesController(coucont) {
   menu = {{{1, {"Register student", [this]{return registerStudent();}}},
            {2, {"Add classroom", [this]{return addClassroom();}}},
            {3, {"Add course", [this]{return addCourse();}}},

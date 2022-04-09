@@ -14,9 +14,9 @@
 
 class adminInterface : public Interface {
   private:
-    StudentsController studentsController;
-    ClassroomsController classroomsController;
-    CoursesController coursesController;
+    StudentsController& studentsController;
+    ClassroomsController& classroomsController;
+    CoursesController& coursesController;
     void registerStudent();
     void addClassroom();
     void addCourse();
@@ -31,7 +31,7 @@ class adminInterface : public Interface {
     void printStudents();
     void isAvailableClassroom();
   public:
-    adminInterface();
+    adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
 };
 
 

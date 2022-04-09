@@ -11,17 +11,17 @@
 
 class studentInterface : public Interface {
   private:
-    StudentsController studentsController;
-    CoursesController coursesController;
-    int& student;
+    StudentsController& studentsController;
+    CoursesController& coursesController;
+    int student;
     void enrollStudent();
     void unEnrollStudent();
     void printPrerequisites();
     void printStudentEnrollments();
     void printStudentTranscript();
   public:
-    explicit studentInterface(int &student);
-    static int studentLogIn();
+    studentInterface(StudentsController& stctr, CoursesController& crctr);
+    bool studentLogIn();
 };
 
 

@@ -58,7 +58,8 @@ void studentInterface::printStudentTranscript() {
 }
 
 
-studentInterface::studentInterface(int &student) : student(student) {
+studentInterface::studentInterface(StudentsController &stctr, CoursesController &crctr) :
+  studentsController(stctr), coursesController(crctr), student(-1) {
   menu = {{{1, {"Enroll in course", [this]{return enrollStudent();}}},
            {2, {"Unenroll from course", [this]{return unEnrollStudent();}}},
            {3, {"Print current enrollments", [this]{return printStudentEnrollments();}}},
