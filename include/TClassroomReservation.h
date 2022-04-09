@@ -6,6 +6,7 @@
 #define SISTEMABEDELIA_TCLASSROOMRESERVATION_H
 
 #include "TDate.h"
+#include "TTime.h"
 #include "DayOfWeek.h"
 
 #include <vector>
@@ -19,16 +20,16 @@ typedef std::vector<DayOfWeek> Tdays;
 class TClassroomReservation {
   private:
     TCourse* course;
-    int startTime;
-    int endTime;
+    TTime startTime;
+    TTime endTime;
     TDate startDate;
     TDate endDate;
     Tdays days;
   public:
-    TClassroomReservation(TCourse*, int tini, int tend, TDate dateIni, TDate dateEnd, Tdays days);
+    TClassroomReservation(TCourse*, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
     TCourse* getCourse();
-    int getStartTime() const;
-    int getEndTime() const;
+    TTime getStartTime() const;
+    TTime getEndTime() const;
     TDate getStartDate();
     TDate getEndDate();
     Tdays getDays();
