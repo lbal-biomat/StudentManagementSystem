@@ -20,8 +20,8 @@ class studentInterface : public Interface {
     void printStudentEnrollments();
     void printStudentTranscript();
   public:
-    studentInterface(StudentsController& stctr, CoursesController& crctr);
-    bool studentLogIn();
+    studentInterface(StudentsController& stctr, CoursesController& crctr, int& id);
+    static int studentLogIn();
 };
 
 
