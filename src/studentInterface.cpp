@@ -69,21 +69,23 @@ studentInterface::studentInterface(int &student) : student(student) {
 }
 
 
-bool studentInterface::studentLogIn() {
+int studentInterface::studentLogIn() {
   int countErrors = 0;
   int id = getInt("Enter ID: ");
-  bool valid = (validateID(id) && studentsController.existsStudent(id));
-  while (!valid) {
+  auto& repo = StudentsRepo::GetInstance();
+  bool validID = validateID(id);
+  bool isStudent = repo.students.contains(id);
+  while (!(validID && isStudent)) {
     std::cerr << "There isn't any student with that ID in the system. Try again.\n";
     countErrors++;
     if (countErrors >= 3) {break;}
     id = getInt("Enter ID: ");
-    valid = (validateID(id) && studentsController.existsStudent(id));
+    validID = validateID(id);
+    isStudent = repo.students.contains(id);
   }
   if (countErrors >= 3) {
     std::cerr << "Too many invalid login attempts.\n\n";
-    return false;
+    return -1;
   }
-  student = id;
-  return true;
+  return id;
 }
