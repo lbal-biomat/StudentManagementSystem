@@ -18,7 +18,6 @@ typedef std::vector<DayOfWeek> Tdays;
 
 class TClassroomReservation {
   private:
-    TClassroom* classroom;
     TCourse* course;
     int startTime;
     int endTime;
@@ -26,8 +25,7 @@ class TClassroomReservation {
     TDate endDate;
     Tdays days;
   public:
-    TClassroomReservation(TClassroom*, TCourse*, int tini, int tend, TDate dateIni, TDate dateEnd, Tdays days);
-    TClassroom* getClassroom();
+    TClassroomReservation(TCourse*, int tini, int tend, TDate dateIni, TDate dateEnd, Tdays days);
     TCourse* getCourse();
     int getStartTime() const;
     int getEndTime() const;

@@ -26,7 +26,7 @@ void ClassroomsController::addClassroomReservation(int num, int codeCourse, int 
   if (!room->available(startDate, endDate, startTime, endTime, days)) {
     throw std::invalid_argument("Classroom is not available.");
   }
-  TClassroomReservation res(room, c, startTime, endTime, startDate, endDate, days);
+  TClassroomReservation res(c, startTime, endTime, startDate, endDate, days);
   room->addReservation(res);
 
 }
