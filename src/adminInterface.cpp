@@ -126,6 +126,10 @@ void adminInterface::addReservation() {
   vector<DayOfWeek> dow = getDaysOfWeek();
   std::cin.clear();
   std::cin.ignore(999,'\n');
+  if (dow.empty()) {
+    std::cerr << "Error: No days selected.\n";
+    return;
+  }
   try {
     classroomsController.addClassroomReservation(num, cod, tini, tend, fini, fend, dow);
   }

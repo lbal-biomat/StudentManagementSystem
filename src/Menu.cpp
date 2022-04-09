@@ -19,7 +19,7 @@ std::istream &operator>>(std::istream &is, Menu &m) {
   m.input = *std::istream_iterator<int>{is};
 
   if(!m.options.contains(m.input)) {
-    is.setstate(is.rdstate() & std::ios_base::failbit);
+    is.setstate(is.rdstate() | std::ios_base::failbit); //sets a failbit flag if the input value is not an option
   }
 
   return is;

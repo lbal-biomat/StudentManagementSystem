@@ -1,41 +1,29 @@
 
 #include "include/adminInterface.h"
 #include "include/studentInterface.h"
-#include "include/StudentsController.h"
-#include "include/CoursesController.h"
-#include "include/ClassroomsController.h"
+#include "include/Menu.h"
 
+
+void runAsStudent(StudentsController sc, CoursesController cc) {
+  int id = studentInterface::studentLogIn();
+  if (id == -1) {
+    return;
+  }
+  studentInterface st(sc, cc, id);
+  studentInterface::callMenu(st.menu, "Log Out");
+}
 
 int main() {
-  ClassroomsController classroomsController;
-  CoursesController coursesController;
-  StudentsController studentsController;
-  adminInterface ad(studentsController, classroomsController, coursesController);
-  studentInterface st(studentsController, coursesController);
-  Interface *inter;
-  bool exit_all = false;
-  while (!exit_all) {
-    int val;
-    std::cout << " \n0-Login as admin, 1-Login as student, 2-Exit\n";
-    std::cin >> val;
-    if (val == 2) {
-      exit_all = true;
-    }
-    else {
-      if (val == 0) {
-        inter = &ad;
-      }
-      else if (val == 1) {
-        bool valid = st.studentLogIn();
-        if (!valid) { continue;} //go back to main menu
-        inter = &st;
-      }
-      else {
-        std::cerr << "Not an option, try again.\n";
-        continue;
-      }
-      inter->callMenu();
-    }
-  }
+  ClassroomsController clc;
+  CoursesController cc;
+  StudentsController sc;
+  adminInterface ad(sc, clc, cc);
+  Menu menu = {{{0, {"Exit", []{return ;}}},
+                {1, {"Login is admin", [ad]{adminInterface::callMenu(ad.menu, "Log Out");}}},
+                {2, {"Login is student", [sc, cc]{ runAsStudent(sc, cc);}}},
+                }};
+
+  Interface::callMenu(menu, "Exit");
+
   return 0;
 }

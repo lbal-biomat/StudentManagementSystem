@@ -14,9 +14,9 @@ int Interface::getInt(const std::string &message) {
     std::cin >> input;
     if (std::cin.good()) {	valid = true;}
     else {
-      std::cin.clear();
-      std::cin.ignore(999,'\n');
-      std::cerr << "Invalid entry, try again.\n ";
+      std::cin.clear(std::cin.rdstate() & ~std::ios_base::failbit);
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout << "Invalid entry, try again.\n ";
     }
   } while (!valid);
   return input;
@@ -75,20 +75,22 @@ bool Interface::validateID(int numID) {
   return res == valDig;
 }
 
-void Interface::callMenu() {
+void Interface::callMenu(Menu menu, const std::string& exitCall) {
   bool logout = false;
   do {
     std::cout << menu;
-    std::cin >> menu;
-    if (!menu.options.contains(menu.input)) { //bad option
-      std::cerr << "Not a valid option. Try again.\n";
-      std::cin.clear();
-      std::cin.ignore(999, '\n');
-    } else if ((menu.options[menu.input].first == "Log Out")) {
-      logout = true;
+
+    if (std::cin >> menu) {
+      if ((menu.options[menu.input].first == exitCall)) {
+        logout = true;
+      } else {
+        menu.options[menu.input].second();
+      }
     }
-    else { //valid option, not log out, proceed
-      menu.options[menu.input].second();
+    else { //bad option
+      std::cout << "Not a valid option. Try again.\n";
+      std::cin.clear(std::cin.rdstate() & ~std::ios_base::failbit);
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
   } while (!logout);
 
