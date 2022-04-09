@@ -45,3 +45,9 @@ TClassroom::TClassroom() {
   capacity = 0;
   number = 0;
 }
+
+std::ostream& operator<<(std::ostream& os, TClassroom& c) {
+  os << "Classroom number: " << c.getNumber() << "\n";
+  os << "Capacity: " << c.getCapacity() << "\n";
+  return os;
+}

@@ -17,6 +17,8 @@ class studentInterface : public Interface {
     void enrollStudent();
     void unEnrollStudent();
     void printPrerequisites();
+    void printStudentEnrollments();
+    void printStudentTranscript();
   public:
     studentInterface(StudentsController& stctr, CoursesController& crctr);
     bool studentLogIn();
