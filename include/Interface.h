@@ -18,7 +18,7 @@ class Interface {
     static std::vector<DayOfWeek> getDaysOfWeek();
     static bool validateID(int ID);
   public:
-    void callMenu();
+    static void callMenu(Menu menu, const std::string& exitCall);
     Menu menu;
 };
 

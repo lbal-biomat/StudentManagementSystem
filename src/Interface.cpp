@@ -75,7 +75,7 @@ bool Interface::validateID(int numID) {
   return res == valDig;
 }
 
-void Interface::callMenu() {
+void Interface::callMenu(Menu menu, const std::string& exitCall) {
   bool logout = false;
   do {
     std::cout << menu;
