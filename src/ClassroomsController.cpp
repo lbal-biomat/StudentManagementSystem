@@ -39,6 +39,7 @@ std::vector<DTReservation> ClassroomsController::getClassroomsReservations(int n
     DTReservation dtr = r.getDTReservation();
     dtres.push_back(dtr);
   }
+  return  dtres;
 }
 
 bool ClassroomsController::existsClassroom(int classNum) const {
