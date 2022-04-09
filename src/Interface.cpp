@@ -24,19 +24,19 @@ int Interface::getInt(const std::string &message) {
 
 TDate Interface::getDate(const std::string& message) {
   int day, month, year;
-  bool valid = false;
-  do {
-    std::cout << message;
-    std::cin >> day;
-    std::cin >> month;
-    std::cin >> year;
-    if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900) {
-      std::cerr << "Invalid date. Try again.\n";
-    }
-    else {valid = true;}
-  } while (!valid);
-  TDate d(day, month, year);
-  return d;
+  std::cout << message;
+  std::cin >> day;
+  std::cin >> month;
+  std::cin >> year;
+  return {day, month, year};
+}
+
+TTime Interface::getTime(const std::string &message) {
+  int h, m;
+  std::cout << message;
+  std::cin >> h;
+  std::cin >> m;
+  return {h, m};
 }
 
 std::vector<DayOfWeek> Interface::getDaysOfWeek() {

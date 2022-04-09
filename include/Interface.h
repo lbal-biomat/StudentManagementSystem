@@ -8,13 +8,16 @@
 
 #include "Menu.h"
 #include "TDate.h"
+#include "TTime.h"
 #include "DayOfWeek.h"
 #include <vector>
+
 
 class Interface {
   protected:
     static int getInt(const std::string& message);
     static TDate getDate(const std::string& message);
+    static TTime getTime(const std::string& message);
     static std::vector<DayOfWeek> getDaysOfWeek();
     static bool validateID(int ID);
   public:

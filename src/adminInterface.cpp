@@ -100,7 +100,6 @@ void adminInterface::addPreRequisite() {
   std::cout << "Successfully added.\n";
 }
 
-TTime getTime(std::string message);
 
 DTReservation adminInterface::getReservationData() {
   int num = getInt("Enter classroom number: ");
