@@ -12,6 +12,9 @@ TDate::TDate(int d, int m, int y) {
   date.tm_year = y - 1900;
   date.tm_mon = m - 1;
   date.tm_mday = d;
+  if (!isValidDate()) {
+    throw std::invalid_argument("Invalid date");
+  }
 }
 
 TDate::TDate() {
