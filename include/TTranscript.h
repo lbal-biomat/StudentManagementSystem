@@ -14,10 +14,10 @@ class TTranscript {
     int id;
     std::string name;
     std::vector<TApproval> approvals;
-    int avgGrade;
+    float avgGrade;
     int totCredits;
   public:
-    TTranscript(int id, std::string name, std::vector<TApproval> ap, int avgGrade, int totCredits);
+    TTranscript(int id, std::string name, std::vector<TApproval> ap, float avgGrade, int totCredits);
     friend std::ostream &operator<<(std::ostream& os, TTranscript& t);
 
 };

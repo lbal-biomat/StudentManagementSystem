@@ -5,7 +5,7 @@
 #include "../include/TTranscript.h"
 #include <utility>
 
-TTranscript::TTranscript(int id, std::string name, std::vector<TApproval> ap, int avg, int credits) :
+TTranscript::TTranscript(int id, std::string name, std::vector<TApproval> ap, float avg, int credits) :
                     id(id), name(std::move(name)), approvals(std::move(ap)), avgGrade(avg), totCredits(credits) {
 }
 
