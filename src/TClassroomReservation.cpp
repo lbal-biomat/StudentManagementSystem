@@ -7,10 +7,6 @@
 #include <utility>
 
 
-TCourse *TClassroomReservation::getCourse() const {
-  return course;
-}
-
 TTime TClassroomReservation::getStartTime() const {
   return startTime;
 }
@@ -36,6 +32,6 @@ TClassroomReservation::TClassroomReservation(int cl, TCourse* c, TTime tini, TTi
                                              startDate(dini), endDate(dend), days(std::move(days)) {}
 
 DTReservation TClassroomReservation::getDTReservation() const {
-  return {classroom, getCourse()->getCode(), startTime, endTime, startDate, endDate, days};
+  return {classroom, course->getCode(), startTime, endTime, startDate, endDate, days};
 }
 

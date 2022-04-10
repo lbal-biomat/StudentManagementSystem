@@ -14,10 +14,6 @@ int TStudent::getID() const {
   return ID;
 }
 
-string TStudent::getName() const {
-  return name;
-}
-
 vector<TApproval> TStudent::getApprovals() const {
   return approval;
 }
@@ -84,7 +80,7 @@ float TStudent::getAverageGrade() const {
 TStudent::TStudent() : ID(-1){}
 
 DTStudent TStudent::getDTStudent() const {
-  return {getID(),getName()};
+  return {ID, name};
 }
 
 TTranscript TStudent::getTranscript() const {

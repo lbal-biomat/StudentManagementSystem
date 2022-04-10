@@ -24,7 +24,6 @@ class TStudent {
     TStudent();
     TStudent(int ID, string nom);
     int getID() const;
-    string getName() const;
     vector<TApproval> getApprovals() const;
     int getCredits() const;
     float getAverageGrade() const;

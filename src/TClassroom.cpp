@@ -7,14 +7,6 @@
 
 TClassroom::TClassroom(int cod, int cap) : number (cod), capacity (cap) {}
 
-int TClassroom::getNumber() const {
-  return number;
-}
-
-int TClassroom::getCapacity() const {
-  return capacity;
-}
-
 
 bool TClassroom::available(TDate startDate, TDate endDate, TTime horaIni, TTime horaFin, const vector<DayOfWeek>& days) {
   for (auto & res : reservations) {
@@ -52,5 +44,5 @@ DTClassroom TClassroom::getDTClassroom() const {
     DTReservation dtr = r.getDTReservation();
     dtres.push_back(dtr);
   }
-  return {getNumber(), getCapacity(), dtres};
+  return {number, capacity, dtres};
 }

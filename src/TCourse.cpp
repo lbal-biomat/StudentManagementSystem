@@ -59,5 +59,5 @@ void TCourse::addPreRequiredCourse(TCourse* c) {
 }
 
 DTCourse TCourse::getDTCourse() const {
-  return {getCode(), getCredits(), getName()};
+  return {code, credits, name};
 }
