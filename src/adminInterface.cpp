@@ -179,7 +179,10 @@ void adminInterface::printReservations() {
 }
 
 void adminInterface::printCourses() {
-  coursesController.printCourses();
+  std::vector<DTCourse> courses = coursesController.getCoursesInformation();
+  for (auto & c: courses) {
+    std::cout << c;
+  }
 }
 
 void adminInterface::printStudents() {

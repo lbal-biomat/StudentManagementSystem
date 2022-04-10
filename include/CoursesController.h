@@ -17,7 +17,7 @@ class CoursesController {
     void printEnrolledStudents(int courseCode);
     void addPreRequiredCourse(int code, int requiredCode);
     std::vector<DTCourse> getPrerequisiteCourses(int codeCourse);
-    void printCourses();
+    std::vector<DTCourse> getCoursesInformation();
     [[nodiscard]] bool existsCourse(int code) const;
 
 };

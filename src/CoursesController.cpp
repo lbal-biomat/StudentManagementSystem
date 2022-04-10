@@ -38,10 +38,13 @@ std::vector<DTCourse> CoursesController::getPrerequisiteCourses(int codeCourse) 
   return dtc;
 }
 
-void CoursesController::printCourses() {
-  for( std::pair<const int, TCourse>& courses : repoCourses.courses ) {
-    std::cout << courses.second << std::endl;
+std::vector<DTCourse> CoursesController::getCoursesInformation() {
+  std::vector<DTCourse> dtcourses;
+  for( std::pair<const int, TCourse>& course : repoCourses.courses ) {
+    DTCourse dtc = course.second.getDTCourse();
+    dtcourses.push_back(dtc);
   }
+  return dtcourses;
 }
 
 bool CoursesController::existsCourse(int code) const {
