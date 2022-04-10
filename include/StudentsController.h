@@ -25,7 +25,7 @@ class StudentsController {
     void unenrollStudentFromCourse(int ID, int code);
     std::vector<DTCourse> getStudentEnrollments(int ID);
     void printStudentTranscript(int ID);
-    void printStudents();
+    std::vector<DTStudent> getStudentsInformation();
     [[nodiscard]] bool existsStudent(int ID) const;
     [[nodiscard]] bool existsCourse(int cod) const;
     StudentsController() = default;

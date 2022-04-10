@@ -189,7 +189,10 @@ void adminInterface::printCourses() {
 }
 
 void adminInterface::printStudents() {
-  studentsController.printStudents();
+  std::vector<DTStudent> st = studentsController.getStudentsInformation();
+  for (auto & s: st) {
+    std::cout << s;
+  }
 }
 
 void adminInterface::isAvailableClassroom() {

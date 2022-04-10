@@ -65,11 +65,14 @@ void StudentsController::printStudentTranscript(int ID) {
 
 }
 
-void StudentsController::printStudents() {
+std::vector<DTStudent> StudentsController::getStudentsInformation() {
+  std::vector<DTStudent> res;
+  res.reserve(repoStudents.students.size());
   for( std::pair<const int, TStudent>& st : repoStudents.students ) {
-    std::cout << st.second << std::endl;
+    DTStudent dts = st.second.getDTStudent();
+    res.push_back(dts);
   }
-
+  return res;
 }
 
 bool StudentsController::existsStudent(int ID) const {
