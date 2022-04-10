@@ -11,9 +11,6 @@ TCourse* TApproval::getCourse() const {
   return course;
 }
 
-TDate TApproval::getDateOfApproval() const {
-  return date;
-}
 
 int TApproval::getGrade() const {
   return grade;
