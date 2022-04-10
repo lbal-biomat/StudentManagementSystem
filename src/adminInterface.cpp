@@ -150,7 +150,10 @@ void adminInterface::printCourseEnrollments() {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
-  coursesController.printEnrolledStudents(cod);
+  std::vector<DTStudent> stds = coursesController.getEnrolledStudents(cod);
+  for (auto & s : stds) {
+    std::cout << s;
+  }
 }
 
 

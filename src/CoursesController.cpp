@@ -12,12 +12,14 @@ void CoursesController::addCourse(int code, int credits, std::string name, int m
   repoCourses.courses[code] = TCourse(code, credits, std::move(name), maxStudents);
 }
 
-void CoursesController::printEnrolledStudents(int courseCode) {
+std::vector<DTStudent> CoursesController::getEnrolledStudents(int courseCode) {
   assert (existsCourse(courseCode));
+  std::vector<DTStudent> students;
   TCourse course = repoCourses.courses[courseCode];
   for (auto & s: course.getEnrolledStudents()) {
-    std::cout << *s << std::endl;
+    students.push_back(s->getDTStudent());
   }
+  return students;
 }
 
 void CoursesController::addPreRequiredCourse(int code, int requiredCode) {
