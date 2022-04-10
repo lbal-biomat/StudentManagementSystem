@@ -160,7 +160,10 @@ void adminInterface::printPrerequisites() {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
-  coursesController.printPrerequisiteCourses(cod);
+  std::vector<DTCourse> pre = coursesController.getPrerequisiteCourses(cod);
+  for (auto & p : pre) {
+    std::cout << p;
+  }
 }
 
 void adminInterface::printReservations() {

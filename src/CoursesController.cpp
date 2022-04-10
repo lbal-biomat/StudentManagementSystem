@@ -4,6 +4,7 @@
 
 #include "../include/CoursesController.h"
 #include "../include/TStudent.h"
+#include "../include/DTCourse.h"
 #include <iostream>
 #include <cassert>
 
@@ -27,17 +28,19 @@ void CoursesController::addPreRequiredCourse(int code, int requiredCode) {
   c->addPreRequiredCourse(pre);
 }
 
-void CoursesController::printPrerequisiteCourses(int codeCourse) {
+std::vector<DTCourse> CoursesController::getPrerequisiteCourses(int codeCourse) {
   assert (existsCourse(codeCourse));
   TCourse course = repoCourses.courses[codeCourse];
+  std::vector<DTCourse> dtc;
   for (auto & c: course.getPrerequisiteCourses()) {
-    std::cout << *c << std::endl;
+    dtc.push_back(c->getDTCourse());
   }
+  return dtc;
 }
 
 void CoursesController::printCourses() {
-  for( std::pair<const int, TCourse>& st : repoCourses.courses ) {
-    std::cout << st.second << std::endl;
+  for( std::pair<const int, TCourse>& courses : repoCourses.courses ) {
+    std::cout << courses.second << std::endl;
   }
 }
 
