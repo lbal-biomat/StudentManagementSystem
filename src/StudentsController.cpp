@@ -13,6 +13,7 @@ void StudentsController::registerStudent(int ID, std::string name) {
 
 void StudentsController::addApprovalToStudent(int ID, int courseCod, int grade, TDate date) {
   assert (existsStudent(ID));
+  assert(existsCourse(courseCod));
   TStudent* st = &repoStudents.students[ID];
   if (st->hasApproval(courseCod)) {
     throw std::invalid_argument("There is an approvals for this course in the student's records.");
@@ -24,6 +25,7 @@ void StudentsController::addApprovalToStudent(int ID, int courseCod, int grade, 
 
 void StudentsController::enrollStudentInCourse(int ID, int code) {
   assert (existsStudent(ID));
+  assert(existsCourse(code));
   TStudent* est = &repoStudents.students[ID];
   if (est->isEnrolled(code)) {
     throw std::invalid_argument("Student is already enrolled.");
@@ -36,6 +38,7 @@ void StudentsController::enrollStudentInCourse(int ID, int code) {
 
 void StudentsController::unenrollStudentFromCourse(int ID, int code) {
   assert (existsStudent(ID));
+  assert(existsCourse(code));
   TStudent* est = &repoStudents.students[ID];
   if (!est->isEnrolled(code)) {
     throw std::invalid_argument("Student isn't enrolled in this course.");
