@@ -53,7 +53,10 @@ void studentInterface::printPrerequisites() {
 
 
 void studentInterface::printStudentEnrollments() {
-  studentsController.printStudentEnrollments(student);
+  std::vector<DTCourse> enr = studentsController.getStudentEnrollments(student);
+  for (auto & e : enr) {
+    std::cout << e;
+  }
 }
 
 void studentInterface::printStudentTranscript() {

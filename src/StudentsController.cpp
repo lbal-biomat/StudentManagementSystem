@@ -47,13 +47,15 @@ void StudentsController::unenrollStudentFromCourse(int ID, int code) {
 
 }
 
-void StudentsController::printStudentEnrollments(int ID) {
+std::vector<DTCourse> StudentsController::getStudentEnrollments(int ID) {
   assert(existsStudent(ID));
+  std::vector<DTCourse> courses;
   auto enr = repoStudents.students[ID].getCurrentEnrollments();
+  courses.reserve(enr.size());
   for (auto & e : enr) {
-    std::cout << *e << std::endl;
+    courses.push_back(e->getDTCourse());
   }
-
+  return courses;
 }
 
 void StudentsController::printStudentTranscript(int ID) {

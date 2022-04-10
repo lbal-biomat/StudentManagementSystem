@@ -23,7 +23,7 @@ class StudentsController {
     void addApprovalToStudent(int ID, int courseNum, int grade, TDate date);
     void enrollStudentInCourse(int ID, int code);
     void unenrollStudentFromCourse(int ID, int code);
-    void printStudentEnrollments(int ID);
+    std::vector<DTCourse> getStudentEnrollments(int ID);
     void printStudentTranscript(int ID);
     void printStudents();
     [[nodiscard]] bool existsStudent(int ID) const;
