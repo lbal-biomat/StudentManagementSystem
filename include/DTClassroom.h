@@ -17,7 +17,7 @@ class DTClassroom {
     std::vector<DTReservation> reservations;
 
   public:
-    DTClassroom(int cod, int cap);
+    DTClassroom(int num, int cap, std::vector<DTReservation> res);
     int getNumber() const;
     int getCapacity() const;
     std::vector<DTReservation> getReservations();

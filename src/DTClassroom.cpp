@@ -4,9 +4,12 @@
 
 #include "../include/DTClassroom.h"
 
+#include <utility>
 
 
-DTClassroom::DTClassroom(int num, int cap) : number(num), capacity(cap) {}
+
+DTClassroom::DTClassroom(int num, int cap, std::vector<DTReservation> res) :
+                        number(num), capacity(cap), reservations(std::move(res)) {}
 
 int DTClassroom::getNumber() const {
   return number;
