@@ -201,7 +201,8 @@ void adminInterface::printClassroomInformation() {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
-  classroomsController.getClassroomInformation(num);
+  DTClassroom cl = classroomsController.getClassroomInformation(num);
+  std::cout << cl;
 }
 
 
