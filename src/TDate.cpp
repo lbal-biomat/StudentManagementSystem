@@ -17,10 +17,6 @@ TDate::TDate(int d, int m, int y) {
   }
 }
 
-TDate::TDate() {
-  date = {};
-}
-
 int TDate::getDay() const {
   return date.tm_mday;
 }

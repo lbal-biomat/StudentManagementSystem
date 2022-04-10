@@ -5,7 +5,6 @@
 #ifndef SISTEMABEDELIA_DTSTUDENT_H
 #define SISTEMABEDELIA_DTSTUDENT_H
 
-#include "DTCourse.h"
 #include "TApproval.h"
 #include <vector>
 #include <string>

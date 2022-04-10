@@ -22,11 +22,11 @@ std::string DTCourse::getName() {
   return name;
 }
 
-std::vector<DTCourse *> DTCourse::getPrerequisiteCourses() {
+std::vector<DTCourse> DTCourse::getPrerequisiteCourses() {
   return prerequisiteCourses;
 }
 
-std::vector<DTStudent *> DTCourse::getEnrolledStudents() {
+std::vector<DTStudent> DTCourse::getEnrolledStudents() {
   return enrolledStudents;
 }
 
