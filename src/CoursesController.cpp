@@ -4,7 +4,6 @@
 
 #include "../include/CoursesController.h"
 #include "../include/TStudent.h"
-#include "../include/DTCourse.h"
 #include <iostream>
 #include <cassert>
 

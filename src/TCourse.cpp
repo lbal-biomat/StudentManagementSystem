@@ -65,10 +65,3 @@ void TCourse::addPreRequiredCourse(TCourse* c) {
 DTCourse TCourse::getDTCourse() {
   return {getCode(), getCredits(), getName(), getMaxStudents()};
 }
-
-std::ostream& operator<<(std::ostream& os, TCourse& c) {
-  os << "Name: " << c.getName() << std::endl;
-  os << "Code: " << c.getCode() << std::endl;
-  os << "Credits awarded: " << c.getCredits() << std:: endl;
-  return os;
-}
