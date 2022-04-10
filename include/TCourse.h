@@ -5,6 +5,7 @@
 #ifndef SISTEMABEDELIA_TCOURSE_H
 #define SISTEMABEDELIA_TCOURSE_H
 
+#include "DTCourse.h"
 #include <vector>
 #include <string>
 
@@ -33,6 +34,7 @@ class TCourse {
     void addStudent(TStudent*);
     void unenrollStudent(int ID);
     int getMaxStudents() const;
+    DTCourse getDTCourse();
 };
 
 std::ostream& operator<<(std::ostream& os, TCourse& c);
