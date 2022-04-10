@@ -18,20 +18,20 @@ class TStudent {
   private:
     int ID; //Students are identified by the ID
     string name;
-    vector<TApproval> approval;
+    vector<TApproval> approvals;
     vector<TCourse*> enrollments;
   public:
     TStudent();
     TStudent(int ID, string nom);
     int getID() const;
-    vector<TApproval> getApprovals() const;
     int getCredits() const;
     float getAverageGrade() const;
     vector<TCourse*> getCurrentEnrollments() const;
+    bool isEnrolled(int courseCode);
     void enroll(TCourse* course);
     void unenroll(int cod);
+    bool hasApproval(int courseCode) const;
     void addApproval(TApproval a);
-    bool isEnrolled(int courseCode);
     DTStudent getDTStudent() const;
     TTranscript getTranscript() const;
 };

@@ -14,10 +14,8 @@ void StudentsController::registerStudent(int ID, std::string name) {
 void StudentsController::addApprovalToStudent(int ID, int courseCod, int grade, TDate date) {
   assert (existsStudent(ID));
   TStudent* st = &repoStudents.students[ID];
-  for (auto & a : st->getApprovals()) {
-    if (a.getCourse()->getCode() == courseCod) {
-      throw std::invalid_argument("There is an approval for this course in the student's records.");
-    }
+  if (st->hasApproval(courseCod)) {
+    throw std::invalid_argument("There is an approvals for this course in the student's records.");
   }
   TCourse* c = &repoCourses.courses[courseCod];
   st->addApproval({c, grade, date});
@@ -31,7 +29,7 @@ void StudentsController::enrollStudentInCourse(int ID, int code) {
     throw std::invalid_argument("Student is already enrolled.");
   }
   TCourse* course = &repoCourses.courses[code];
-  course->addStudent(est);
+  course->enrollStudent(est);
   est->enroll(course);
 
 }

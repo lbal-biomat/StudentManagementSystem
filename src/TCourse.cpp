@@ -27,11 +27,9 @@ vector<TStudent *> TCourse::getEnrolledStudents() const {
   return enrolledStudents;
 }
 
-void TCourse::addStudent(TStudent *s) {
+void TCourse::enrollStudent(TStudent *s) {
   for (auto &course: prerequisiteCourses) {
-    if (std::none_of(s->getApprovals().begin(), s->getApprovals().end(), \
-            [course](TApproval &a) { return course->getCode() == a.getCourse()->getCode(); })) {
-      //student doesn't meet the prerequisite of this course
+    if (!s->hasApproval(course->getCode())) {
       throw std::invalid_argument("Student doesn't meet the prerequisites of this course.");
     }
   }

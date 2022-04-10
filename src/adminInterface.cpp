@@ -68,7 +68,7 @@ void adminInterface::addApproval() {
     grade = getInt("Enter grade: ");
   }
   try {
-    TDate d = getDate("Enter date of approval: ");
+    TDate d = getDate("Enter date of approvals: ");
     studentsController.addApprovalToStudent(ID, cod, grade, d);
   }
   catch (std::invalid_argument& err) {
@@ -223,7 +223,7 @@ adminInterface::adminInterface(StudentsController& stcont, ClassroomsController&
            {2, {"Add classroom", [this]{return addClassroom();}}},
            {3, {"Add course", [this]{return addCourse();}}},
            {4, {"Print enrolled students in course", [this]{return printCourseEnrollments();}}},
-           {5, {"Add approval to student records", [this]{return addApproval();}}},
+           {5, {"Add approvals to student records", [this]{return addApproval();}}},
            {6, {"Print course prerequisites", [this]{return printPrerequisites();}}},
            {7, {"Add prerequisite to course", [this]{return addPreRequisite();}}},
            {8, {"Print classroom information", [this]{return printClassroomInformation();}}},

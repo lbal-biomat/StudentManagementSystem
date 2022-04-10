@@ -30,7 +30,7 @@ class TCourse {
     void addPreRequiredCourse(TCourse*);
     vector<TCourse*> getPrerequisiteCourses() const;
     vector<TStudent*> getEnrolledStudents() const;
-    void addStudent(TStudent*);
+    void enrollStudent(TStudent *s);
     void unenrollStudent(int ID);
     DTCourse getDTCourse() const;
 };
