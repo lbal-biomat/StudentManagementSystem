@@ -44,7 +44,6 @@ bool TDate::operator>(TDate f) {
 
 std::ostream& operator<<(std::ostream& os, TDate& f) {
   os << f.getDay() << '/' << f.getMonth() + 1 << '/' << f.getYear() + 1900;
-  os << asctime(&f.date);
   return os;
 }
 

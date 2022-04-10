@@ -111,8 +111,8 @@ DTReservation adminInterface::getReservationData() {
   if (!(fini < fend)) {
     throw std::invalid_argument("Error: End date must come after the start date.\n");
   }
-  TTime tini = getTime("Enter start time in military time: ");
-  TTime tend = getTime("Enter end time in military time: ");
+  TTime tini = getTime("Enter start time as HH MM: ");
+  TTime tend = getTime("Enter end time as HH MM: ");
   if (!(tini < tend)) {
     throw std::invalid_argument("Error: End time must come after the start time.\n");
   }
@@ -152,7 +152,7 @@ void adminInterface::printCourseEnrollments() {
   }
   std::vector<DTStudent> stds = coursesController.getEnrolledStudents(cod);
   for (auto & s : stds) {
-    std::cout << s;
+    std::cout << s << "\n";
   }
 }
 
@@ -165,7 +165,7 @@ void adminInterface::printPrerequisites() {
   }
   std::vector<DTCourse> pre = coursesController.getPrerequisiteCourses(cod);
   for (auto & p : pre) {
-    std::cout << p;
+    std::cout << p << "\n";
   }
 }
 
@@ -177,21 +177,21 @@ void adminInterface::printReservations() {
   }
   std::vector<DTReservation> res = classroomsController.getClassroomsReservations(num);
   for (auto & r: res) {
-    std::cout << r;
+    std::cout << r << "\n";
   }
 }
 
 void adminInterface::printCourses() {
   std::vector<DTCourse> courses = coursesController.getCoursesInformation();
   for (auto & c: courses) {
-    std::cout << c;
+    std::cout << c << "\n";
   }
 }
 
 void adminInterface::printStudents() {
   std::vector<DTStudent> st = studentsController.getStudentsInformation();
   for (auto & s: st) {
-    std::cout << s;
+    std::cout << s << "\n";
   }
 }
 
@@ -214,7 +214,7 @@ void adminInterface::printClassroomInformation() {
     return;
   }
   DTClassroom cl = classroomsController.getClassroomInformation(num);
-  std::cout << cl;
+  std::cout << cl << "\n";
 }
 
 

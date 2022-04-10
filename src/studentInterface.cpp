@@ -47,7 +47,7 @@ void studentInterface::printPrerequisites() {
   }
   std::vector<DTCourse> pre = coursesController.getPrerequisiteCourses(cod);
   for (auto & p : pre) {
-    std::cout << p;
+    std::cout << p << "\n";
   }
 }
 
@@ -55,13 +55,13 @@ void studentInterface::printPrerequisites() {
 void studentInterface::printStudentEnrollments() {
   std::vector<DTCourse> enr = studentsController.getStudentEnrollments(student);
   for (auto & e : enr) {
-    std::cout << e;
+    std::cout << e << "\n";
   }
 }
 
 void studentInterface::printStudentTranscript() {
   TTranscript t = studentsController.getStudentTranscript(student);
-  std::cout << t;
+  std::cout << t << "\n";
 }
 
 
