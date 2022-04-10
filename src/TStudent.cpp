@@ -98,6 +98,10 @@ DTStudent TStudent::getDTStudent() {
   return {getID(),getName()};
 }
 
+TTranscript TStudent::getTranscript() {
+  return {ID, name, approval, getAverageGrade(), getCredits()};
+}
+
 std::ostream& operator<<(std::ostream& os, TStudent& e) {
   os << "Name: " << e.getName() << endl;
   os << "ID: " << e.getID() << endl;

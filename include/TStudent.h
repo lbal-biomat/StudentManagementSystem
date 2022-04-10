@@ -7,6 +7,7 @@
 
 #include "TApproval.h"
 #include "DTStudent.h"
+#include "TTranscript.h"
 #include <vector>
 #include <string>
 
@@ -34,6 +35,7 @@ class TStudent {
     bool isEnrolled(int courseCode);
     void printTranscripts();
     DTStudent getDTStudent();
+    TTranscript getTranscript();
 };
 
 std::ostream& operator<<(std::ostream& os, TStudent& s);
