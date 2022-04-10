@@ -23,7 +23,7 @@ class ClassroomsController {
     void addClassroom(int num, int capacity);
 
     /*Pre: existsClassroom(num) */
-    void printClassroomInformation(int num);
+    DTClassroom getClassroomInformation(int num);
 
     /*Responsibility: returns true if the classroom c such that c.getNumber() == num is available for the given days,
       date and time, returns false otherwise

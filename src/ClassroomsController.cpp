@@ -12,8 +12,8 @@ void ClassroomsController::addClassroom(int num, int capacity) {
 
 }
 
-void ClassroomsController::printClassroomInformation(int num) {
- std::cout << repoClassrooms.classrooms[num] << "\n";
+DTClassroom ClassroomsController::getClassroomInformation(int num) {
+ return repoClassrooms.classrooms[num].getDTClassroom();
 }
 
 
