@@ -94,6 +94,10 @@ void TStudent::printTranscripts() {
 
 TStudent::TStudent() : ID(-1){}
 
+DTStudent TStudent::getDTStudent() {
+  return {getID(),getName()};
+}
+
 std::ostream& operator<<(std::ostream& os, TStudent& e) {
   os << "Name: " << e.getName() << endl;
   os << "ID: " << e.getID() << endl;

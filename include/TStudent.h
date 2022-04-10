@@ -6,7 +6,7 @@
 #define SISTEMABEDELIA_TSTUDENT_H
 
 #include "TApproval.h"
-
+#include "DTStudent.h"
 #include <vector>
 #include <string>
 
@@ -33,6 +33,7 @@ class TStudent {
     void addApproval(TApproval a);
     bool isEnrolled(int courseCode);
     void printTranscripts();
+    DTStudent getDTStudent();
 };
 
 std::ostream& operator<<(std::ostream& os, TStudent& s);
