@@ -22,11 +22,11 @@ class ClassroomsController {
      * Post: existsClassroom(num) */
     void addClassroom(int num, int capacity);
 
-    /*Pre: existsClassroom(num) */
+    /* Pre: existsClassroom(num) */
     DTClassroom getClassroomInformation(int num);
 
-    /*Responsibility: returns true if the classroom c such that c.getNumber() == num is available for the given days,
-      date and time, returns false otherwise
+    /* Responsibility: returns true if the classroom c such that c.getNumber() == num is available for the given days,
+       date and time, returns false otherwise
      * Pre: existsClassroom(num) */
     bool isAvailable(int num, TTime startTime, TTime endTime, TDate startDate,
                      TDate endDate, const std::vector<DayOfWeek>& days);
@@ -39,12 +39,12 @@ class ClassroomsController {
     void addClassroomReservation(int num, int codeCourse, TTime startTime, TTime endTime, TDate startDate,
                                  TDate endDate, const std::vector<DayOfWeek>& days);
 
-    /*Responsibility: Returns a vector of DTReservations for the classroom c such that c.getNumber() == num
+    /* Responsibility: Returns a vector of DTReservations for the classroom c such that c.getNumber() == num
      * Pre: existsClassroom(num) */
     std::vector<DTReservation> getClassroomsReservations(int num);
 
-    /*Responsibility: returns true if there is a classroom c in the system such that c.getNum() == num,
-     * returns false otherwise */
+    /* Responsibility: returns true if there is a classroom c in the system such that c.getNum() == num,
+       returns false otherwise */
     [[nodiscard]] bool existsClassroom(int num) const;
 };
 
