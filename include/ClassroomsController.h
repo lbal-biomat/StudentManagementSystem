@@ -39,7 +39,7 @@ class ClassroomsController {
     void addClassroomReservation(int num, int codeCourse, TTime startTime, TTime endTime, TDate startDate,
                                  TDate endDate, const std::vector<DayOfWeek>& days);
 
-    /*Responsibility: prints the information for every reservation for the classroom c such that c.getNumber() == num
+    /*Responsibility: Returns a vector of DTReservations for the classroom c such that c.getNumber() == num
      * Pre: existsClassroom(num) */
     std::vector<DTReservation> getClassroomsReservations(int num);
 
