@@ -26,8 +26,8 @@ class TClassroom {
     int getCapacity() const;
     bool available(TDate startDate, TDate endDate, TTime timeStart, TTime timeEnd, const vector<DayOfWeek>& days);
     void addReservation(const TClassroomReservation&);
-    vector<TClassroomReservation> getReservations();
-    DTClassroom getDTClassroom();
+    vector<TClassroomReservation> getReservations() const;
+    DTClassroom getDTClassroom() const;
 };
 
 

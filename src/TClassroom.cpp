@@ -37,7 +37,7 @@ void TClassroom::addReservation(const TClassroomReservation& res) {
   reservations.push_back(res);
 }
 
-vector<TClassroomReservation> TClassroom::getReservations() {
+vector<TClassroomReservation> TClassroom::getReservations() const {
   return reservations;
 }
 
@@ -46,11 +46,11 @@ TClassroom::TClassroom() {
   number = 0;
 }
 
-DTClassroom TClassroom::getDTClassroom() {
+DTClassroom TClassroom::getDTClassroom() const {
   std::vector<DTReservation> dtres;
   for (auto & r : reservations) {
     DTReservation dtr = r.getDTReservation();
     dtres.push_back(dtr);
   }
-  return {number, capacity, dtres};
+  return {getNumber(), getCapacity(), dtres};
 }

@@ -4,12 +4,11 @@
 
 #include "../include/CoursesController.h"
 #include "../include/TStudent.h"
-#include <iostream>
 #include <cassert>
 
-void CoursesController::addCourse(int code, int credits, std::string name, int maxStudents) {
+void CoursesController::addCourse(int code, int credits, std::string name) {
   assert(!existsCourse(code));
-  repoCourses.courses[code] = TCourse(code, credits, std::move(name), maxStudents);
+  repoCourses.courses[code] = TCourse(code, credits, std::move(name));
 }
 
 std::vector<DTStudent> CoursesController::getEnrolledStudents(int courseCode) {

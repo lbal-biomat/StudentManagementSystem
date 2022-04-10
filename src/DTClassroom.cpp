@@ -19,7 +19,7 @@ int DTClassroom::getCapacity() const {
   return capacity;
 }
 
-std::vector<DTReservation> DTClassroom::getReservations() {
+std::vector<DTReservation> DTClassroom::getReservations() const {
   return reservations;
 }
 

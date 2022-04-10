@@ -24,17 +24,17 @@ class TStudent {
     TStudent();
     TStudent(int ID, string nom);
     int getID() const;
-    string getName();
-    vector<TApproval> getApprovals();
-    int getCredits();
-    float getAverageGrade();
-    vector<TCourse*> getCurrentEnrollments();
+    string getName() const;
+    vector<TApproval> getApprovals() const;
+    int getCredits() const;
+    float getAverageGrade() const;
+    vector<TCourse*> getCurrentEnrollments() const;
     void enroll(TCourse* course);
     void unenroll(int cod);
     void addApproval(TApproval a);
     bool isEnrolled(int courseCode);
-    DTStudent getDTStudent();
-    TTranscript getTranscript();
+    DTStudent getDTStudent() const;
+    TTranscript getTranscript() const;
 };
 
 #endif//SISTEMABEDELIA_TSTUDENT_H

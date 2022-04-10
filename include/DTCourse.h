@@ -15,17 +15,11 @@ class DTCourse {
     int code; //Courses are identified by the code
     int credits;
     std::string name;
-    std::vector<DTCourse> prerequisiteCourses;
-    std::vector<DTStudent> enrolledStudents;
-    int maxStudents;
   public:
-    DTCourse(int cod, int cred, std::string nom, int maxSt);
+    DTCourse(int cod, int cred, std::string nom);
     int getCode() const;
     int getCredits() const;
-    std::string getName();
-    std::vector<DTCourse> getPrerequisiteCourses();
-    std::vector<DTStudent> getEnrolledStudents();
-    int getMaxStudents() const;
+    std::string getName() const;
 
 };
 

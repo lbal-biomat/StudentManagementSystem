@@ -20,7 +20,7 @@ class DTClassroom {
     DTClassroom(int num, int cap, std::vector<DTReservation> res);
     int getNumber() const;
     int getCapacity() const;
-    std::vector<DTReservation> getReservations();
+    std::vector<DTReservation> getReservations() const;
 };
 
 std::ostream& operator<<(std::ostream& os, DTClassroom& c);

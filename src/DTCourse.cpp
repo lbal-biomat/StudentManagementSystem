@@ -7,8 +7,8 @@
 
 #include <utility>
 
-DTCourse::DTCourse(int cod, int cred, std::string nom, int maxSt) :
-                  code(cod), credits(cred), name(std::move(nom)), maxStudents(maxSt) {}
+DTCourse::DTCourse(int cod, int cred, std::string nom) :
+                  code(cod), credits(cred), name(std::move(nom)) {}
 
 int DTCourse::getCode() const {
   return code;
@@ -18,20 +18,8 @@ int DTCourse::getCredits() const {
   return credits;
 }
 
-std::string DTCourse::getName() {
+std::string DTCourse::getName() const {
   return name;
-}
-
-std::vector<DTCourse> DTCourse::getPrerequisiteCourses() {
-  return prerequisiteCourses;
-}
-
-std::vector<DTStudent> DTCourse::getEnrolledStudents() {
-  return enrolledStudents;
-}
-
-int DTCourse::getMaxStudents() const {
-  return maxStudents;
 }
 
 std::ostream& operator<<(std::ostream& os, DTCourse& c) {

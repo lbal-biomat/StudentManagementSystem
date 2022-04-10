@@ -13,7 +13,7 @@ class CoursesController {
   private:
     CoursesRepo& repoCourses = CoursesRepo::GetInstance();
   public:
-    void addCourse(int code, int credits, std::string name, int maxStudents);
+    void addCourse(int code, int credits, std::string name);
     std::vector<DTStudent> getEnrolledStudents(int courseCode);
     void addPreRequiredCourse(int code, int requiredCode);
     std::vector<DTCourse> getPrerequisiteCourses(int codeCourse);

@@ -28,9 +28,9 @@ class DTReservation {
     int getCourse() const;
     TTime getStartTime() const;
     TTime getEndTime() const;
-    TDate getStartDate();
-    TDate getEndDate();
-    Tdays getDays();
+    TDate getStartDate() const;
+    TDate getEndDate() const;
+    Tdays getDays() const;
 };
 
 std::ostream& operator<<(std::ostream& os, DTReservation& c);

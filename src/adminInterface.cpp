@@ -47,8 +47,7 @@ void adminInterface::addCourse() {
   std::cout << "Enter course name: ";
   std::cin >> name;
   int cred = getInt("Enter course credits: ");
-  int max = getInt("Enter course maximum number of students: ");
-  coursesController.addCourse(cod, cred, name, max);
+  coursesController.addCourse(cod, cred, name);
   std::cout << "Successfully added.\n";
 }
 

@@ -7,7 +7,7 @@
 #include <utility>
 
 
-TCourse *TClassroomReservation::getCourse() {
+TCourse *TClassroomReservation::getCourse() const {
   return course;
 }
 
@@ -19,15 +19,15 @@ TTime TClassroomReservation::getEndTime() const {
   return endTime;
 }
 
-TDate TClassroomReservation::getStartDate() {
+TDate TClassroomReservation::getStartDate() const {
   return startDate;
 }
 
-TDate TClassroomReservation::getEndDate() {
+TDate TClassroomReservation::getEndDate() const {
   return endDate;
 }
 
-std::vector<DayOfWeek> TClassroomReservation::getDays() {
+std::vector<DayOfWeek> TClassroomReservation::getDays() const {
   return days;
 }
 
@@ -35,7 +35,7 @@ TClassroomReservation::TClassroomReservation(int cl, TCourse* c, TTime tini, TTi
                                              Tdays days) : classroom(cl), course(c), startTime(tini), endTime(tend),
                                              startDate(dini), endDate(dend), days(std::move(days)) {}
 
-DTReservation TClassroomReservation::getDTReservation() {
-  return {classroom, course ->getCode(), startTime, endTime, startDate, endDate, days};
+DTReservation TClassroomReservation::getDTReservation() const {
+  return {classroom, getCourse()->getCode(), startTime, endTime, startDate, endDate, days};
 }
 

@@ -19,15 +19,15 @@ TTime DTReservation::getEndTime() const {
   return endTime;
 }
 
-TDate DTReservation::getStartDate() {
+TDate DTReservation::getStartDate() const {
   return startDate;
 }
 
-TDate DTReservation::getEndDate() {
+TDate DTReservation::getEndDate() const {
   return endDate;
 }
 
-Tdays DTReservation::getDays() {
+Tdays DTReservation::getDays() const {
   return days;
 }
 

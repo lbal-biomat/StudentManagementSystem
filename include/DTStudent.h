@@ -16,7 +16,7 @@ class DTStudent {
   public:
     DTStudent(int ID, std::string nom);
     int getID() const;
-    std::string getName();
+    std::string getName() const;
 };
 
 std::ostream& operator<<(std::ostream& os, DTStudent& s);

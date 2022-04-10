@@ -21,20 +21,18 @@ class TCourse {
     string name;
     vector<TCourse*> prerequisiteCourses;
     vector<TStudent*> enrolledStudents;
-    int maxStudents;
   public:
     TCourse();
-    TCourse(int cod, int cred, string nom, int maxSt);
+    TCourse(int cod, int cred, string nom);
     int getCode() const;
     int getCredits() const;
-    string getName();
+    string getName() const;
     void addPreRequiredCourse(TCourse*);
-    vector<TCourse*> getPrerequisiteCourses();
-    vector<TStudent*> getEnrolledStudents();
+    vector<TCourse*> getPrerequisiteCourses() const;
+    vector<TStudent*> getEnrolledStudents() const;
     void addStudent(TStudent*);
     void unenrollStudent(int ID);
-    int getMaxStudents() const;
-    DTCourse getDTCourse();
+    DTCourse getDTCourse() const;
 };
 
 #endif //SISTEMABEDELIA_TCOURSE_H

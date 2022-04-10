@@ -7,11 +7,11 @@
 
 TApproval::TApproval(TCourse* c, int n, TDate f) : course(c), grade(n), date(f) {}
 
-TCourse* TApproval::getCourse() {
+TCourse* TApproval::getCourse() const {
   return course;
 }
 
-TDate TApproval::getDateOfApproval() {
+TDate TApproval::getDateOfApproval() const {
   return date;
 }
 

@@ -12,7 +12,7 @@ int DTStudent::getID() const {
   return id;
 }
 
-std::string DTStudent::getName() {
+std::string DTStudent::getName() const {
   return name;
 }
 

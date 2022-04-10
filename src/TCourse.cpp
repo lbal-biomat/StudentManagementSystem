@@ -15,15 +15,15 @@ int TCourse::getCredits() const {
   return credits;
 }
 
-string TCourse::getName() {
+string TCourse::getName() const {
   return name;
 }
 
-vector<TCourse *> TCourse::getPrerequisiteCourses() {
+vector<TCourse *> TCourse::getPrerequisiteCourses() const {
   return prerequisiteCourses;
 }
 
-vector<TStudent *> TCourse::getEnrolledStudents() {
+vector<TStudent *> TCourse::getEnrolledStudents() const {
   return enrolledStudents;
 }
 
@@ -46,22 +46,18 @@ void TCourse::unenrollStudent(int ID) {
 }
 
 
-TCourse::TCourse(int cod, int cred, string nom, int max) : code(cod), credits(cred), name(std::move(nom)), maxStudents(max) {}
+TCourse::TCourse(int cod, int cred, string nom) : code(cod), credits(cred), name(std::move(nom)) {}
 
-int TCourse::getMaxStudents() const {
-  return maxStudents;
-}
 
 TCourse::TCourse() {
   code = 0;
   credits = 0;
-  maxStudents = 0;
 }
 
 void TCourse::addPreRequiredCourse(TCourse* c) {
   prerequisiteCourses.push_back(c);
 }
 
-DTCourse TCourse::getDTCourse() {
-  return {getCode(), getCredits(), getName(), getMaxStudents()};
+DTCourse TCourse::getDTCourse() const {
+  return {getCode(), getCredits(), getName()};
 }

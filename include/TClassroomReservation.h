@@ -29,13 +29,13 @@ class TClassroomReservation {
     Tdays days;
   public:
     TClassroomReservation(int classroom, TCourse*, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
-    TCourse* getCourse();
+    TCourse* getCourse() const;
     TTime getStartTime() const;
     TTime getEndTime() const;
-    TDate getStartDate();
-    TDate getEndDate();
-    Tdays getDays();
-    DTReservation getDTReservation();
+    TDate getStartDate() const;
+    TDate getEndDate() const;
+    Tdays getDays() const;
+    DTReservation getDTReservation() const;
 
 };
 
