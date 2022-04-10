@@ -80,17 +80,6 @@ float TStudent::getAverageGrade() {
   return static_cast<float>(sum) / approval.size(); //NOLINT //casting to float so it returns float and no int
 }
 
-using namespace  std;
-
-void TStudent::printTranscripts() {
-  cout << *this;
-  cout << "Approvals: " << endl;
-  for (auto & a : getApprovals()) {
-    cout << "\t" << a;
-  }
-  cout << "Average Grade: " << getAverageGrade() << endl;
-  cout << "Total Credits: " << getCredits() << endl;
-}
 
 TStudent::TStudent() : ID(-1){}
 
@@ -100,10 +89,4 @@ DTStudent TStudent::getDTStudent() {
 
 TTranscript TStudent::getTranscript() {
   return {ID, name, approval, getAverageGrade(), getCredits()};
-}
-
-std::ostream& operator<<(std::ostream& os, TStudent& e) {
-  os << "Name: " << e.getName() << endl;
-  os << "ID: " << e.getID() << endl;
-  return os;
 }

@@ -33,11 +33,8 @@ class TStudent {
     void unenroll(int cod);
     void addApproval(TApproval a);
     bool isEnrolled(int courseCode);
-    void printTranscripts();
     DTStudent getDTStudent();
     TTranscript getTranscript();
 };
-
-std::ostream& operator<<(std::ostream& os, TStudent& s);
 
 #endif//SISTEMABEDELIA_TSTUDENT_H
