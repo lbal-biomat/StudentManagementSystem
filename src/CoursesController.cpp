@@ -16,6 +16,7 @@ std::vector<DTStudent> CoursesController::getEnrolledStudents(int courseCode) {
   assert (existsCourse(courseCode));
   std::vector<DTStudent> students;
   TCourse course = repoCourses.courses[courseCode];
+  students.reserve(course.getEnrolledStudents().size());
   for (auto & s: course.getEnrolledStudents()) {
     students.push_back(s->getDTStudent());
   }
@@ -33,6 +34,7 @@ std::vector<DTCourse> CoursesController::getPrerequisiteCourses(int codeCourse) 
   assert (existsCourse(codeCourse));
   TCourse course = repoCourses.courses[codeCourse];
   std::vector<DTCourse> dtc;
+  dtc.reserve(course.getPrerequisiteCourses().size());
   for (auto & c: course.getPrerequisiteCourses()) {
     dtc.push_back(c->getDTCourse());
   }
@@ -41,6 +43,7 @@ std::vector<DTCourse> CoursesController::getPrerequisiteCourses(int codeCourse) 
 
 std::vector<DTCourse> CoursesController::getCoursesInformation() {
   std::vector<DTCourse> dtcourses;
+  dtcourses.reserve(repoCourses.courses.size());
   for( std::pair<const int, TCourse>& course : repoCourses.courses ) {
     DTCourse dtc = course.second.getDTCourse();
     dtcourses.push_back(dtc);
