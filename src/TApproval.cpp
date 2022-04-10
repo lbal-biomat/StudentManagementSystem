@@ -21,8 +21,8 @@ int TApproval::getGrade() const {
 
 using namespace  std;
 std::ostream& operator<<(std::ostream& os, TApproval& apr) {
-  TCourse* c = apr.getCourse();
-  TDate f = apr.getDateOfApproval();
+  TCourse* c = apr.course;
+  TDate f = apr.date;
   os << "Course: " << c->getName() << " - " << c->getCode() << " - Cred: " << c->getCredits() << " - Grade: " << \
   apr.getGrade() << " - Date of Approval: " << f << endl;
   return os;

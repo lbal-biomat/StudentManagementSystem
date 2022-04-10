@@ -20,8 +20,8 @@ class TApproval {
     TCourse* getCourse() const;
     int getGrade() const;
     TDate getDateOfApproval() const;
+    friend std::ostream& operator<<(std::ostream& os, TApproval& a);
 };
 
-std::ostream& operator<<(std::ostream& os, TApproval& a);
 
 #endif//SISTEMABEDELIA_TAPPROVAL_H
