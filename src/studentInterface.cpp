@@ -6,7 +6,7 @@
 
 
 
-void studentInterface::enrollStudent() {
+void studentInterface::enrollInCourse() {
   int cod = getInt("\nEnter course code: ");
   if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
@@ -23,7 +23,7 @@ void studentInterface::enrollStudent() {
 
 }
 
-void studentInterface::unEnrollStudent() {
+void studentInterface::unEnrollFromCourse() {
   int cod = getInt("\nEnter course code: ");
   if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
@@ -39,7 +39,7 @@ void studentInterface::unEnrollStudent() {
   std::cout << "Successfully unenrolled.\n";
 }
 
-void studentInterface::printPrerequisites() {
+void studentInterface::printCoursePrerequisites() {
   int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
@@ -67,11 +67,11 @@ void studentInterface::printStudentTranscript() {
 
 studentInterface::studentInterface(StudentsController &stctr, CoursesController &crctr, int& id) :
   studentsController(stctr), coursesController(crctr), student(id) {
-  menu = {{{1, {"Enroll in course", [this]{return enrollStudent();}}},
-           {2, {"Unenroll from course", [this]{return unEnrollStudent();}}},
+  menu = {{{1, {"Enroll in course", [this]{return enrollInCourse();}}},
+           {2, {"Unenroll from course", [this]{return unEnrollFromCourse();}}},
            {3, {"Print current enrollments", [this]{return printStudentEnrollments();}}},
            {4, {"Print transcripts", [this]{return printStudentTranscript();}}},
-           {5, {"Print course prerequisites", [this]{return printPrerequisites();}}},
+           {5, {"Print course prerequisites", [this]{return printCoursePrerequisites();}}},
            {6, {"Log Out", []{return ;}}},
           }};
 }
