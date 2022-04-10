@@ -17,13 +17,9 @@ class DTCourse {
     std::string name;
   public:
     DTCourse(int cod, int cred, std::string nom);
-    int getCode() const;
-    int getCredits() const;
-    std::string getName() const;
-
+    friend std::ostream& operator<<(std::ostream& os, DTCourse& c);
 };
 
 
-std::ostream& operator<<(std::ostream& os, DTCourse& c);
 
 #endif //SISTEMABEDELIA_DTCOURSE_H

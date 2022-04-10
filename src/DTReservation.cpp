@@ -41,17 +41,17 @@ int DTReservation::getCourse() const {
 
 
 std::ostream& operator<<(std::ostream& os, DTReservation& r) {
-  os << "Course: " << r.getCourse() << "\n";
-  TDate startDate = r.getStartDate();
+  os << "Course: " << r.course << "\n";
+  TDate startDate = r.startDate;
   os << "Start date: " << startDate << "\n";
-  TDate endDate = r.getEndDate();
+  TDate endDate = r.endDate;
   os << "End date: " << endDate << "\n";
-  TTime startTime = r.getStartTime();
+  TTime startTime = r.startTime;
   os << "Start time: " << startTime << "\n";
-  TTime endTime = r.getEndTime();
+  TTime endTime = r.endTime;
   os << "End time: " << endTime << "\n";
   os << "Days of the week: " << "\n";
-  std::vector<DayOfWeek> vec = r.getDays();
+  std::vector<DayOfWeek> vec = r.days;
   for (auto & i : vec) {
     os << i;
   }

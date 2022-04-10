@@ -15,10 +15,8 @@ class DTStudent {
     std::string name;
   public:
     DTStudent(int ID, std::string nom);
-    int getID() const;
-    std::string getName() const;
+    friend std::ostream& operator<<(std::ostream& os, DTStudent& s);
 };
 
-std::ostream& operator<<(std::ostream& os, DTStudent& s);
 
 #endif //SISTEMABEDELIA_DTSTUDENT_H

@@ -8,17 +8,9 @@
 
 DTStudent::DTStudent(int ID, std::string nom) : id(ID), name(std::move(nom)) {}
 
-int DTStudent::getID() const {
-  return id;
-}
-
-std::string DTStudent::getName() const {
-  return name;
-}
-
 
 std::ostream& operator<<(std::ostream& os, DTStudent& e) {
-  os << "Name: " << e.getName() << "\n";
-  os << "ID: " << e.getID() << "\n";
+  os << "Name: " << e.name << "\n";
+  os << "ID: " << e.id << "\n";
   return os;
 }

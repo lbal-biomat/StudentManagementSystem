@@ -31,9 +31,9 @@ class DTReservation {
     TDate getStartDate() const;
     TDate getEndDate() const;
     Tdays getDays() const;
-};
 
-std::ostream& operator<<(std::ostream& os, DTReservation& c);
+    friend std::ostream& operator<<(std::ostream& os, DTReservation& c);
+};
 
 
 

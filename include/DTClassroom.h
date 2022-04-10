@@ -18,12 +18,10 @@ class DTClassroom {
 
   public:
     DTClassroom(int num, int cap, std::vector<DTReservation> res);
-    int getNumber() const;
-    int getCapacity() const;
-    std::vector<DTReservation> getReservations() const;
+    friend std::ostream& operator<<(std::ostream& os, DTClassroom& c);
 };
 
-std::ostream& operator<<(std::ostream& os, DTClassroom& c);
+
 
 
 
