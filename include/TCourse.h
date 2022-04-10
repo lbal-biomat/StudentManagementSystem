@@ -37,6 +37,4 @@ class TCourse {
     DTCourse getDTCourse();
 };
 
-std::ostream& operator<<(std::ostream& os, TCourse& c);
-
 #endif //SISTEMABEDELIA_TCOURSE_H
