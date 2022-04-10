@@ -7,7 +7,7 @@
 
 void adminInterface::registerStudent() {
 
-  int ID = getInt("Enter student ID: ");
+  int ID = getInt("\nEnter student ID: ");
   if (studentsController.existsStudent(ID)) {
     std::cerr << "There is a student with that ID in the system.\n";
     return;
@@ -27,7 +27,7 @@ void adminInterface::registerStudent() {
 
 void adminInterface::addClassroom() {
 
-  int num = getInt("Enter classroom number: ");
+  int num = getInt("\nEnter classroom number: ");
   if (classroomsController.existsClassroom(num)) {
     std::cerr << "There is a classroom with that number in the system.\n";
     return;
@@ -53,7 +53,7 @@ void adminInterface::addCourse() {
 }
 
 void adminInterface::addApproval() {
-  int ID = getInt("Enter student ID: ");
+  int ID = getInt("\nEnter student ID: ");
   if (!studentsController.existsStudent(ID)) {
     std::cerr << "There isn't any student with that ID in the system.\n";
     return;
@@ -80,7 +80,7 @@ void adminInterface::addApproval() {
 }
 
 void adminInterface::addPreRequisite() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -102,7 +102,7 @@ void adminInterface::addPreRequisite() {
 
 
 DTReservation adminInterface::getReservationData() {
-  int num = getInt("Enter classroom number: ");
+  int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     throw std::invalid_argument("There isn't any classroom with that number in the system.\n");
   }
@@ -127,7 +127,7 @@ DTReservation adminInterface::getReservationData() {
 }
 
 void adminInterface::addReservation() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -145,7 +145,7 @@ void adminInterface::addReservation() {
 }
 
 void adminInterface::printCourseEnrollments() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -158,7 +158,7 @@ void adminInterface::printCourseEnrollments() {
 
 
 void adminInterface::printPrerequisites() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -170,7 +170,7 @@ void adminInterface::printPrerequisites() {
 }
 
 void adminInterface::printReservations() {
-  int num = getInt("Enter classroom number: ");
+  int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
@@ -208,7 +208,7 @@ void adminInterface::isAvailableClassroom() {
 }
 
 void adminInterface::printClassroomInformation() {
-  int num = getInt("Enter classroom number: ");
+  int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;

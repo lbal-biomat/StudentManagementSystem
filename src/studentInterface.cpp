@@ -7,7 +7,7 @@
 
 
 void studentInterface::enrollStudent() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -24,7 +24,7 @@ void studentInterface::enrollStudent() {
 }
 
 void studentInterface::unEnrollStudent() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -40,7 +40,7 @@ void studentInterface::unEnrollStudent() {
 }
 
 void studentInterface::printPrerequisites() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -79,7 +79,7 @@ studentInterface::studentInterface(StudentsController &stctr, CoursesController 
 
 int studentInterface::studentLogIn() {
   int countErrors = 0;
-  int id = getInt("Enter ID: ");
+  int id = getInt("\nEnter ID: ");
   auto& repo = StudentsRepo::GetInstance();
   bool validID = validateID(id);
   bool isStudent = repo.students.contains(id);
