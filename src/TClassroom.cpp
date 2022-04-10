@@ -16,7 +16,7 @@ int TClassroom::getCapacity() const {
 }
 
 
-bool TClassroom::available(TDate startDate, TDate endDate, int horaIni, int horaFin, const vector<DayOfWeek>& days) {
+bool TClassroom::available(TDate startDate, TDate endDate, TTime horaIni, TTime horaFin, const vector<DayOfWeek>& days) {
   for (auto & res : reservations) {
     bool match = false;
     for (auto & day : res.getDays())
@@ -46,8 +46,11 @@ TClassroom::TClassroom() {
   number = 0;
 }
 
-std::ostream& operator<<(std::ostream& os, TClassroom& c) {
-  os << "Classroom number: " << c.getNumber() << "\n";
-  os << "Capacity: " << c.getCapacity() << "\n";
-  return os;
+DTClassroom TClassroom::getDTClassroom() {
+  std::vector<DTReservation> dtres;
+  for (auto & r : reservations) {
+    DTReservation dtr = r.getDTReservation();
+    dtres.push_back(dtr);
+  }
+  return {number, capacity, dtres};
 }

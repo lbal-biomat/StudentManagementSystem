@@ -47,27 +47,30 @@ void StudentsController::unenrollStudentFromCourse(int ID, int code) {
 
 }
 
-void StudentsController::printStudentEnrollments(int ID) {
+std::vector<DTCourse> StudentsController::getStudentEnrollments(int ID) {
   assert(existsStudent(ID));
+  std::vector<DTCourse> courses;
   auto enr = repoStudents.students[ID].getCurrentEnrollments();
+  courses.reserve(enr.size());
   for (auto & e : enr) {
-    std::cout << *e << std::endl;
+    courses.push_back(e->getDTCourse());
   }
-
+  return courses;
 }
 
-void StudentsController::printStudentTranscript(int ID) {
+TTranscript StudentsController::getStudentTranscript(int ID) {
   assert (existsStudent(ID));
-  repoStudents.students[ID].printTranscripts();
-  std::cout << std::endl;
-
+  return repoStudents.students[ID].getTranscript();
 }
 
-void StudentsController::printStudents() {
+std::vector<DTStudent> StudentsController::getStudentsInformation() {
+  std::vector<DTStudent> res;
+  res.reserve(repoStudents.students.size());
   for( std::pair<const int, TStudent>& st : repoStudents.students ) {
-    std::cout << st.second << std::endl;
+    DTStudent dts = st.second.getDTStudent();
+    res.push_back(dts);
   }
-
+  return res;
 }
 
 bool StudentsController::existsStudent(int ID) const {

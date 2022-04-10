@@ -8,9 +8,9 @@
 
 
 std::ostream &operator<<(std::ostream &os, const Menu &m) {
-  os << "Enter an option: \n";
+  os << "\nEnter an option: \n";
   for (auto const& x : m.options) {
-    os << x.first << ':' << x.second.first << std::endl;
+    os << x.first << ':' << x.second.first << "\n";
   }
   return os;
 }

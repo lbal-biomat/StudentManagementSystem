@@ -12,12 +12,15 @@ void CoursesController::addCourse(int code, int credits, std::string name, int m
   repoCourses.courses[code] = TCourse(code, credits, std::move(name), maxStudents);
 }
 
-void CoursesController::printEnrolledStudents(int courseCode) {
+std::vector<DTStudent> CoursesController::getEnrolledStudents(int courseCode) {
   assert (existsCourse(courseCode));
+  std::vector<DTStudent> students;
   TCourse course = repoCourses.courses[courseCode];
+  students.reserve(course.getEnrolledStudents().size());
   for (auto & s: course.getEnrolledStudents()) {
-    std::cout << *s << std::endl;
+    students.push_back(s->getDTStudent());
   }
+  return students;
 }
 
 void CoursesController::addPreRequiredCourse(int code, int requiredCode) {
@@ -27,18 +30,25 @@ void CoursesController::addPreRequiredCourse(int code, int requiredCode) {
   c->addPreRequiredCourse(pre);
 }
 
-void CoursesController::printPrerequisiteCourses(int codeCourse) {
+std::vector<DTCourse> CoursesController::getPrerequisiteCourses(int codeCourse) {
   assert (existsCourse(codeCourse));
   TCourse course = repoCourses.courses[codeCourse];
+  std::vector<DTCourse> dtc;
+  dtc.reserve(course.getPrerequisiteCourses().size());
   for (auto & c: course.getPrerequisiteCourses()) {
-    std::cout << *c << std::endl;
+    dtc.push_back(c->getDTCourse());
   }
+  return dtc;
 }
 
-void CoursesController::printCourses() {
-  for( std::pair<const int, TCourse>& st : repoCourses.courses ) {
-    std::cout << st.second << std::endl;
+std::vector<DTCourse> CoursesController::getCoursesInformation() {
+  std::vector<DTCourse> dtcourses;
+  dtcourses.reserve(repoCourses.courses.size());
+  for( std::pair<const int, TCourse>& course : repoCourses.courses ) {
+    DTCourse dtc = course.second.getDTCourse();
+    dtcourses.push_back(dtc);
   }
+  return dtcourses;
 }
 
 bool CoursesController::existsCourse(int code) const {

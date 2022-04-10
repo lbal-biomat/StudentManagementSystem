@@ -12,10 +12,9 @@ TDate::TDate(int d, int m, int y) {
   date.tm_year = y - 1900;
   date.tm_mon = m - 1;
   date.tm_mday = d;
-}
-
-TDate::TDate() {
-  date = {};
+  if (!isValidDate()) {
+    throw std::invalid_argument("Invalid date");
+  }
 }
 
 int TDate::getDay() const {
@@ -45,7 +44,6 @@ bool TDate::operator>(TDate f) {
 
 std::ostream& operator<<(std::ostream& os, TDate& f) {
   os << f.getDay() << '/' << f.getMonth() + 1 << '/' << f.getYear() + 1900;
-  os << asctime(&f.date);
   return os;
 }
 

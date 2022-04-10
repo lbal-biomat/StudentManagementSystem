@@ -9,7 +9,7 @@
 
 #include "StudentsRepo.h"
 #include "CoursesRepo.h"
-
+#include "TTranscript.h"
 
 class TDate;
 
@@ -23,9 +23,9 @@ class StudentsController {
     void addApprovalToStudent(int ID, int courseNum, int grade, TDate date);
     void enrollStudentInCourse(int ID, int code);
     void unenrollStudentFromCourse(int ID, int code);
-    void printStudentEnrollments(int ID);
-    void printStudentTranscript(int ID);
-    void printStudents();
+    std::vector<DTCourse> getStudentEnrollments(int ID);
+    TTranscript getStudentTranscript(int ID);
+    std::vector<DTStudent> getStudentsInformation();
     [[nodiscard]] bool existsStudent(int ID) const;
     [[nodiscard]] bool existsCourse(int cod) const;
     StudentsController() = default;

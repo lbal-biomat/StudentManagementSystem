@@ -45,16 +45,23 @@ void studentInterface::printPrerequisites() {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
-  coursesController.printPrerequisiteCourses(cod);
+  std::vector<DTCourse> pre = coursesController.getPrerequisiteCourses(cod);
+  for (auto & p : pre) {
+    std::cout << p << "\n";
+  }
 }
 
 
 void studentInterface::printStudentEnrollments() {
-  studentsController.printStudentEnrollments(student);
+  std::vector<DTCourse> enr = studentsController.getStudentEnrollments(student);
+  for (auto & e : enr) {
+    std::cout << e << "\n";
+  }
 }
 
 void studentInterface::printStudentTranscript() {
-  studentsController.printStudentTranscript(student);
+  TTranscript t = studentsController.getStudentTranscript(student);
+  std::cout << t << "\n";
 }
 
 

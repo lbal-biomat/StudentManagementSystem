@@ -24,22 +24,19 @@ int Interface::getInt(const std::string &message) {
 
 TDate Interface::getDate(const std::string& message) {
   int day, month, year;
-  bool valid = false;
-  do {
-    std::cout << message;
-    std::cin >> day;
-    std::cin >> month;
-    std::cin >> year;
-    if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900) {
-      std::cerr << "Invalid date. Try again.\n";
-    }
-    else {valid = true;}
-  } while (!valid);
-  TDate d(day, month, year);
-  if (!d.isValidDate()) {
-    throw std::invalid_argument("Invalid date\n");
-  }
-  return d;
+  std::cout << message;
+  std::cin >> day;
+  std::cin >> month;
+  std::cin >> year;
+  return {day, month, year};
+}
+
+TTime Interface::getTime(const std::string &message) {
+  int h, m;
+  std::cout << message;
+  std::cin >> h;
+  std::cin >> m;
+  return {h, m};
 }
 
 std::vector<DayOfWeek> Interface::getDaysOfWeek() {
@@ -80,13 +77,13 @@ bool Interface::validateID(int numID) {
 }
 
 void Interface::callMenu(Menu menu, const std::string& exitCall) {
-  bool logout = false;
+  bool exit = false;
   do {
     std::cout << menu;
 
     if (std::cin >> menu) {
       if ((menu.options[menu.input].first == exitCall)) {
-        logout = true;
+        exit = true;
       } else {
         menu.options[menu.input].second();
       }
@@ -96,6 +93,5 @@ void Interface::callMenu(Menu menu, const std::string& exitCall) {
       std::cin.clear(std::cin.rdstate() & ~std::ios_base::failbit);
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-  } while (!logout);
-
+  } while (!exit);
 }

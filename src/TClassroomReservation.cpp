@@ -11,11 +11,11 @@ TCourse *TClassroomReservation::getCourse() {
   return course;
 }
 
-int TClassroomReservation::getStartTime() const {
+TTime TClassroomReservation::getStartTime() const {
   return startTime;
 }
 
-int TClassroomReservation::getEndTime() const {
+TTime TClassroomReservation::getEndTime() const {
   return endTime;
 }
 
@@ -31,24 +31,11 @@ std::vector<DayOfWeek> TClassroomReservation::getDays() {
   return days;
 }
 
-TClassroomReservation::TClassroomReservation(TCourse* c, int tini, int tend, TDate dini, TDate dend, vector<DayOfWeek> days) :
-        course(c), startTime(tini), endTime(tend), startDate(dini), endDate(dend), days(std::move(days)) {}
+TClassroomReservation::TClassroomReservation(int cl, TCourse* c, TTime tini, TTime tend, TDate dini, TDate dend,
+                                             Tdays days) : classroom(cl), course(c), startTime(tini), endTime(tend),
+                                             startDate(dini), endDate(dend), days(std::move(days)) {}
 
-
-std::ostream& operator<<(std::ostream& os, TClassroomReservation& r) {
-  TCourse* c = r.getCourse();
-  os << "Course: " << c->getCode() << " - " << c->getName() << std::endl;
-  TDate startDate = r.getStartDate();
-  os << "Start date: " << startDate << std::endl;
-  TDate endDate = r.getEndDate();
-  os << "End date: " << endDate << std::endl;
-  os << "Start time: " << r.getStartTime() << std::endl;
-  os << "End time: " << r.getEndTime() << std::endl;
-  os << "Days of the week: " << std::endl;
-  vector<DayOfWeek> vec = r.getDays();
-  for (auto & i : vec) {
-    os << i;
-  }
-  os << std::endl;
-  return os;
+DTReservation TClassroomReservation::getDTReservation() {
+  return {classroom, course ->getCode(), startTime, endTime, startDate, endDate, days};
 }
+

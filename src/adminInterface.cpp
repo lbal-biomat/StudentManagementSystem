@@ -68,8 +68,8 @@ void adminInterface::addApproval() {
     std::cerr << "Grade can not be greater than 12. Try again.\n";
     grade = getInt("Enter grade: ");
   }
-  TDate d = getDate("Enter date of approval: ");
   try {
+    TDate d = getDate("Enter date of approval: ");
     studentsController.addApprovalToStudent(ID, cod, grade, d);
   }
   catch (std::invalid_argument& err) {
@@ -100,45 +100,42 @@ void adminInterface::addPreRequisite() {
   std::cout << "Successfully added.\n";
 }
 
-void adminInterface::addReservation() {
+
+DTReservation adminInterface::getReservationData() {
   int num = getInt("Enter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
-    std::cerr << "There isn't any classroom with that number in the system.\n";
-    return;
+    throw std::invalid_argument("There isn't any classroom with that number in the system.\n");
   }
-  int cod = getInt("Enter course code: ");
-  if (!coursesController.existsCourse(cod)) {
-    std::cerr << "There isn't any course with that code in the system.\n";
-    return;
-  }
-  TDate fini, fend;
-  try {
-    fini = getDate("Enter start date as DD MM YYYY: ");
-    fend = getDate("Enter end date as DD MM YYYY: ");
-  }
-  catch (std::invalid_argument &err) {
-    std::cerr <<  "Unexpected error: " << err.what() << std::endl;
-    return;
-  }
+  TDate fini = getDate("Enter start date as DD MM YYYY: ");
+  TDate fend = getDate("Enter end date as DD MM YYYY: ");
   if (!(fini < fend)) {
-    std::cerr << "Error: End date must come after the start date.\n";
-    return;
+    throw std::invalid_argument("Error: End date must come after the start date.\n");
   }
-  int tini = getInt("Enter start time in military time: ");
-  int tend = getInt("Enter end time in military time: ");
-  if (tini >= tend) {
-    std::cerr << "Error: End time must come after the start time.\n";
-    return;
+  TTime tini = getTime("Enter start time as HH MM: ");
+  TTime tend = getTime("Enter end time as HH MM: ");
+  if (!(tini < tend)) {
+    throw std::invalid_argument("Error: End time must come after the start time.\n");
   }
   vector<DayOfWeek> dow = getDaysOfWeek();
   std::cin.clear();
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   if (dow.empty()) {
-    std::cerr << "Error: No days selected.\n";
+    throw std::invalid_argument("Error: No days selected.\n");
+  }
+  DTReservation res(num, -1, tini, tend, fini, fend, dow);
+  return res;
+}
+
+void adminInterface::addReservation() {
+  int cod = getInt("Enter course code: ");
+  if (!coursesController.existsCourse(cod)) {
+    std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
   try {
-    classroomsController.addClassroomReservation(num, cod, tini, tend, fini, fend, dow);
+    DTReservation res = getReservationData();
+    classroomsController.addClassroomReservation(res.getClassroom(), cod, res.getStartTime(),
+              res.getEndTime(), res.getStartDate(), res.getEndDate(), res.getDays());
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
@@ -153,7 +150,10 @@ void adminInterface::printCourseEnrollments() {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
-  coursesController.printEnrolledStudents(cod);
+  std::vector<DTStudent> stds = coursesController.getEnrolledStudents(cod);
+  for (auto & s : stds) {
+    std::cout << s << "\n";
+  }
 }
 
 
@@ -163,7 +163,10 @@ void adminInterface::printPrerequisites() {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
   }
-  coursesController.printPrerequisiteCourses(cod);
+  std::vector<DTCourse> pre = coursesController.getPrerequisiteCourses(cod);
+  for (auto & p : pre) {
+    std::cout << p << "\n";
+  }
 }
 
 void adminInterface::printReservations() {
@@ -172,48 +175,36 @@ void adminInterface::printReservations() {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
-  classroomsController.printReservations(num);
+  std::vector<DTReservation> res = classroomsController.getClassroomsReservations(num);
+  for (auto & r: res) {
+    std::cout << r << "\n";
+  }
 }
 
-
 void adminInterface::printCourses() {
-  coursesController.printCourses();
+  std::vector<DTCourse> courses = coursesController.getCoursesInformation();
+  for (auto & c: courses) {
+    std::cout << c << "\n";
+  }
 }
 
 void adminInterface::printStudents() {
-  studentsController.printStudents();
+  std::vector<DTStudent> st = studentsController.getStudentsInformation();
+  for (auto & s: st) {
+    std::cout << s << "\n";
+  }
 }
 
 void adminInterface::isAvailableClassroom() {
-  int num = getInt("Enter classroom number: ");
-  if (!classroomsController.existsClassroom(num)) {
-    std::cerr << "There isn't any classroom with that number in the system.\n";
-    return;
-  }
-  TDate fini, fend;
   try {
-    fini = getDate("Enter start date as DD MM YYYY: ");
-    fend = getDate("Enter end date as DD MM YYYY: ");
+    DTReservation res = getReservationData();
+    std::cout << (classroomsController.isAvailable(res.getClassroom(), res.getStartTime(), res.getEndTime(),
+                  res.getStartDate(),res.getEndDate(), res.getDays()) ? "Is available" : "Is not available");
   }
-  catch (std::invalid_argument &err) {
-    std::cerr <<  "Unexpected error: " << err.what() << std::endl;
+  catch (std::invalid_argument& err) {
+    std::cerr << "Unexpected error: " << err.what() << std::endl;
     return;
   }
-  if (!(fini < fend)) {
-    std::cerr << "Error: End date must come after the start date.\n";
-    return;
-  }
-  int tini = getInt("Enter start time in military time: ");
-  int tend = getInt("Enter end time in military time: ");
-  if (tini >= tend) {
-    std::cerr << "Error: End time must come after the start time.\n";
-    return;
-  }
-  vector<DayOfWeek> dow = getDaysOfWeek();
-  std::cin.clear();
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  std::cout << (classroomsController.isAvailable(num, tini, tend, fini, fend, dow) ?
-                "Is available" : "Is not available");
 }
 
 void adminInterface::printClassroomInformation() {
@@ -222,9 +213,9 @@ void adminInterface::printClassroomInformation() {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
   }
-  classroomsController.printClassroomInformation(num);
+  DTClassroom cl = classroomsController.getClassroomInformation(num);
+  std::cout << cl << "\n";
 }
-
 
 
 adminInterface::adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont) :

@@ -14,10 +14,10 @@ class CoursesController {
     CoursesRepo& repoCourses = CoursesRepo::GetInstance();
   public:
     void addCourse(int code, int credits, std::string name, int maxStudents);
-    void printEnrolledStudents(int courseCode);
+    std::vector<DTStudent> getEnrolledStudents(int courseCode);
     void addPreRequiredCourse(int code, int requiredCode);
-    void printPrerequisiteCourses(int codeCourse);
-    void printCourses();
+    std::vector<DTCourse> getPrerequisiteCourses(int codeCourse);
+    std::vector<DTCourse> getCoursesInformation();
     [[nodiscard]] bool existsCourse(int code) const;
 
 };

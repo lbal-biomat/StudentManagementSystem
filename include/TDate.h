@@ -12,11 +12,11 @@
 class TDate {
   private:
     tm date{};
+    bool isValidDate();
 
   public:
 
     TDate(int d, int m, int y);
-    TDate();
 
     //getters
     int getDay() const;
@@ -26,8 +26,6 @@ class TDate {
     bool operator>(TDate f);
     bool operator<(TDate f);
     bool operator==(TDate) const;
-
-    bool isValidDate();
 
     friend std::ostream& operator<<(std::ostream& os, TDate& f);
 
