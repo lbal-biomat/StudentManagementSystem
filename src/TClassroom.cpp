@@ -46,8 +46,11 @@ TClassroom::TClassroom() {
   number = 0;
 }
 
-std::ostream& operator<<(std::ostream& os, TClassroom& c) {
-  os << "Classroom number: " << c.getNumber() << "\n";
-  os << "Capacity: " << c.getCapacity() << "\n";
-  return os;
+DTClassroom TClassroom::getDTClassroom() {
+  std::vector<DTReservation> dtres;
+  for (auto & r : reservations) {
+    DTReservation dtr = r.getDTReservation();
+    dtres.push_back(dtr);
+  }
+  return {number, capacity, dtres};
 }

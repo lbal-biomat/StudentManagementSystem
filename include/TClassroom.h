@@ -6,7 +6,9 @@
 #define SISTEMABEDELIA_TCLASSROOM_H
 
 #include "TDate.h"
+#include "TTime.h"
 #include "TClassroomReservation.h"
+#include "DTClassroom.h"
 #include <vector>
 
 using std::vector;
@@ -25,9 +27,8 @@ class TClassroom {
     bool available(TDate startDate, TDate endDate, TTime timeStart, TTime timeEnd, const vector<DayOfWeek>& days);
     void addReservation(const TClassroomReservation&);
     vector<TClassroomReservation> getReservations();
+    DTClassroom getDTClassroom();
 };
-
-std::ostream& operator<<(std::ostream& os, TClassroom& c);
 
 
 #endif //SISTEMABEDELIA_TCLASSROOM_H
