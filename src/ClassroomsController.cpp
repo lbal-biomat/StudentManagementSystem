@@ -35,6 +35,7 @@ std::vector<DTReservation> ClassroomsController::getClassroomsReservations(int n
   assert (existsClassroom(num));
   vector<TClassroomReservation> res = repoClassrooms.classrooms[num].getReservations();
   std::vector<DTReservation> dtres;
+  dtres.reserve(res.size());
   for (auto & r : res) {
     DTReservation dtr = r.getDTReservation();
     dtres.push_back(dtr);
