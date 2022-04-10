@@ -58,11 +58,9 @@ std::vector<DTCourse> StudentsController::getStudentEnrollments(int ID) {
   return courses;
 }
 
-void StudentsController::printStudentTranscript(int ID) {
+TTranscript StudentsController::getStudentTranscript(int ID) {
   assert (existsStudent(ID));
-  repoStudents.students[ID].printTranscripts();
-  std::cout << std::endl;
-
+  return repoStudents.students[ID].getTranscript();
 }
 
 std::vector<DTStudent> StudentsController::getStudentsInformation() {

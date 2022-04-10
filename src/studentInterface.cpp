@@ -60,7 +60,8 @@ void studentInterface::printStudentEnrollments() {
 }
 
 void studentInterface::printStudentTranscript() {
-  studentsController.printStudentTranscript(student);
+  TTranscript t = studentsController.getStudentTranscript(student);
+  std::cout << t;
 }
 
 
