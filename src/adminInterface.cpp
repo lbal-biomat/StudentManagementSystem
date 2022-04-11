@@ -12,7 +12,7 @@ void adminInterface::registerStudent() {
     std::cerr << "There is a student with that ID in the system.\n";
     return;
   }
-  string name;
+  std::string name;
   std::cout << "Enter student name: ";
   std::cin >> name;
   try {
@@ -43,7 +43,7 @@ void adminInterface::addCourse() {
     std::cerr << "There is a course with that code in the system.\n";
     return;
   }
-  string name;
+  std::string name;
   std::cout << "Enter course name: ";
   std::cin >> name;
   int cred = getInt("Enter course credits: ");
@@ -115,7 +115,7 @@ DTReservation adminInterface::getReservationData() {
   if (!(tini < tend)) {
     throw std::invalid_argument("Error: End time must come after the start time.\n");
   }
-  vector<DayOfWeek> dow = getDaysOfWeek();
+  std::vector<DayOfWeek> dow = getDaysOfWeek();
   std::cin.clear();
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   if (dow.empty()) {

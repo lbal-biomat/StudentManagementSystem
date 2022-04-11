@@ -9,8 +9,6 @@
 #include <vector>
 #include <string>
 
-using std::vector;
-using std::string;
 
 class TStudent;
 
@@ -18,18 +16,18 @@ class TCourse {
   private:
     int code; //Courses are identified by the code
     int credits;
-    string name;
-    vector<TCourse*> prerequisiteCourses;
-    vector<TStudent*> enrolledStudents;
+    std::string name;
+    std::vector<TCourse*> prerequisiteCourses;
+    std::vector<TStudent*> enrolledStudents;
   public:
     TCourse();
-    TCourse(int cod, int cred, string nom);
+    TCourse(int cod, int cred, std::string nom);
     int getCode() const;
     int getCredits() const;
-    string getName() const;
+    std::string getName() const;
     void addPreRequiredCourse(TCourse*);
-    vector<TCourse*> getPrerequisiteCourses() const;
-    vector<TStudent*> getEnrolledStudents() const;
+    std::vector<TCourse*> getPrerequisiteCourses() const;
+    std::vector<TStudent*> getEnrolledStudents() const;
     void enrollStudent(TStudent *s);
     void unenrollStudent(int ID);
     DTCourse getDTCourse() const;

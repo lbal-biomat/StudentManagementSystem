@@ -11,22 +11,20 @@
 #include <vector>
 #include <string>
 
-using std::vector;
-using std::string;
 
 class TStudent {
   private:
     int ID; //Students are identified by the ID
-    string name;
-    vector<TApproval> approvals;
-    vector<TCourse*> enrollments;
+    std::string name;
+    std::vector<TApproval> approvals;
+    std::vector<TCourse*> enrollments;
   public:
     TStudent();
-    TStudent(int ID, string nom);
+    TStudent(int ID, std::string nom);
     int getID() const;
     int getCredits() const;
     float getAverageGrade() const;
-    vector<TCourse*> getCurrentEnrollments() const;
+    std::vector<TCourse*> getCurrentEnrollments() const;
     bool isEnrolled(int courseCode);
     void enroll(TCourse* course);
     void unenroll(int cod);

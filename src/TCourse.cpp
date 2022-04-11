@@ -15,15 +15,15 @@ int TCourse::getCredits() const {
   return credits;
 }
 
-string TCourse::getName() const {
+std::string TCourse::getName() const {
   return name;
 }
 
-vector<TCourse *> TCourse::getPrerequisiteCourses() const {
+std::vector<TCourse *> TCourse::getPrerequisiteCourses() const {
   return prerequisiteCourses;
 }
 
-vector<TStudent *> TCourse::getEnrolledStudents() const {
+std::vector<TStudent *> TCourse::getEnrolledStudents() const {
   return enrolledStudents;
 }
 
@@ -44,7 +44,7 @@ void TCourse::unenrollStudent(int ID) {
 }
 
 
-TCourse::TCourse(int cod, int cred, string nom) : code(cod), credits(cred), name(std::move(nom)) {}
+TCourse::TCourse(int cod, int cred, std::string nom) : code(cod), credits(cred), name(std::move(nom)) {}
 
 
 TCourse::TCourse() {

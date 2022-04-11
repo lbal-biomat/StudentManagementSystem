@@ -33,7 +33,7 @@ void ClassroomsController::addClassroomReservation(int num, int codeCourse, TTim
 
 std::vector<DTReservation> ClassroomsController::getClassroomsReservations(int num) {
   assert (existsClassroom(num));
-  vector<TClassroomReservation> res = repoClassrooms.classrooms[num].getReservations();
+  std::vector<TClassroomReservation> res = repoClassrooms.classrooms[num].getReservations();
   std::vector<DTReservation> dtres;
   dtres.reserve(res.size());
   for (auto & r : res) {
@@ -48,6 +48,6 @@ bool ClassroomsController::existsClassroom(int classNum) const {
 }
 
 bool ClassroomsController::isAvailable(int num, TTime startTime, TTime endTime, TDate startDate, TDate endDate,
-                                       const vector<DayOfWeek> &days) {
+                                       const std::vector<DayOfWeek> &days) {
   return repoClassrooms.classrooms[num].available(startDate, endDate, startTime, endTime, days);
 }

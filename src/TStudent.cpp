@@ -14,7 +14,7 @@ int TStudent::getID() const {
   return ID;
 }
 
-vector<TCourse *> TStudent::getCurrentEnrollments() const {
+std::vector<TCourse *> TStudent::getCurrentEnrollments() const {
   return enrollments;
 }
 
@@ -57,7 +57,7 @@ int TStudent::getCredits() const {
   return credits;
 }
 
-TStudent::TStudent(int doc, string nom) : name(std::move(nom)), ID(doc) {}
+TStudent::TStudent(int doc, std::string nom) : name(std::move(nom)), ID(doc) {}
 
 float TStudent::getAverageGrade() const {
   if (approvals.empty()) {
@@ -82,7 +82,7 @@ TTranscript TStudent::getTranscript() const {
 }
 
 bool TStudent::hasApproval(int courseCode) const {
-  if (std::any_of(approvals.begin(), approvals.end(), [courseCode](TApproval &a)
+  if (std::any_of(approvals.begin(), approvals.end(), [courseCode](const TApproval &a)
              { return courseCode == a.getCourse()->getCode(); })) {
     return true;
   }

@@ -8,7 +8,7 @@
 TClassroom::TClassroom(int cod, int cap) : number (cod), capacity (cap) {}
 
 
-bool TClassroom::available(TDate startDate, TDate endDate, TTime horaIni, TTime horaFin, const vector<DayOfWeek>& days) {
+bool TClassroom::available(TDate startDate, TDate endDate, TTime startTime, TTime endTime, const std::vector<DayOfWeek>& days) {
   for (auto & res : reservations) {
     bool match = false;
     for (auto & day : res.getDays())
@@ -19,7 +19,7 @@ bool TClassroom::available(TDate startDate, TDate endDate, TTime horaIni, TTime 
         }
     if (match) //overlapping days of week
       if (startDate < res.getEndDate() && res.getStartDate() < endDate) //overlapping dates
-        if (horaIni < res.getEndTime() && res.getStartTime() < horaFin) //overlapping times
+        if (startTime < res.getEndTime() && res.getStartTime() < endTime) //overlapping times
           return false; //is not available
   }
   return true;
@@ -29,7 +29,7 @@ void TClassroom::addReservation(const TClassroomReservation& res) {
   reservations.push_back(res);
 }
 
-vector<TClassroomReservation> TClassroom::getReservations() const {
+std::vector<TClassroomReservation> TClassroom::getReservations() const {
   return reservations;
 }
 
