@@ -17,8 +17,8 @@ class TApproval {
   public:
     TApproval(TCourse* course, int grade, TDate d);
     //getters
-    TCourse* getCourse() const;
-    int getGrade() const;
+    [[nodiscard]] TCourse* getCourse() const;
+    [[nodiscard]] int getGrade() const;
     friend std::ostream& operator<<(std::ostream& os, TApproval& a);
 };
 

@@ -23,8 +23,8 @@ class TClassroom {
     TClassroom(int cod, int cap);
     bool available(TDate startDate, TDate endDate, TTime startTime, TTime endTime, const std::vector<DayOfWeek>& days);
     void addReservation(const TClassroomReservation&);
-    std::vector<TClassroomReservation> getReservations() const;
-    DTClassroom getDTClassroom() const;
+    [[nodiscard]] std::vector<TClassroomReservation> getReservations() const;
+    [[nodiscard]] DTClassroom getDTClassroom() const;
 };
 
 

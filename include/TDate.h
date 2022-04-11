@@ -19,9 +19,9 @@ class TDate {
     TDate(int d, int m, int y);
 
     //getters
-    int getDay() const;
-    int getMonth() const;
-    int getYear() const;
+    [[nodiscard]] int getDay() const;
+    [[nodiscard]] int getMonth() const;
+    [[nodiscard]] int getYear() const;
 
     bool operator>(TDate f);
     bool operator<(TDate f);

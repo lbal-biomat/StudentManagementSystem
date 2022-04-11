@@ -22,15 +22,15 @@ class TCourse {
   public:
     TCourse();
     TCourse(int cod, int cred, std::string nom);
-    int getCode() const;
-    int getCredits() const;
-    std::string getName() const;
+    [[nodiscard]] int getCode() const;
+    [[nodiscard]] int getCredits() const;
+    [[nodiscard]] std::string getName() const;
     void addPreRequiredCourse(TCourse*);
-    std::vector<TCourse*> getPrerequisiteCourses() const;
-    std::vector<TStudent*> getEnrolledStudents() const;
+    [[nodiscard]] std::vector<TCourse*> getPrerequisiteCourses() const;
+    [[nodiscard]] std::vector<TStudent*> getEnrolledStudents() const;
     void enrollStudent(TStudent *s);
     void unenrollStudent(int ID);
-    DTCourse getDTCourse() const;
+    [[nodiscard]] DTCourse getDTCourse() const;
 };
 
 #endif //SISTEMABEDELIA_TCOURSE_H

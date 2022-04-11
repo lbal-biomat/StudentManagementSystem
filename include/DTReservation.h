@@ -24,13 +24,13 @@ class DTReservation {
     std::vector<DayOfWeek> days;
   public:
     DTReservation(int classroom, int course, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
-    int getClassroom() const;
-    int getCourse() const;
-    TTime getStartTime() const;
-    TTime getEndTime() const;
-    TDate getStartDate() const;
-    TDate getEndDate() const;
-    Tdays getDays() const;
+    [[nodiscard]] int getClassroom() const;
+    [[nodiscard]] int getCourse() const;
+    [[nodiscard]] TTime getStartTime() const;
+    [[nodiscard]] TTime getEndTime() const;
+    [[nodiscard]] TDate getStartDate() const;
+    [[nodiscard]] TDate getEndDate() const;
+    [[nodiscard]] Tdays getDays() const;
 
     friend std::ostream& operator<<(std::ostream& os, DTReservation& c);
 };

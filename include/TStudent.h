@@ -21,17 +21,17 @@ class TStudent {
   public:
     TStudent();
     TStudent(int ID, std::string nom);
-    int getID() const;
-    int getCredits() const;
-    float getAverageGrade() const;
-    std::vector<TCourse*> getCurrentEnrollments() const;
+    [[nodiscard]] int getID() const;
+    [[nodiscard]] int getCredits() const;
+    [[nodiscard]] float getAverageGrade() const;
+    [[nodiscard]] std::vector<TCourse*> getCurrentEnrollments() const;
     bool isEnrolled(int courseCode);
     void enroll(TCourse* course);
     void unenroll(int cod);
-    bool hasApproval(int courseCode) const;
+    [[nodiscard]] bool hasApproval(int courseCode) const;
     void addApproval(TApproval a);
-    DTStudent getDTStudent() const;
-    TTranscript getTranscript() const;
+    [[nodiscard]] DTStudent getDTStudent() const;
+    [[nodiscard]] TTranscript getTranscript() const;
 };
 
 #endif//SISTEMABEDELIA_TSTUDENT_H

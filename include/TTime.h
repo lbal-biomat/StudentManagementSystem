@@ -14,8 +14,8 @@ class TTime {
     [[nodiscard]] bool isValidTime() const;
   public:
     TTime(int h, int m);
-    int getHour() const;
-    int getMin() const;
+    [[nodiscard]] int getHour() const;
+    [[nodiscard]] int getMin() const;
 
     bool operator>(TTime) const;
     bool operator<(TTime) const;

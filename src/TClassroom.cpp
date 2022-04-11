@@ -12,11 +12,10 @@ bool TClassroom::available(TDate startDate, TDate endDate, TTime startTime, TTim
   for (auto & res : reservations) {
     bool match = false;
     for (auto & day : res.getDays())
-      for (auto &d: days)
-        if (day == d) {
+      if (std::any_of(days.begin(), days.end(), [day](const DayOfWeek & d) {return d == day;})) {
           match = true;
           break;
-        }
+      }
     if (match) //overlapping days of week
       if (startDate < res.getEndDate() && res.getStartDate() < endDate) //overlapping dates
         if (startTime < res.getEndTime() && res.getStartTime() < endTime) //overlapping times
