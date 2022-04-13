@@ -244,8 +244,9 @@ adminInterface::adminInterface(StudentsController& stcont, ClassroomsController&
            {9, {"Check classroom availability", [this]{return isAvailableClassroom();}}},
            {10, {"Add classroom reservation", [this]{return addReservation();}}},
            {11, {"Print classroom reservations", [this]{return printClassroomReservations();}}},
-           {12, {"Print all courses in system", [this]{return printCourses();}}},
-           {13, {"Print all students in system", [this]{return printStudents();}}},
-           {14, {"Log Out", []{return ;}}},
+           {12, {"Print course reservations", [this]{return printCourseReservations();}}},
+           {13, {"Print all courses in system", [this]{return printCourses();}}},
+           {14, {"Print all students in system", [this]{return printStudents();}}},
+           {15, {"Log Out", []{return ;}}},
        }};
 }
