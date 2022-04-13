@@ -3,7 +3,8 @@
 //
 
 #include "../include/adminInterface.h"
-
+#include <string>
+#include <iostream>
 
 void adminInterface::registerStudent() {
 
@@ -14,7 +15,8 @@ void adminInterface::registerStudent() {
   }
   std::string name;
   std::cout << "Enter student name: ";
-  std::cin >> name;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  std::getline(std::cin, name);
   try {
     studentsController.registerStudent(ID, name);
   }
@@ -45,7 +47,8 @@ void adminInterface::addCourse() {
   }
   std::string name;
   std::cout << "Enter course name: ";
-  std::cin >> name;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  std::getline(std::cin, name);
   int cred = getInt("Enter course credits: ");
   coursesController.addCourse(cod, cred, name);
   std::cout << "Successfully added.\n";
