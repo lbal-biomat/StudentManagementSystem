@@ -56,7 +56,7 @@ bool CoursesController::existsCourse(int code) const {
 
 void CoursesController::addClassroomReservation(const DTReservation &res) {
   assert (existsCourse(res.getCourse()));
-  TCourse* course = &repoCourses.courses[res.getCode()];
+  TCourse* course = &repoCourses.courses[res.getCourse()];
   for (auto & r : repoClassrooms.classrooms[res.getClassroom()].getReservations()) {
     if (r.getCode() == res.getCode()) {
       course->addReservation(&r);
