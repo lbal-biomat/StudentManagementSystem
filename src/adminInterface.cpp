@@ -170,7 +170,7 @@ void adminInterface::printPrerequisites() {
   }
 }
 
-void adminInterface::printReservations() {
+void adminInterface::printClassroomReservations() {
   int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     std::cerr << "There isn't any classroom with that number in the system.\n";
@@ -181,6 +181,19 @@ void adminInterface::printReservations() {
     std::cout << r << "\n";
   }
 }
+
+void adminInterface::printCourseReservations() {
+  int code = getInt("\nEnter course code: ");
+  if (!coursesController.existsCourse(code)) {
+    std::cerr << "There isn't any course with that code in the system\n";
+    return;
+  }
+  std::vector<DTReservation> res = coursesController.getCourseReservations(code);
+  for (auto & r: res) {
+    std::cout << r << "\n";
+  }
+}
+
 
 void adminInterface::printCourses() {
   std::vector<DTCourse> courses = coursesController.getCoursesInformation();
@@ -230,7 +243,7 @@ adminInterface::adminInterface(StudentsController& stcont, ClassroomsController&
            {8, {"Print classroom information", [this]{return printClassroomInformation();}}},
            {9, {"Check classroom availability", [this]{return isAvailableClassroom();}}},
            {10, {"Add classroom reservation", [this]{return addReservation();}}},
-           {11, {"Print classroom reservations", [this]{return printReservations();}}},
+           {11, {"Print classroom reservations", [this]{return printClassroomReservations();}}},
            {12, {"Print all courses in system", [this]{return printCourses();}}},
            {13, {"Print all students in system", [this]{return printStudents();}}},
            {14, {"Log Out", []{return ;}}},
