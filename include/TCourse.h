@@ -30,6 +30,7 @@ class TCourse {
     void addPreRequiredCourse(TCourse*);
     [[nodiscard]] std::vector<TCourse*> getPrerequisiteCourses() const;
     [[nodiscard]] std::vector<TStudent*> getEnrolledStudents() const;
+    [[nodiscard]] std::vector<TClassroomReservation*> getReservations() const;
     void enrollStudent(TStudent *s);
     void unenrollStudent(int ID);
     [[nodiscard]] DTCourse getDTCourse() const;

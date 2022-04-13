@@ -63,3 +63,7 @@ DTCourse TCourse::getDTCourse() const {
 void TCourse::addReservation(TClassroomReservation * res) {
   reservations.push_back(res);
 }
+
+std::vector<TClassroomReservation *> TCourse::getReservations() const {
+  return reservations;
+}
