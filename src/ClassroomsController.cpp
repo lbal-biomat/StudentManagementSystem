@@ -26,7 +26,10 @@ void ClassroomsController::addClassroomReservation(const DTReservation& res) {
                        res.getEndTime(), res.getDays())) {
     throw std::invalid_argument("Classroom is not available.");
   }
-  int cod = -1;
+  std::string cod = std::to_string(res.getClassroom()) + std::to_string(res.getCourse()) +
+          std::to_string(res.getStartDate().getDay()) + std::to_string(res.getEndDate().getMonth()) +
+          std::to_string(res.getStartDate().getYear()) +
+          std::to_string(res.getStartTime().getHour()) + std::to_string(res.getStartTime().getMin());
   TClassroomReservation r(res.getClassroom(), course, cod, res.getStartTime(), res.getEndTime(),
                           res.getStartDate(), res.getEndDate(), res.getDays());
   room->addReservation(r);
