@@ -31,7 +31,7 @@ class adminInterface : public Interface {
     void printCourses();
     void printStudents();
     void isAvailableClassroom();
-    DTReservation getReservationData();
+    DTReservation getReservationData(bool);
   public:
     adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
 };

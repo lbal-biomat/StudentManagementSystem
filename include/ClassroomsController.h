@@ -8,6 +8,7 @@
 #include <vector>
 #include "ClassroomsRepo.h"
 #include "CoursesRepo.h"
+#include "../include/DTReservation.h"
 
 class TDate;
 
@@ -28,16 +29,14 @@ class ClassroomsController {
     /* Responsibility: returns true if the classroom c such that c.getNumber() == num is available for the given days,
        date and time, returns false otherwise
      * Pre: existsClassroom(num) */
-    bool isAvailable(int num, TTime startTime, TTime endTime, TDate startDate,
-                     TDate endDate, const std::vector<DayOfWeek>& days);
+    bool isAvailable(const DTReservation&);
 
     /* Responsibility: Adds a reservation with the given information.
      * Pre: existsClassroom(num)
      * Pre: there is a course c in the system such that c.getCode() == codeCourse
      * Pre: isAvailable(num, startTime, endTime, startDate, endDate, days)
      * Throws an invalid_argument exception if the classroom is not available */
-    void addClassroomReservation(int num, int codeCourse, TTime startTime, TTime endTime, TDate startDate,
-                                 TDate endDate, const std::vector<DayOfWeek>& days);
+    void addClassroomReservation(const DTReservation&);
 
     /* Responsibility: Returns a vector of DTReservations for the classroom c such that c.getNumber() == num
      * Pre: existsClassroom(num) */

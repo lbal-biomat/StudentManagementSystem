@@ -100,7 +100,7 @@ void adminInterface::addPreRequisite() {
 }
 
 
-DTReservation adminInterface::getReservationData() {
+DTReservation adminInterface::getReservationData(bool course) {
   int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     throw std::invalid_argument("There isn't any classroom with that number in the system.\n");

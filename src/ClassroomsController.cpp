@@ -17,13 +17,13 @@ DTClassroom ClassroomsController::getClassroomInformation(int num) {
 }
 
 
-void ClassroomsController::addClassroomReservation(int num, int codeCourse, TTime startTime, TTime endTime, TDate startDate,
-                                                   TDate endDate, const std::vector<DayOfWeek>& days) {
-  assert (existsClassroom(num));
-  assert(repoCourses.courses.contains(codeCourse));
-  TCourse* c = &repoCourses.courses[codeCourse];
-  TClassroom* room = &repoClassrooms.classrooms[num];
-  if (!room->available(startDate, endDate, startTime, endTime, days)) {
+void ClassroomsController::addClassroomReservation(const DTReservation& res) {
+  assert (existsClassroom(res.getClassroom()));
+  assert(repoCourses.courses.contains(res.getCourse()));
+  TCourse* course = &repoCourses.courses[res.getCourse()];
+  TClassroom* room = &repoClassrooms.classrooms[res.getClassroom()];
+  if (!room->available(res.getStartDate(), res.getEndDate(), res.getStartTime(),
+                       res.getEndTime(), res.getDays())) {
     throw std::invalid_argument("Classroom is not available.");
   }
   TClassroomReservation res(num, c, startTime, endTime, startDate, endDate, days);
