@@ -128,7 +128,7 @@ DTReservation adminInterface::getReservationData(bool course) {
   if (dow.empty()) {
     throw std::invalid_argument("Error: No days selected.\n");
   }
-  DTReservation res(num, cod, -1, tini, tend, fini, fend, dow); //code has a dummy value
+  DTReservation res(num, cod, "", tini, tend, fini, fend, dow); //code has a dummy value
   return res;
 }
 
