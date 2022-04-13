@@ -17,17 +17,18 @@ class DTReservation {
   private:
     int classroom;
     int course;
-    int code;
+    std::string code;
     TTime startTime;
     TTime endTime;
     TDate startDate;
     TDate endDate;
     std::vector<DayOfWeek> days;
   public:
-    DTReservation(int classroom, int course, int cod, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
+    DTReservation(int classroom, int course, std::string cod, TTime tini, TTime tend, TDate dateIni,
+                  TDate dateEnd, Tdays days);
     [[nodiscard]] int getClassroom() const;
     [[nodiscard]] int getCourse() const;
-    [[nodiscard]] int getCode() const;
+    [[nodiscard]] std::string getCode() const;
     [[nodiscard]] TTime getStartTime() const;
     [[nodiscard]] TTime getEndTime() const;
     [[nodiscard]] TDate getStartDate() const;

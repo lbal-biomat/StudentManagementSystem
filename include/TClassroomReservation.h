@@ -22,20 +22,21 @@ class TClassroomReservation {
   private:
     int classroom;
     TCourse* course;
-    int code;
+    std::string code;
     TTime startTime;
     TTime endTime;
     TDate startDate;
     TDate endDate;
     Tdays days;
   public:
-    TClassroomReservation(int classroom, TCourse*, int cod, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
+    TClassroomReservation(int classroom, TCourse*, std::string cod, TTime tini, TTime tend, TDate dateIni,
+                          TDate dateEnd, Tdays days);
     [[nodiscard]] TTime getStartTime() const;
     [[nodiscard]] TTime getEndTime() const;
     [[nodiscard]] TDate getStartDate() const;
     [[nodiscard]] TDate getEndDate() const;
     [[nodiscard]] Tdays getDays() const;
-    [[nodiscard]] int getCode() const;
+    [[nodiscard]] std::string getCode() const;
     [[nodiscard]] DTReservation getDTReservation() const;
 
 };

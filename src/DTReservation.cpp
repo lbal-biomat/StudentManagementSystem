@@ -8,8 +8,8 @@
 
 
 
-DTReservation::DTReservation(int cl, int c, int cod,  TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays d) :
-               classroom(cl), course(c), code(cod), startTime(tini), endTime(tend), startDate(dateIni),
+DTReservation::DTReservation(int cl, int c, std::string cod,  TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays d) :
+               classroom(cl), course(c), code(std::move(cod)), startTime(tini), endTime(tend), startDate(dateIni),
                endDate(dateEnd), days(std::move(d)) {}
 
 TTime DTReservation::getStartTime() const {
@@ -61,6 +61,6 @@ std::ostream& operator<<(std::ostream& os, DTReservation& r) {
   return os;
 }
 
-int DTReservation::getCode() const {
+std::string DTReservation::getCode() const {
   return code;
 }
