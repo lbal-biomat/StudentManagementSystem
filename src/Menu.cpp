@@ -12,6 +12,7 @@ std::ostream &operator<<(std::ostream &os, const Menu &m) {
   for (auto const& x : m.options) {
     os << x.first << ':' << x.second.first << "\n";
   }
+  os << "\n[+] Your option: ";
   return os;
 }
 

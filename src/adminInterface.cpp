@@ -38,7 +38,7 @@ void adminInterface::addClassroom() {
 }
 
 void adminInterface::addCourse() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (coursesController.existsCourse(cod)) {
     std::cerr << "There is a course with that code in the system.\n";
     return;
@@ -107,7 +107,7 @@ DTReservation adminInterface::getReservationData(bool course) {
   }
   int cod = -1;
   if (course) {
-    cod = getInt("\nEnter course code: ");
+    cod = getInt("Enter course code: ");
     if (!coursesController.existsCourse(cod)) {
       throw std::invalid_argument("Error: There isn't any course with that code in the system.\n");
     }
@@ -219,7 +219,7 @@ void adminInterface::printClassroomInformation() {
 
 
 adminInterface::adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont) :
-        studentsController(stcont), classroomsController(clscont), coursesController(coucont) {
+  studentsController(stcont), classroomsController(clscont), coursesController(coucont) {
   menu = {{{1, {"Register student", [this]{return registerStudent();}}},
            {2, {"Add classroom", [this]{return addClassroom();}}},
            {3, {"Add course", [this]{return addCourse();}}},
