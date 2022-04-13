@@ -42,6 +42,11 @@ class CoursesController {
      * Pre: existsCourse(codeCourse)*/
     std::vector<DTCourse> getPrerequisiteCourses(int codeCourse);
 
+    /* Responsibility: returns a vector of DTReservation with an instance of DTReservation for every reservation
+       in the list of reservations of the course whose member code matches code
+     * Pre: existsCourse(code)*/
+    std::vector<DTReservation> getCourseReservations(int code);
+
     /* Responsibility: returns a vector of DTCourse with an instance of DTCourse for every course in the system*/
     std::vector<DTCourse> getCoursesInformation();
 

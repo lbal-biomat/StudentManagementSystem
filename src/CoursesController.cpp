@@ -63,3 +63,13 @@ void CoursesController::addClassroomReservation(const DTReservation &res) {
     }
   }
 }
+
+std::vector<DTReservation> CoursesController::getCourseReservations(int code) {
+  std::vector<DTReservation> res;
+  std::vector<TClassroomReservation*> reservations = repoCourses.courses[code].getReservations();
+  res.reserve(reservations.size());
+  for (auto & r: reservations) {
+    res.push_back(r->getDTReservation());
+  }
+  return res;
+}
