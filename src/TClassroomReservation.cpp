@@ -27,11 +27,15 @@ std::vector<DayOfWeek> TClassroomReservation::getDays() const {
   return days;
 }
 
-TClassroomReservation::TClassroomReservation(int cl, TCourse* c, TTime tini, TTime tend, TDate dini, TDate dend,
-                                             Tdays days) : classroom(cl), course(c), startTime(tini), endTime(tend),
-                                             startDate(dini), endDate(dend), days(std::move(days)) {}
+TClassroomReservation::TClassroomReservation(int cl, TCourse* c, int cod, TTime tini, TTime tend, TDate dini,
+                       TDate dend, Tdays days) : classroom(cl), course(c), code(cod), startTime(tini),
+                       endTime(tend), startDate(dini), endDate(dend), days(std::move(days)) {}
 
 DTReservation TClassroomReservation::getDTReservation() const {
-  return {classroom, course->getCode(), startTime, endTime, startDate, endDate, days};
+  return {classroom, course->getCode(), code, startTime, endTime, startDate, endDate, days};
+}
+
+int TClassroomReservation::getCode() const {
+  return code;
 }
 

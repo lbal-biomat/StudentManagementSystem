@@ -53,3 +53,13 @@ std::vector<DTCourse> CoursesController::getCoursesInformation() {
 bool CoursesController::existsCourse(int code) const {
   return repoCourses.courses.contains(code);
 }
+
+void CoursesController::addClassroomReservation(const DTReservation &res) {
+  assert (existsCourse(res.getCourse()));
+  TCourse* course = &repoCourses.courses[res.getCode()];
+  for (auto & r : repoClassrooms.classrooms[res.getClassroom()].getReservations()) {
+    if (r.getCode() == res.getCode()) {
+      course->addReservation(&r);
+    }
+  }
+}

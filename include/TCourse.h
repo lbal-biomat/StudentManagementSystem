@@ -11,6 +11,7 @@
 
 
 class TStudent;
+class TClassroomReservation;
 
 class TCourse {
   private:
@@ -19,6 +20,7 @@ class TCourse {
     std::string name;
     std::vector<TCourse*> prerequisiteCourses;
     std::vector<TStudent*> enrolledStudents;
+    std::vector<TClassroomReservation*> reservations;
   public:
     TCourse();
     TCourse(int cod, int cred, std::string nom);
@@ -31,6 +33,7 @@ class TCourse {
     void enrollStudent(TStudent *s);
     void unenrollStudent(int ID);
     [[nodiscard]] DTCourse getDTCourse() const;
+    void addReservation(TClassroomReservation*);
 };
 
 #endif //SISTEMABEDELIA_TCOURSE_H

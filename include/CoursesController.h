@@ -6,12 +6,14 @@
 #define SISTEMABEDELIA_COURSESCONTROLLER_H
 
 #include "CoursesRepo.h"
+#include "ClassroomsRepo.h"
 
 #include <string>
 
 class CoursesController {
   private:
     CoursesRepo& repoCourses = CoursesRepo::GetInstance();
+    ClassroomsRepo& repoClassrooms = ClassroomsRepo::GetInstance();
   public:
     /* Responsibility: adds a course with the given information to the system
      * Pre: !existsCourse(code)*/
@@ -27,6 +29,13 @@ class CoursesController {
      * Pre: existsCourse(cod)
      * Pre: existsCourse(requiredCode)*/
     void addPreRequiredCourse(int cod, int requiredCode);
+
+    /* Responsibility: Adds a link to the TReservation whose member code matches the member code of res
+       from the course whose member code matches the member course of res.
+     * Pre: existsCourse(res.getCourse())
+     * Pre: the classroom whose member number matches the member classroom of res has in its reservation list an
+       instance of a reservation whose member code matches the member code of res */
+    void addClassroomReservation(const DTReservation& res);
 
     /* Responsibility: returns a vector of DTCourse with an instance of DTCourse for every pre required course
        for the course whose member code matches codeCourse

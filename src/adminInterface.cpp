@@ -105,6 +105,13 @@ DTReservation adminInterface::getReservationData(bool course) {
   if (!classroomsController.existsClassroom(num)) {
     throw std::invalid_argument("There isn't any classroom with that number in the system.\n");
   }
+  int cod = -1;
+  if (course) {
+    cod = getInt("\nEnter course code: ");
+    if (!coursesController.existsCourse(cod)) {
+      throw std::invalid_argument("Error: There isn't any course with that code in the system.\n");
+    }
+  }
   TDate fini = getDate("Enter start date as DD MM YYYY: ");
   TDate fend = getDate("Enter end date as DD MM YYYY: ");
   if (!(fini < fend)) {
@@ -121,20 +128,15 @@ DTReservation adminInterface::getReservationData(bool course) {
   if (dow.empty()) {
     throw std::invalid_argument("Error: No days selected.\n");
   }
-  DTReservation res(num, -1, tini, tend, fini, fend, dow);
+  DTReservation res(num, cod, -1, tini, tend, fini, fend, dow); //code has a dummy value
   return res;
 }
 
 void adminInterface::addReservation() {
-  int cod = getInt("\nEnter course code: ");
-  if (!coursesController.existsCourse(cod)) {
-    std::cerr << "There isn't any course with that code in the system.\n";
-    return;
-  }
   try {
-    DTReservation res = getReservationData();
-    classroomsController.addClassroomReservation(res.getClassroom(), cod, res.getStartTime(),
-              res.getEndTime(), res.getStartDate(), res.getEndDate(), res.getDays());
+    DTReservation res = getReservationData(true);
+    classroomsController.addClassroomReservation(res);
+    coursesController.addClassroomReservation(res);
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
@@ -196,9 +198,8 @@ void adminInterface::printStudents() {
 
 void adminInterface::isAvailableClassroom() {
   try {
-    DTReservation res = getReservationData();
-    std::cout << (classroomsController.isAvailable(res.getClassroom(), res.getStartTime(), res.getEndTime(),
-                  res.getStartDate(),res.getEndDate(), res.getDays()) ? "Is available" : "Is not available");
+    DTReservation res = getReservationData(false);
+    std::cout << (classroomsController.isAvailable(res) ? "Is available" : "Is not available");
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;

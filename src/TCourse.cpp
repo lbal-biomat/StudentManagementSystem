@@ -59,3 +59,7 @@ void TCourse::addPreRequiredCourse(TCourse* c) {
 DTCourse TCourse::getDTCourse() const {
   return {code, credits, name};
 }
+
+void TCourse::addReservation(TClassroomReservation * res) {
+  reservations.push_back(res);
+}
