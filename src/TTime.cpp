@@ -11,14 +11,6 @@ TTime::TTime(int h, int m) : hour(h), min(m) {
   }
 }
 
-int TTime::getHour() const {
-  return hour;
-}
-
-int TTime::getMin() const {
-  return min;
-}
-
 bool TTime::operator>(TTime t) const {
   return hour*60 + min > t.hour * 60 + t.min;
 }
@@ -36,6 +28,6 @@ bool TTime::isValidTime() const {
 }
 
 std::ostream &operator<<(std::ostream &os, TTime &t) {
-  os << t.getHour() << ":" << t.getMin();
+  os << t.hour << ":" << t.min;
   return os;
 }

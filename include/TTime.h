@@ -16,16 +16,14 @@ class TTime {
     [[nodiscard]] bool isValidTime() const;
   public:
     TTime(int h, int m);
-    [[nodiscard]] int getHour() const;
-    [[nodiscard]] int getMin() const;
 
     bool operator>(TTime) const;
     bool operator<(TTime) const;
     bool operator==(TTime) const;
 
+    friend std::ostream& operator<<(std::ostream& os, TTime& t);
 };
 
-std::ostream& operator<<(std::ostream& os, TTime& t);
 
 
 #endif //SISTEMABEDELIA_TTIME_H
