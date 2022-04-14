@@ -2,6 +2,8 @@
 // Created by lucia on 27/3/22.
 //
 
+/*This class represents a data type, and as such it doesn't have a default constructor nor setters.*/
+
 #ifndef SISTEMABEDELIA_TDATE_H
 #define SISTEMABEDELIA_TDATE_H
 

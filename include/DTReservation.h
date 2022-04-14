@@ -2,6 +2,8 @@
 // Created by lucia on 9/4/22.
 //
 
+/*This class represents a data type, and as such it doesn't have a default constructor nor setters.*/
+
 #ifndef SISTEMABEDELIA_DTRESERVATION_H
 #define SISTEMABEDELIA_DTRESERVATION_H
 
