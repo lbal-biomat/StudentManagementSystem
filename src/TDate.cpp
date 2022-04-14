@@ -22,11 +22,11 @@ int TDate::getDay() const {
 }
 
 int TDate::getMonth() const {
-  return date.tm_mon;
+  return date.tm_mon + 1;
 }
 
 int TDate::getYear() const {
-  return date.tm_year;
+  return date.tm_year + 1900;
 }
 
 bool TDate::operator==(TDate f) const {
