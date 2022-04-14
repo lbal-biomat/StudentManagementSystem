@@ -131,7 +131,7 @@ DTReservation adminInterface::getReservationData(bool course) {
   if (dow.empty()) {
     throw std::invalid_argument("Error: No days selected.\n");
   }
-  DTReservation res(num, cod, "", tini, tend, fini, fend, dow); //code has a dummy value
+  DTReservation res(num, cod, tini, tend, fini, fend, dow);
   return res;
 }
 
@@ -139,7 +139,6 @@ void adminInterface::addReservation() {
   try {
     DTReservation res = getReservationData(true);
     classroomsController.addClassroomReservation(res);
-    coursesController.addClassroomReservation(res);
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;

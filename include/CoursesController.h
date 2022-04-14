@@ -30,13 +30,6 @@ class CoursesController {
      * Pre: existsCourse(requiredCode)*/
     void addPreRequiredCourse(int cod, int requiredCode);
 
-    /* Responsibility: Adds a link to the TReservation whose member code matches the member code of res
-       from the course whose member code matches the member course of res.
-     * Pre: existsCourse(res.getCourse())
-     * Pre: the classroom whose member number matches the member classroom of res has in its reservation list an
-       instance of a reservation whose member code matches the member code of res */
-    void addClassroomReservation(const DTReservation& res);
-
     /* Responsibility: returns a vector of DTCourse with an instance of DTCourse for every pre required course
        for the course whose member code matches codeCourse
      * Pre: existsCourse(codeCourse)*/

@@ -54,16 +54,6 @@ bool CoursesController::existsCourse(int code) const {
   return repoCourses.courses.contains(code);
 }
 
-void CoursesController::addClassroomReservation(const DTReservation &res) {
-  assert (existsCourse(res.getCourse()));
-  TCourse* course = &repoCourses.courses[res.getCourse()];
-  for (auto & r : repoClassrooms.classrooms[res.getClassroom()].getReservations()) {
-    if (r.getCode() == res.getCode()) {
-      course->addReservation(&r);
-    }
-  }
-}
-
 std::vector<DTReservation> CoursesController::getCourseReservations(int code) {
   std::vector<DTReservation> res;
   std::vector<TClassroomReservation*> reservations = repoCourses.courses[code].getReservations();

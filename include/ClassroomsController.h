@@ -31,7 +31,7 @@ class ClassroomsController {
      * Pre: existsClassroom(num) */
     bool isAvailable(const DTReservation&);
 
-    /* Responsibility: Adds a reservation with the given information.
+    /* Responsibility: Adds a reservation with the given information. Creates a link from the course to the reservation
      * Pre: existsClassroom(num)
      * Pre: there is a course c in the system such that c.getCode() == codeCourse
      * Pre: isAvailable(num, startTime, endTime, startDate, endDate, days)
