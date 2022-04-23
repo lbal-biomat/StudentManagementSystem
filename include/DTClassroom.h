@@ -2,6 +2,8 @@
 // Created by lucia on 9/4/22.
 //
 
+/*This class represents a data type, and as such it doesn't have a default constructor nor setters.*/
+
 #ifndef SISTEMABEDELIA_DTCLASSROOM_H
 #define SISTEMABEDELIA_DTCLASSROOM_H
 
@@ -18,12 +20,10 @@ class DTClassroom {
 
   public:
     DTClassroom(int num, int cap, std::vector<DTReservation> res);
-    int getNumber() const;
-    int getCapacity() const;
-    std::vector<DTReservation> getReservations();
+    friend std::ostream& operator<<(std::ostream& os, DTClassroom& c);
 };
 
-std::ostream& operator<<(std::ostream& os, DTClassroom& c);
+
 
 
 

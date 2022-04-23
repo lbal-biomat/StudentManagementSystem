@@ -14,24 +14,14 @@ int TStudent::getID() const {
   return ID;
 }
 
-string TStudent::getName() {
-  return name;
-}
-
-vector<TApproval> TStudent::getApprovals() {
-  return approval;
-}
-
-vector<TCourse *> TStudent::getCurrentEnrollments() {
+std::vector<TCourse *> TStudent::getCurrentEnrollments() const {
   return enrollments;
 }
 
 void TStudent::enroll(TCourse* course) {
   assert(!isEnrolled(course->getCode()));
   for (auto & c : course->getPrerequisiteCourses()) {
-    if (std::none_of(getApprovals().begin(), getApprovals().end(), \
-            [c](TApproval &a) { return c->getCode() == a.getCourse()->getCode(); })) {
-      //student doesn't meet the prerequisite of this course
+    if (!hasApproval(course->getCode())) {
       throw std::invalid_argument("Student doesn't meet the prerequisites of this course.");
     }
   }
@@ -47,7 +37,7 @@ void TStudent::unenroll(int cod) {
 }
 
 void TStudent::addApproval(TApproval a) {
-  approval.push_back(a);
+  approvals.push_back(a);
 }
 
 
@@ -59,34 +49,42 @@ bool TStudent::isEnrolled(int code) {
   return false;
 }
 
-int TStudent::getCredits() {
+int TStudent::getCredits() const {
   int credits = 0;
-  for (auto & a : approval) {
+  for (auto & a : approvals) {
     credits += a.getCourse()->getCredits();
   }
   return credits;
 }
 
-TStudent::TStudent(int doc, string nom) : name(std::move(nom)), ID(doc) {}
+TStudent::TStudent(int doc, std::string nom) : name(std::move(nom)), ID(doc) {}
 
-float TStudent::getAverageGrade() {
-  if (approval.empty()) {
+float TStudent::getAverageGrade() const {
+  if (approvals.empty()) {
     return 0;
   }
   int sum = 0;
-  for (auto & a : approval) {
+  for (auto & a : approvals) {
     sum += a.getGrade();
   }
-  return static_cast<float>(sum) / approval.size(); //NOLINT //casting to float so it returns float and no int
+  return static_cast<float>(sum) / approvals.size(); //NOLINT //casting to float so it returns float and no int
 }
 
 
 TStudent::TStudent() : ID(-1){}
 
-DTStudent TStudent::getDTStudent() {
-  return {getID(),getName()};
+DTStudent TStudent::getDTStudent() const {
+  return {ID, name};
 }
 
-TTranscript TStudent::getTranscript() {
-  return {ID, name, approval, getAverageGrade(), getCredits()};
+TTranscript TStudent::getTranscript() const {
+  return {ID, name, approvals, getAverageGrade(), getCredits()};
+}
+
+bool TStudent::hasApproval(int courseCode) const {
+  if (std::any_of(approvals.begin(), approvals.end(), [courseCode](const TApproval &a)
+             { return courseCode == a.getCourse()->getCode(); })) {
+    return true;
+  }
+  return false;
 }

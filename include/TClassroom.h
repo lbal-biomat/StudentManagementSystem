@@ -11,23 +11,20 @@
 #include "DTClassroom.h"
 #include <vector>
 
-using std::vector;
 
 class TClassroom {
   private:
     int number; //classrooms are identified by their number
     int capacity;
-    vector<TClassroomReservation> reservations;
+    std::vector<TClassroomReservation> reservations;
 
   public:
     TClassroom();
     TClassroom(int cod, int cap);
-    int getNumber() const;
-    int getCapacity() const;
-    bool available(TDate startDate, TDate endDate, TTime timeStart, TTime timeEnd, const vector<DayOfWeek>& days);
+    bool available(TDate startDate, TDate endDate, TTime startTime, TTime endTime, const std::vector<DayOfWeek>& days);
     void addReservation(const TClassroomReservation&);
-    vector<TClassroomReservation> getReservations();
-    DTClassroom getDTClassroom();
+    [[nodiscard]] std::vector<TClassroomReservation> getReservations() const;
+    [[nodiscard]] DTClassroom getDTClassroom() const;
 };
 
 

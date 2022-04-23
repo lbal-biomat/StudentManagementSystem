@@ -7,12 +7,12 @@
 #include <vector>
 
 int Interface::getInt(const std::string &message) {
-  int input = -1;
+  int input;
   bool valid = false;
   do {
     std::cout << message;
     std::cin >> input;
-    if (std::cin.good()) {	valid = true;}
+    if (std::cin.good()) {valid = true;}
     else {
       std::cin.clear(std::cin.rdstate() & ~std::ios_base::failbit);
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

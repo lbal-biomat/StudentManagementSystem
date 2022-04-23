@@ -4,12 +4,11 @@
 
 #include "../include/CoursesController.h"
 #include "../include/TStudent.h"
-#include <iostream>
 #include <cassert>
 
-void CoursesController::addCourse(int code, int credits, std::string name, int maxStudents) {
+void CoursesController::addCourse(int code, int credits, std::string name) {
   assert(!existsCourse(code));
-  repoCourses.courses[code] = TCourse(code, credits, std::move(name), maxStudents);
+  repoCourses.courses[code] = TCourse(code, credits, std::move(name));
 }
 
 std::vector<DTStudent> CoursesController::getEnrolledStudents(int courseCode) {
@@ -53,4 +52,14 @@ std::vector<DTCourse> CoursesController::getCoursesInformation() {
 
 bool CoursesController::existsCourse(int code) const {
   return repoCourses.courses.contains(code);
+}
+
+std::vector<DTReservation> CoursesController::getCourseReservations(int code) {
+  std::vector<DTReservation> res;
+  std::vector<TClassroomReservation*> reservations = repoCourses.courses[code].getReservations();
+  res.reserve(reservations.size());
+  for (auto & r: reservations) {
+    res.push_back(r->getDTReservation());
+  }
+  return res;
 }

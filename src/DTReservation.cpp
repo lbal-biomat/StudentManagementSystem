@@ -9,7 +9,8 @@
 
 
 DTReservation::DTReservation(int cl, int c, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays d) :
-classroom(cl), course(c), startTime(tini), endTime(tend), startDate(dateIni), endDate(dateEnd), days(std::move(d)) {}
+               classroom(cl), course(c), startTime(tini), endTime(tend), startDate(dateIni),
+               endDate(dateEnd), days(std::move(d)) {}
 
 TTime DTReservation::getStartTime() const {
   return startTime;
@@ -19,15 +20,15 @@ TTime DTReservation::getEndTime() const {
   return endTime;
 }
 
-TDate DTReservation::getStartDate() {
+TDate DTReservation::getStartDate() const {
   return startDate;
 }
 
-TDate DTReservation::getEndDate() {
+TDate DTReservation::getEndDate() const {
   return endDate;
 }
 
-Tdays DTReservation::getDays() {
+Tdays DTReservation::getDays() const {
   return days;
 }
 
@@ -41,17 +42,17 @@ int DTReservation::getCourse() const {
 
 
 std::ostream& operator<<(std::ostream& os, DTReservation& r) {
-  os << "Course: " << r.getCourse() << "\n";
-  TDate startDate = r.getStartDate();
+  os << "Course: " << r.course << "\n";
+  TDate startDate = r.startDate;
   os << "Start date: " << startDate << "\n";
-  TDate endDate = r.getEndDate();
+  TDate endDate = r.endDate;
   os << "End date: " << endDate << "\n";
-  TTime startTime = r.getStartTime();
+  TTime startTime = r.startTime;
   os << "Start time: " << startTime << "\n";
-  TTime endTime = r.getEndTime();
+  TTime endTime = r.endTime;
   os << "End time: " << endTime << "\n";
   os << "Days of the week: " << "\n";
-  std::vector<DayOfWeek> vec = r.getDays();
+  std::vector<DayOfWeek> vec = r.days;
   for (auto & i : vec) {
     os << i;
   }

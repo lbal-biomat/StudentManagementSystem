@@ -2,6 +2,8 @@
 // Created by lucia on 9/4/22.
 //
 
+/*This class represents a data type, and as such it doesn't have a default constructor nor setters.*/
+
 #ifndef SISTEMABEDELIA_TTIME_H
 #define SISTEMABEDELIA_TTIME_H
 
@@ -14,16 +16,14 @@ class TTime {
     [[nodiscard]] bool isValidTime() const;
   public:
     TTime(int h, int m);
-    int getHour() const;
-    int getMin() const;
 
     bool operator>(TTime) const;
     bool operator<(TTime) const;
     bool operator==(TTime) const;
 
+    friend std::ostream& operator<<(std::ostream& os, TTime& t);
 };
 
-std::ostream& operator<<(std::ostream& os, TTime& t);
 
 
 #endif //SISTEMABEDELIA_TTIME_H

@@ -9,32 +9,32 @@
 #include <vector>
 #include <string>
 
-using std::vector;
-using std::string;
 
 class TStudent;
+class TClassroomReservation;
 
 class TCourse {
   private:
     int code; //Courses are identified by the code
     int credits;
-    string name;
-    vector<TCourse*> prerequisiteCourses;
-    vector<TStudent*> enrolledStudents;
-    int maxStudents;
+    std::string name;
+    std::vector<TCourse*> prerequisiteCourses;
+    std::vector<TStudent*> enrolledStudents;
+    std::vector<TClassroomReservation*> reservations;
   public:
     TCourse();
-    TCourse(int cod, int cred, string nom, int maxSt);
-    int getCode() const;
-    int getCredits() const;
-    string getName();
+    TCourse(int cod, int cred, std::string nom);
+    [[nodiscard]] int getCode() const;
+    [[nodiscard]] int getCredits() const;
+    [[nodiscard]] std::string getName() const;
     void addPreRequiredCourse(TCourse*);
-    vector<TCourse*> getPrerequisiteCourses();
-    vector<TStudent*> getEnrolledStudents();
-    void addStudent(TStudent*);
+    [[nodiscard]] std::vector<TCourse*> getPrerequisiteCourses() const;
+    [[nodiscard]] std::vector<TStudent*> getEnrolledStudents() const;
+    [[nodiscard]] std::vector<TClassroomReservation*> getReservations() const;
+    void enrollStudent(TStudent *s);
     void unenrollStudent(int ID);
-    int getMaxStudents() const;
-    DTCourse getDTCourse();
+    [[nodiscard]] DTCourse getDTCourse() const;
+    void addReservation(TClassroomReservation*);
 };
 
 #endif //SISTEMABEDELIA_TCOURSE_H

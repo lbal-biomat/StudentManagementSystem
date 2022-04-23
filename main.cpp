@@ -14,6 +14,13 @@ void runAsStudent(StudentsController sc, CoursesController cc) {
 }
 
 int main() {
+
+  std::cout << "*******************************************************************************************\n"
+               "*                                                                                         *\n"
+               "*                    Welcome to the Student Management System                             *\n"
+               "*                                                                                         *\n"
+               "*******************************************************************************************\n";
+
   ClassroomsController clc;
   CoursesController cc;
   StudentsController sc;

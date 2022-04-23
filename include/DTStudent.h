@@ -2,6 +2,8 @@
 // Created by lucia on 9/4/22.
 //
 
+/*This class represents a data type, and as such it doesn't have a default constructor nor setters.*/
+
 #ifndef SISTEMABEDELIA_DTSTUDENT_H
 #define SISTEMABEDELIA_DTSTUDENT_H
 
@@ -15,10 +17,8 @@ class DTStudent {
     std::string name;
   public:
     DTStudent(int ID, std::string nom);
-    int getID() const;
-    std::string getName();
+    friend std::ostream& operator<<(std::ostream& os, DTStudent& s);
 };
 
-std::ostream& operator<<(std::ostream& os, DTStudent& s);
 
 #endif //SISTEMABEDELIA_DTSTUDENT_H

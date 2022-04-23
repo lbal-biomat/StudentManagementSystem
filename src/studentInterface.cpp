@@ -6,8 +6,8 @@
 
 
 
-void studentInterface::enrollStudent() {
-  int cod = getInt("Enter course code: ");
+void studentInterface::enrollInCourse() {
+  int cod = getInt("\nEnter course code: ");
   if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -23,8 +23,8 @@ void studentInterface::enrollStudent() {
 
 }
 
-void studentInterface::unEnrollStudent() {
-  int cod = getInt("Enter course code: ");
+void studentInterface::unEnrollFromCourse() {
+  int cod = getInt("\nEnter course code: ");
   if (!studentsController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -39,8 +39,8 @@ void studentInterface::unEnrollStudent() {
   std::cout << "Successfully unenrolled.\n";
 }
 
-void studentInterface::printPrerequisites() {
-  int cod = getInt("Enter course code: ");
+void studentInterface::printCoursePrerequisites() {
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -67,11 +67,11 @@ void studentInterface::printStudentTranscript() {
 
 studentInterface::studentInterface(StudentsController &stctr, CoursesController &crctr, int& id) :
   studentsController(stctr), coursesController(crctr), student(id) {
-  menu = {{{1, {"Enroll in course", [this]{return enrollStudent();}}},
-           {2, {"Unenroll from course", [this]{return unEnrollStudent();}}},
+  menu = {{{1, {"Enroll in course", [this]{return enrollInCourse();}}},
+           {2, {"Unenroll from course", [this]{return unEnrollFromCourse();}}},
            {3, {"Print current enrollments", [this]{return printStudentEnrollments();}}},
            {4, {"Print transcripts", [this]{return printStudentTranscript();}}},
-           {5, {"Print course prerequisites", [this]{return printPrerequisites();}}},
+           {5, {"Print course prerequisites", [this]{return printCoursePrerequisites();}}},
            {6, {"Log Out", []{return ;}}},
           }};
 }
@@ -79,7 +79,7 @@ studentInterface::studentInterface(StudentsController &stctr, CoursesController 
 
 int studentInterface::studentLogIn() {
   int countErrors = 0;
-  int id = getInt("Enter ID: ");
+  int id = getInt("\nEnter ID: ");
   auto& repo = StudentsRepo::GetInstance();
   bool validID = validateID(id);
   bool isStudent = repo.students.contains(id);

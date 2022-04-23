@@ -5,6 +5,8 @@
 #ifndef SISTEMABEDELIA_COURSESREPO_H
 #define SISTEMABEDELIA_COURSESREPO_H
 
+/* This class is a singleton.*/
+
 #include "TCourse.h"
 #include <unordered_map>
 

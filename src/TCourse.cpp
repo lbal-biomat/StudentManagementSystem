@@ -15,23 +15,21 @@ int TCourse::getCredits() const {
   return credits;
 }
 
-string TCourse::getName() {
+std::string TCourse::getName() const {
   return name;
 }
 
-vector<TCourse *> TCourse::getPrerequisiteCourses() {
+std::vector<TCourse *> TCourse::getPrerequisiteCourses() const {
   return prerequisiteCourses;
 }
 
-vector<TStudent *> TCourse::getEnrolledStudents() {
+std::vector<TStudent *> TCourse::getEnrolledStudents() const {
   return enrolledStudents;
 }
 
-void TCourse::addStudent(TStudent *s) {
+void TCourse::enrollStudent(TStudent *s) {
   for (auto &course: prerequisiteCourses) {
-    if (std::none_of(s->getApprovals().begin(), s->getApprovals().end(), \
-            [course](TApproval &a) { return course->getCode() == a.getCourse()->getCode(); })) {
-      //student doesn't meet the prerequisite of this course
+    if (!s->hasApproval(course->getCode())) {
       throw std::invalid_argument("Student doesn't meet the prerequisites of this course.");
     }
   }
@@ -46,22 +44,26 @@ void TCourse::unenrollStudent(int ID) {
 }
 
 
-TCourse::TCourse(int cod, int cred, string nom, int max) : code(cod), credits(cred), name(std::move(nom)), maxStudents(max) {}
+TCourse::TCourse(int cod, int cred, std::string nom) : code(cod), credits(cred), name(std::move(nom)) {}
 
-int TCourse::getMaxStudents() const {
-  return maxStudents;
-}
 
 TCourse::TCourse() {
   code = 0;
   credits = 0;
-  maxStudents = 0;
 }
 
 void TCourse::addPreRequiredCourse(TCourse* c) {
   prerequisiteCourses.push_back(c);
 }
 
-DTCourse TCourse::getDTCourse() {
-  return {getCode(), getCredits(), getName(), getMaxStudents()};
+DTCourse TCourse::getDTCourse() const {
+  return {code, credits, name};
+}
+
+void TCourse::addReservation(TClassroomReservation * res) {
+  reservations.push_back(res);
+}
+
+std::vector<TClassroomReservation *> TCourse::getReservations() const {
+  return reservations;
 }

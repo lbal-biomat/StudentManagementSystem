@@ -5,6 +5,9 @@
 #ifndef SISTEMABEDELIA_CLASSROOMSREPO_H
 #define SISTEMABEDELIA_CLASSROOMSREPO_H
 
+
+/* This class is a singleton.*/
+
 #include "TClassroom.h"
 #include <unordered_map>
 

@@ -17,23 +17,25 @@ DTClassroom ClassroomsController::getClassroomInformation(int num) {
 }
 
 
-void ClassroomsController::addClassroomReservation(int num, int codeCourse, TTime startTime, TTime endTime, TDate startDate,
-                                                   TDate endDate, const std::vector<DayOfWeek>& days) {
-  assert (existsClassroom(num));
-  assert(repoCourses.courses.contains(codeCourse));
-  TCourse* c = &repoCourses.courses[codeCourse];
-  TClassroom* room = &repoClassrooms.classrooms[num];
-  if (!room->available(startDate, endDate, startTime, endTime, days)) {
+void ClassroomsController::addClassroomReservation(const DTReservation& res) {
+  assert (existsClassroom(res.getClassroom()));
+  assert(repoCourses.courses.contains(res.getCourse()));
+  TClassroom* room = &repoClassrooms.classrooms[res.getClassroom()];
+  if (!room->available(res.getStartDate(), res.getEndDate(), res.getStartTime(),
+                       res.getEndTime(), res.getDays())) {
     throw std::invalid_argument("Classroom is not available.");
   }
-  TClassroomReservation res(num, c, startTime, endTime, startDate, endDate, days);
-  room->addReservation(res);
+  TCourse* course = &repoCourses.courses[res.getCourse()];
+  TClassroomReservation r(res.getClassroom(), course, res.getStartTime(), res.getEndTime(),
+                          res.getStartDate(), res.getEndDate(), res.getDays());
+  room->addReservation(r);
+  course->addReservation(&r);
 
 }
 
 std::vector<DTReservation> ClassroomsController::getClassroomsReservations(int num) {
   assert (existsClassroom(num));
-  vector<TClassroomReservation> res = repoClassrooms.classrooms[num].getReservations();
+  std::vector<TClassroomReservation> res = repoClassrooms.classrooms[num].getReservations();
   std::vector<DTReservation> dtres;
   dtres.reserve(res.size());
   for (auto & r : res) {
@@ -47,7 +49,8 @@ bool ClassroomsController::existsClassroom(int classNum) const {
   return repoClassrooms.classrooms.contains(classNum);
 }
 
-bool ClassroomsController::isAvailable(int num, TTime startTime, TTime endTime, TDate startDate, TDate endDate,
-                                       const vector<DayOfWeek> &days) {
-  return repoClassrooms.classrooms[num].available(startDate, endDate, startTime, endTime, days);
+bool ClassroomsController::isAvailable(const DTReservation& res) {
+  assert (existsClassroom(res.getClassroom()));
+  return repoClassrooms.classrooms[res.getClassroom()].available(res.getStartDate(), res.getEndDate(),
+                                  res.getStartTime(), res.getEndTime(), res.getDays());
 }

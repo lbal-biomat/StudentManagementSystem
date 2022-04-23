@@ -27,11 +27,12 @@ class adminInterface : public Interface {
     void printCourseEnrollments();
     void printPrerequisites();
     void printClassroomInformation();
-    void printReservations();
+    void printClassroomReservations();
+    void printCourseReservations();
     void printCourses();
     void printStudents();
     void isAvailableClassroom();
-    DTReservation getReservationData();
+    DTReservation getReservationData(bool);
   public:
     adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont);
 };

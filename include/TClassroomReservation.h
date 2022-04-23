@@ -28,14 +28,14 @@ class TClassroomReservation {
     TDate endDate;
     Tdays days;
   public:
-    TClassroomReservation(int classroom, TCourse*, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
-    TCourse* getCourse();
-    TTime getStartTime() const;
-    TTime getEndTime() const;
-    TDate getStartDate();
-    TDate getEndDate();
-    Tdays getDays();
-    DTReservation getDTReservation();
+    TClassroomReservation(int classroom, TCourse*, TTime tini, TTime tend, TDate dateIni,
+                          TDate dateEnd, Tdays days);
+    [[nodiscard]] TTime getStartTime() const;
+    [[nodiscard]] TTime getEndTime() const;
+    [[nodiscard]] TDate getStartDate() const;
+    [[nodiscard]] TDate getEndDate() const;
+    [[nodiscard]] Tdays getDays() const;
+    [[nodiscard]] DTReservation getDTReservation() const;
 
 };
 

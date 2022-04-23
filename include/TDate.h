@@ -2,6 +2,8 @@
 // Created by lucia on 27/3/22.
 //
 
+/*This class represents a data type, and as such it doesn't have a default constructor nor setters.*/
+
 #ifndef SISTEMABEDELIA_TDATE_H
 #define SISTEMABEDELIA_TDATE_H
 
@@ -19,9 +21,9 @@ class TDate {
     TDate(int d, int m, int y);
 
     //getters
-    int getDay() const;
-    int getMonth() const;
-    int getYear() const;
+    [[nodiscard]] int getDay() const;
+    [[nodiscard]] int getMonth() const;
+    [[nodiscard]] int getYear() const;
 
     bool operator>(TDate f);
     bool operator<(TDate f);

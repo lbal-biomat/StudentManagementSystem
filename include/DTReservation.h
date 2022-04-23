@@ -2,6 +2,8 @@
 // Created by lucia on 9/4/22.
 //
 
+/*This class represents a data type, and as such it doesn't have a default constructor nor setters.*/
+
 #ifndef SISTEMABEDELIA_DTRESERVATION_H
 #define SISTEMABEDELIA_DTRESERVATION_H
 
@@ -23,17 +25,18 @@ class DTReservation {
     TDate endDate;
     std::vector<DayOfWeek> days;
   public:
-    DTReservation(int classroom, int course, TTime tini, TTime tend, TDate dateIni, TDate dateEnd, Tdays days);
-    int getClassroom() const;
-    int getCourse() const;
-    TTime getStartTime() const;
-    TTime getEndTime() const;
-    TDate getStartDate();
-    TDate getEndDate();
-    Tdays getDays();
-};
+    DTReservation(int classroom, int course, TTime tini, TTime tend, TDate dateIni,
+                  TDate dateEnd, Tdays days);
+    [[nodiscard]] int getClassroom() const;
+    [[nodiscard]] int getCourse() const;
+    [[nodiscard]] TTime getStartTime() const;
+    [[nodiscard]] TTime getEndTime() const;
+    [[nodiscard]] TDate getStartDate() const;
+    [[nodiscard]] TDate getEndDate() const;
+    [[nodiscard]] Tdays getDays() const;
 
-std::ostream& operator<<(std::ostream& os, DTReservation& c);
+    friend std::ostream& operator<<(std::ostream& os, DTReservation& c);
+};
 
 
 

@@ -11,30 +11,27 @@
 #include <vector>
 #include <string>
 
-using std::vector;
-using std::string;
 
 class TStudent {
   private:
     int ID; //Students are identified by the ID
-    string name;
-    vector<TApproval> approval;
-    vector<TCourse*> enrollments;
+    std::string name;
+    std::vector<TApproval> approvals;
+    std::vector<TCourse*> enrollments;
   public:
     TStudent();
-    TStudent(int ID, string nom);
-    int getID() const;
-    string getName();
-    vector<TApproval> getApprovals();
-    int getCredits();
-    float getAverageGrade();
-    vector<TCourse*> getCurrentEnrollments();
+    TStudent(int ID, std::string nom);
+    [[nodiscard]] int getID() const;
+    [[nodiscard]] int getCredits() const;
+    [[nodiscard]] float getAverageGrade() const;
+    [[nodiscard]] std::vector<TCourse*> getCurrentEnrollments() const;
+    bool isEnrolled(int courseCode);
     void enroll(TCourse* course);
     void unenroll(int cod);
+    [[nodiscard]] bool hasApproval(int courseCode) const;
     void addApproval(TApproval a);
-    bool isEnrolled(int courseCode);
-    DTStudent getDTStudent();
-    TTranscript getTranscript();
+    [[nodiscard]] DTStudent getDTStudent() const;
+    [[nodiscard]] TTranscript getTranscript() const;
 };
 
 #endif//SISTEMABEDELIA_TSTUDENT_H

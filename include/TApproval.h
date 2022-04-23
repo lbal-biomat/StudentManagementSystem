@@ -17,11 +17,10 @@ class TApproval {
   public:
     TApproval(TCourse* course, int grade, TDate d);
     //getters
-    TCourse* getCourse();
-    int getGrade() const;
-    TDate getDateOfApproval();
+    [[nodiscard]] TCourse* getCourse() const;
+    [[nodiscard]] int getGrade() const;
+    friend std::ostream& operator<<(std::ostream& os, TApproval& a);
 };
 
-std::ostream& operator<<(std::ostream& os, TApproval& a);
 
 #endif//SISTEMABEDELIA_TAPPROVAL_H

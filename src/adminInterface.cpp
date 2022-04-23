@@ -3,18 +3,20 @@
 //
 
 #include "../include/adminInterface.h"
-
+#include <string>
+#include <iostream>
 
 void adminInterface::registerStudent() {
 
-  int ID = getInt("Enter student ID: ");
+  int ID = getInt("\nEnter student ID: ");
   if (studentsController.existsStudent(ID)) {
     std::cerr << "There is a student with that ID in the system.\n";
     return;
   }
-  string name;
+  std::string name;
   std::cout << "Enter student name: ";
-  std::cin >> name;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  std::getline(std::cin, name);
   try {
     studentsController.registerStudent(ID, name);
   }
@@ -27,7 +29,7 @@ void adminInterface::registerStudent() {
 
 void adminInterface::addClassroom() {
 
-  int num = getInt("Enter classroom number: ");
+  int num = getInt("\nEnter classroom number: ");
   if (classroomsController.existsClassroom(num)) {
     std::cerr << "There is a classroom with that number in the system.\n";
     return;
@@ -38,22 +40,22 @@ void adminInterface::addClassroom() {
 }
 
 void adminInterface::addCourse() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (coursesController.existsCourse(cod)) {
     std::cerr << "There is a course with that code in the system.\n";
     return;
   }
-  string name;
+  std::string name;
   std::cout << "Enter course name: ";
-  std::cin >> name;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  std::getline(std::cin, name);
   int cred = getInt("Enter course credits: ");
-  int max = getInt("Enter course maximum number of students: ");
-  coursesController.addCourse(cod, cred, name, max);
+  coursesController.addCourse(cod, cred, name);
   std::cout << "Successfully added.\n";
 }
 
 void adminInterface::addApproval() {
-  int ID = getInt("Enter student ID: ");
+  int ID = getInt("\nEnter student ID: ");
   if (!studentsController.existsStudent(ID)) {
     std::cerr << "There isn't any student with that ID in the system.\n";
     return;
@@ -69,7 +71,7 @@ void adminInterface::addApproval() {
     grade = getInt("Enter grade: ");
   }
   try {
-    TDate d = getDate("Enter date of approval: ");
+    TDate d = getDate("Enter date of approvals: ");
     studentsController.addApprovalToStudent(ID, cod, grade, d);
   }
   catch (std::invalid_argument& err) {
@@ -80,7 +82,7 @@ void adminInterface::addApproval() {
 }
 
 void adminInterface::addPreRequisite() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -101,10 +103,17 @@ void adminInterface::addPreRequisite() {
 }
 
 
-DTReservation adminInterface::getReservationData() {
-  int num = getInt("Enter classroom number: ");
+DTReservation adminInterface::getReservationData(bool course) {
+  int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     throw std::invalid_argument("There isn't any classroom with that number in the system.\n");
+  }
+  int cod = -1;
+  if (course) {
+    cod = getInt("Enter course code: ");
+    if (!coursesController.existsCourse(cod)) {
+      throw std::invalid_argument("Error: There isn't any course with that code in the system.\n");
+    }
   }
   TDate fini = getDate("Enter start date as DD MM YYYY: ");
   TDate fend = getDate("Enter end date as DD MM YYYY: ");
@@ -116,26 +125,20 @@ DTReservation adminInterface::getReservationData() {
   if (!(tini < tend)) {
     throw std::invalid_argument("Error: End time must come after the start time.\n");
   }
-  vector<DayOfWeek> dow = getDaysOfWeek();
+  std::vector<DayOfWeek> dow = getDaysOfWeek();
   std::cin.clear();
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   if (dow.empty()) {
     throw std::invalid_argument("Error: No days selected.\n");
   }
-  DTReservation res(num, -1, tini, tend, fini, fend, dow);
+  DTReservation res(num, cod, tini, tend, fini, fend, dow);
   return res;
 }
 
 void adminInterface::addReservation() {
-  int cod = getInt("Enter course code: ");
-  if (!coursesController.existsCourse(cod)) {
-    std::cerr << "There isn't any course with that code in the system.\n";
-    return;
-  }
   try {
-    DTReservation res = getReservationData();
-    classroomsController.addClassroomReservation(res.getClassroom(), cod, res.getStartTime(),
-              res.getEndTime(), res.getStartDate(), res.getEndDate(), res.getDays());
+    DTReservation res = getReservationData(true);
+    classroomsController.addClassroomReservation(res);
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
@@ -145,7 +148,7 @@ void adminInterface::addReservation() {
 }
 
 void adminInterface::printCourseEnrollments() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -158,7 +161,7 @@ void adminInterface::printCourseEnrollments() {
 
 
 void adminInterface::printPrerequisites() {
-  int cod = getInt("Enter course code: ");
+  int cod = getInt("\nEnter course code: ");
   if (!coursesController.existsCourse(cod)) {
     std::cerr << "There isn't any course with that code in the system.\n";
     return;
@@ -169,8 +172,8 @@ void adminInterface::printPrerequisites() {
   }
 }
 
-void adminInterface::printReservations() {
-  int num = getInt("Enter classroom number: ");
+void adminInterface::printClassroomReservations() {
+  int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
@@ -180,6 +183,19 @@ void adminInterface::printReservations() {
     std::cout << r << "\n";
   }
 }
+
+void adminInterface::printCourseReservations() {
+  int code = getInt("\nEnter course code: ");
+  if (!coursesController.existsCourse(code)) {
+    std::cerr << "There isn't any course with that code in the system\n";
+    return;
+  }
+  std::vector<DTReservation> res = coursesController.getCourseReservations(code);
+  for (auto & r: res) {
+    std::cout << r << "\n";
+  }
+}
+
 
 void adminInterface::printCourses() {
   std::vector<DTCourse> courses = coursesController.getCoursesInformation();
@@ -197,9 +213,8 @@ void adminInterface::printStudents() {
 
 void adminInterface::isAvailableClassroom() {
   try {
-    DTReservation res = getReservationData();
-    std::cout << (classroomsController.isAvailable(res.getClassroom(), res.getStartTime(), res.getEndTime(),
-                  res.getStartDate(),res.getEndDate(), res.getDays()) ? "Is available" : "Is not available");
+    DTReservation res = getReservationData(false);
+    std::cout << (classroomsController.isAvailable(res) ? "Is available" : "Is not available");
   }
   catch (std::invalid_argument& err) {
     std::cerr << "Unexpected error: " << err.what() << std::endl;
@@ -208,7 +223,7 @@ void adminInterface::isAvailableClassroom() {
 }
 
 void adminInterface::printClassroomInformation() {
-  int num = getInt("Enter classroom number: ");
+  int num = getInt("\nEnter classroom number: ");
   if (!classroomsController.existsClassroom(num)) {
     std::cerr << "There isn't any classroom with that number in the system.\n";
     return;
@@ -219,20 +234,21 @@ void adminInterface::printClassroomInformation() {
 
 
 adminInterface::adminInterface(StudentsController& stcont, ClassroomsController& clscont, CoursesController& coucont) :
-        studentsController(stcont), classroomsController(clscont), coursesController(coucont) {
+  studentsController(stcont), classroomsController(clscont), coursesController(coucont) {
   menu = {{{1, {"Register student", [this]{return registerStudent();}}},
            {2, {"Add classroom", [this]{return addClassroom();}}},
            {3, {"Add course", [this]{return addCourse();}}},
            {4, {"Print enrolled students in course", [this]{return printCourseEnrollments();}}},
-           {5, {"Add approval to student records", [this]{return addApproval();}}},
+           {5, {"Add approvals to student records", [this]{return addApproval();}}},
            {6, {"Print course prerequisites", [this]{return printPrerequisites();}}},
            {7, {"Add prerequisite to course", [this]{return addPreRequisite();}}},
            {8, {"Print classroom information", [this]{return printClassroomInformation();}}},
            {9, {"Check classroom availability", [this]{return isAvailableClassroom();}}},
            {10, {"Add classroom reservation", [this]{return addReservation();}}},
-           {11, {"Print classroom reservations", [this]{return printReservations();}}},
-           {12, {"Print all courses in system", [this]{return printCourses();}}},
-           {13, {"Print all students in system", [this]{return printStudents();}}},
-           {14, {"Log Out", []{return ;}}},
+           {11, {"Print classroom reservations", [this]{return printClassroomReservations();}}},
+           {12, {"Print course reservations", [this]{return printCourseReservations();}}},
+           {13, {"Print all courses in system", [this]{return printCourses();}}},
+           {14, {"Print all students in system", [this]{return printStudents();}}},
+           {15, {"Log Out", []{return ;}}},
        }};
 }
